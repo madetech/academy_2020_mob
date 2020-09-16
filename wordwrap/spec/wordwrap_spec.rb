@@ -23,7 +23,7 @@ describe "wordwrap" do
   } 
 
   two_words_string.each do |string, output|
-    it "wraps after whitespace" do
+    it "wraps after space" do
       expect(WordWrap.new.wrap(string, 5)).to eq(output)
     end
   end 
