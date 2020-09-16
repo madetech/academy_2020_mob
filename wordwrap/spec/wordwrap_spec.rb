@@ -14,4 +14,16 @@ describe "wordwrap" do
     expect(WordWrap.new.wrap("oryeh", 5)).to eq("oryeh")
   end
 
+  # expected_scores_no_spares_no_strikes = {
+  #     "44 44 44 44 44 44 44 44 44 44" => 80,
+  #     "44 44 44 44 44 44 44 44 44 44" => 80
+  # }
+
+  # expected_scores_no_spares_no_strikes.each do |rolls, score|
+  #     it "adds rolls in '#{rolls}' to score #{score}, because all rolls knock some (but not all) pins down" do
+  #         bowling = Bowling.new            
+  #         expect(bowling.score(rolls)).to eq(score)
+  #     end
+  # end
+
 end
