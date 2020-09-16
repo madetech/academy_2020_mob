@@ -19,13 +19,14 @@ describe "wordwrap" do
   end
   
   two_words_string = {
-    "hello world" => "hello\nworld",
-    "hello hello" => "hello\nhello"
+    "hello\nworld" => ["hello world", 5],
+    "hello\nhello" => ["hello hello", 5],
+    "coffee\ncoffee" => ["coffee coffee", 6]
   } 
 
-  two_words_string.each do |string, output|
+  two_words_string.each do |output, input|
     it "wraps after space" do
-      expect(WordWrap.new.wrap(string, 5)).to eq(output)
+      expect(WordWrap.new.wrap(input[0], input[1])).to eq(output)
     end
   end 
 
