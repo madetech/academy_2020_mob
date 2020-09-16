@@ -10,4 +10,8 @@ describe "wordwrap" do
     expect(WordWrap.new.wrap("Hello", 5)).to eq("Hello")
   end
 
+  it "returns different words" do
+    expect(WordWrap.new.wrap("oryeh", 5)).to eq("oryeh")
+  end
+
 end
