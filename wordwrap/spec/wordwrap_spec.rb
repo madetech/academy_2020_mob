@@ -53,4 +53,15 @@ describe "wordwrap" do
     end
   end 
 
+  two_words_string_04 = {
+    {:string => 'hello world', :length: 5} => "hello\nworld",
+    {:string => 'hello hello', :length 5} => "hello\nhello",
+    {:string => 'coffee coffee', :length => 6} => "coffee\ncoffee",
+  }
+  two_words_string_04.each do |input, output|
+    it "wraps after space (v4)" do
+      expect(WordWrap.new.wrap(input[:string], input[:length])).to eq(output)
+    end
+  end
+
 end
