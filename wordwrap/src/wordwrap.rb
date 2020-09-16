@@ -4,7 +4,7 @@ class WordWrap
     if string_to_wrap.length == line_length
       string_to_wrap
     else
-      "hello\nworld"
+      string_to_wrap.gsub(" ", "\n")      
     end
   end
 

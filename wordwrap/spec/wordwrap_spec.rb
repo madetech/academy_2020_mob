@@ -19,7 +19,8 @@ describe "wordwrap" do
   end
   
   two_words_string = {
-    "hello world" => "hello\nworld"
+    "hello world" => "hello\nworld",
+    "hello hello" => "hello\nhello"
   } 
 
   two_words_string.each do |string, output|
