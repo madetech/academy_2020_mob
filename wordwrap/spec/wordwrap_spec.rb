@@ -6,14 +6,17 @@ describe "wordwrap" do
     expect(WordWrap.new).to respond_to(:wrap).with(2).argument
   end
 
-  it "doesn't wrap if line length is same as word length" do
-    expect(WordWrap.new.wrap("Hello", 5)).to eq("Hello")
-  end
-
-  it "returns different words" do
-    expect(WordWrap.new.wrap("oryeh", 5)).to eq("oryeh")
-  end
-
+  expected_words_input = {
+      "hello" => "hello",
+      "oryeh" => "oryeh"
+    }
+  
+    expected_words_input.each do |word, output|
+      it "doesn't wrap if line length is same as word length" do
+        expect(WordWrap.new.wrap(word, 5)).to eq(output)
+      end
+    end
+    
   # expected_scores_no_spares_no_strikes = {
   #     "44 44 44 44 44 44 44 44 44 44" => 80,
   #     "44 44 44 44 44 44 44 44 44 44" => 80
