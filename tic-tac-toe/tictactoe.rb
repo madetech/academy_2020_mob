@@ -47,6 +47,8 @@ class MyApp < Sinatra::Base
                 end
             end
         end
+        
+        @winner = "X"
     end
 
     def clear_session_vars
