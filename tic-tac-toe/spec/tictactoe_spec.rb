@@ -54,7 +54,6 @@ RSpec.describe 'The tic-tac-toe app' do
       end
 
       grid_cells = Hash[*grid_cells_with_css.map{ |k,v| [k, v[:input]] }.flatten]
-      p grid_cells
 
       grid_cells_with_css.each do |control, values|
         it "remembers data from previous posts even after multiple GET requests" do   
