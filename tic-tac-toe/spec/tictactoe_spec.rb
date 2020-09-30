@@ -52,5 +52,22 @@ RSpec.describe 'The HelloWorld App' do
           expect(last_response.body).to have_tag(values[:css], :with => { :value => values[:input] })
         end
       end
+
+      grid_cells = Hash[*grid_cells_with_css.map{ |k,v| [k, v[:input]] }.flatten]
+      p grid_cells
+
+      grid_cells_with_css.each do |control, values|
+        it "remembers data from previous sessions even after multiple GET requests" do   
+          # Arrange
+          post "/tictactoe", grid_cells         
+          get '/tictactoe'
+          
+          # Act
+          get '/tictactoe'
+          
+          # Assert
+          expect(last_response.body).to have_tag(values[:css], :with => { :value => values[:input] })
+        end
+      end
     end
 end
