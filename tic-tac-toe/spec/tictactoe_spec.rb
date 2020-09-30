@@ -6,14 +6,14 @@ require_relative '../tictactoe'
 require 'rspec'
 require 'rack/test'
 
-RSpec.describe 'The HelloWorld App' do
+RSpec.describe 'The tic-tac-toe app' do
     include Rack::Test::Methods
   
     def app
       MyApp
     end
   
-    context "simple display" do
+    context "with simple display" do
       it "starts with an empty 3x3 tic-tac-toe grid" do
         # Act
         get '/tictactoe'
@@ -28,7 +28,7 @@ RSpec.describe 'The HelloWorld App' do
       end
     end
     
-    context "updated display after user input" do
+    context "with updated display (after user input)" do
       # Arrange
       grid_cells_with_css = {
         :row0_col0_in => {:css => 'input.row0.col0', :input => "A"},
@@ -57,7 +57,7 @@ RSpec.describe 'The HelloWorld App' do
       p grid_cells
 
       grid_cells_with_css.each do |control, values|
-        it "remembers data from previous sessions even after multiple GET requests" do   
+        it "remembers data from previous posts even after multiple GET requests" do   
           # Arrange
           post "/tictactoe", grid_cells         
           get '/tictactoe'
@@ -67,6 +67,22 @@ RSpec.describe 'The HelloWorld App' do
           
           # Assert
           expect(last_response.body).to have_tag(values[:css], :with => { :value => values[:input] })
+        end
+      end
+
+      it "empties all cells on reset" do  
+        # Arrange
+        post "/tictactoe", grid_cells  
+        grid_cells_with_css.each do |control, values|
+          expect(last_response.body).to have_tag(values[:css], :with => { :value => values[:input] })
+        end  
+
+        # Act
+        post "/reset"
+
+        # Assert
+        grid_cells_with_css.each do |control, values|
+          expect(last_response.body).to have_tag(values[:css], :with => { :value => "" })
         end
       end
     end
