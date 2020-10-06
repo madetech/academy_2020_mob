@@ -12,6 +12,16 @@ describe Presenter do
             # Act/Assert
             expect{presenter.show_display(grid)}.to output(EMPTY_GRID).to_stdout
         end
+
+        it "converts a 5x5 grid containing a Mars Rover into an informative display" do
+            # Arrange
+            presenter = Presenter.new
+            grid = Grid.new(5, 5)
+            POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover will look like."
+
+            # Act/Assert
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
+        end
     end
     
     context "#get_input" do
