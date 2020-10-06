@@ -1,31 +1,18 @@
-require_relative "grid"
+require_relative '../lib/grid'
 
 describe "grid" do
     context "grid initialization" do
-        it "initializes an empty 5x5 grid" do
-            #Arrange
-            empty_grid = "5*5 grid"
-            #Act
-            grid = Grid.new
-            #Assert
-            expect(grid.display).to eq(empty_grid)
-        end
+        it "initializes a grid to the passed-in dimensions" do
+            # Arrange
+            EXPECTED_WIDTH = 5
+            EXPECTED_HEIGHT = 5
 
-        it "initializes a mars rover" do
-            #Arrange
-            mars_rover = "mars rover"
-            #Act
-            grid = Grid.new(mars_rover)
-            #Assert
-            expect(grid.mars_rover).to eq(mars_rover)
-        end
+            # Act
+            grid = Grid.new(EXPECTED_WIDTH, EXPECTED_HEIGHT)
 
-        it "displays an empty 5x5 grid" do
-            #Arrange
-            grid = Grid.new
-            empty_grid = "5*5 grid"
-            #Act/Assert
-            expect{grid.show_display}.to output(empty_grid).to_stdout
+            # Assert
+            expect(grid.grid_array.width).to eq(EXPECTED_WIDTH)
+            expect(grid.grid_array.height).to eq(EXPECTED_HEIGHT)
         end
     end
 end

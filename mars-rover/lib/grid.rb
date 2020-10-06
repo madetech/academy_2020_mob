@@ -1,12 +1,13 @@
 class Grid
-    attr_accessor :display, :mars_rover
+    attr_accessor :grid_array
 
-    def initialize(mars_rover)
-        @display = "5*5 grid"
-        @mars_rover = mars_rover
+    def initialize(width, height)
+        @width = width
+        @height = height
+        @grid_array = make_grid(width, height)
     end
 
-    def show_display
-        puts @display
+    def make_grid (width, height)
+        # build a (width x height) empty data structure
     end
 end

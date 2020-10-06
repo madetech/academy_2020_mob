@@ -1,6 +1,6 @@
 Given "the user hasn't started the program yet"
 When "the user starts the program"
-Then "a 5*5 grid appears"
+Then "an empty 5*5 grid appears"
 And "the user is prompted for coordinates and direction"
 
 Given "the user has started the program"
