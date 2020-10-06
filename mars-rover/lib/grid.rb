@@ -1,10 +1,30 @@
 class Grid
     attr_accessor :grid_array
+    EMPTY_CELL = ""
 
     def initialize(width, height)
         @width = width
         @height = height
         @grid_array = make_grid(width, height)
+    end
+
+    def update(mars_rover)
+        populate_cell(mars_rover.x, mars_rover.y, mars_rover.direction)
+    end
+
+    private
+
+    def populate_cell(x, y, direction)
+        empty_all_cells
+        grid_array[x][y] = direction
+    end
+
+    def empty_all_cells           
+        for x in 0...@height 
+            for y in 0...@width 
+                grid_array[x][y] = EMPTY_CELL
+            end
+        end
     end
 
     def make_grid (width, height)
