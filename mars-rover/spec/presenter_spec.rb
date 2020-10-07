@@ -16,41 +16,41 @@ describe Presenter do
         it "converts a 5x5 grid (containing a Mars Rover facing North) into an informative display" do
             # Arrange
             presenter = Presenter.new
-            grid = make_grid(1, 1, MarsRover.NORTH)
+            fake_grid = make_fake_grid(1, 1, MarsRover.NORTH)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing North will look like."
 
             # Act/Assert
-            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
         end
 
         it "converts a 5x5 grid (containing a Mars Rover facing South) into an informative display" do
             # Arrange
             presenter = Presenter.new
-            grid = make_grid(2, 3, MarsRover.SOUTH)
+            fake_grid = make_fake_grid(2, 3, MarsRover.SOUTH)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing South will look like."
 
             # Act/Assert
-            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
         end
 
         it "converts a 5x5 grid (containing a Mars Rover facing East) into an informative display" do
             # Arrange
             presenter = Presenter.new
-            grid = make_grid(4, 2, MarsRover.EAST)
+            fake_grid = make_fake_grid(4, 2, MarsRover.EAST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing East will look like."
 
             # Act/Assert
-            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
         end
 
         it "converts a 5x5 grid (containing a Mars Rover facing West) into an informative display" do
             # Arrange
             presenter = Presenter.new
-            grid = make_grid(0, 4, MarsRover.WEST)
+            fake_grid = make_fake_grid(0, 4, MarsRover.WEST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing West will look like."
 
             # Act/Assert
-            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
         end
     end
     
@@ -80,10 +80,20 @@ describe Presenter do
 
     private
 
-    def make_grid(x, y, direction)
+    def make_real_grid(x, y, direction)
         mars_rover = MarsRover.new
         mars_rover.start(x, y, direction)
         grid = Grid.new(5, 5)
         grid.update(mars_rover)
+    end
+
+    def make_fake_grid(x, y, direction)  
+        fake_grid = double('Grid')
+        allow(grid).to receive(:grid_array) { make_fake_grid_array(x, y, direction) } 
+        fake_grid
+    end
+
+    def make_fake_grid_array(x, y, direction)        
+        # Build a fake 5x5 grid array with a Mars Rover at the specified position and facing the specified direction
     end
 end
