@@ -48,7 +48,6 @@ describe MarsRoverApp do
             # Arrange
             marsroverapp = MarsRoverApp.new
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
-            GRID_WITH_ROVER = make_grid(5, 5, 0, 0, "N")
             mars_rover_stub = MarsRover.stub
             grid_stub = Grid.stub
             fake_presenter = Presenter.fake(show_display(grid_stub) => puts GRID_WITH_NEW_ROVER)
@@ -58,11 +57,5 @@ describe MarsRoverApp do
             # Act/Assert
             expect{marsroverapp.start(fake_presenter, grid_stub, mars_rover_stub)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
         end
-    end
-
-    private
-
-    def make_grid(width, height, rover_x, rover_y, rover_direction)
-        # make a grid to the specifications passed in.
     end
 end
