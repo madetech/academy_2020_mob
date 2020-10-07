@@ -48,6 +48,17 @@ describe MarsRoverApp do
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
         end
+    
+        it "shows an error when a later movement input is invalid" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "0,0,N"
+            BAD_INPUT = ",,,"
+            stub gets(INITIAL_INPUT, "f", "r", "l", BAD_INPUT) 
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
+        end
     end
 
     context "when moving (using test doubles)" do
