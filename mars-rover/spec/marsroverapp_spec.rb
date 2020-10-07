@@ -27,22 +27,6 @@ describe MarsRoverApp do
         end
     end
 
-    context "when moving (proper end to end test)" do
-        it "displays the position of a Rover when given position" do
-            # Arrange
-            marsroverapp = MarsRoverApp.new
-            presenter = Presenter.new
-            grid = Grid.new(5, 5)
-            mars_rover = MarsRover.new
-            EXPECTED_INPUT = "0, 0, N"
-            stub gets(EXPECTED_INPUT) 
-            GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
-
-            # Act/Assert
-            expect{marsroverapp.start(presenter, grid, mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
-        end
-    end
-
     context "when moving (using test doubles)" do
         it "displays the position of a Rover when given position" do
             # Arrange
@@ -78,6 +62,22 @@ describe MarsRoverApp do
             expect(mars_rover_spy.direction).to be_called
             expect(grid_spy.update).to be_called with(mars_rover_spy)
             expect(presenter_spy.show_display).to be_called with(grid_spy)
+        end
+    end
+
+    context "when moving (proper end to end test)" do
+        it "displays the position of a Rover when given position" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            presenter = Presenter.new
+            grid = Grid.new(5, 5)
+            mars_rover = MarsRover.new
+            EXPECTED_INPUT = "0, 0, N"
+            stub gets(EXPECTED_INPUT) 
+            GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
+
+            # Act/Assert
+            expect{marsroverapp.start(presenter, grid, mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
         end
     end
 end
