@@ -9,14 +9,14 @@ class Grid
     end
 
     def update(mars_rover)
-        populate_cell(mars_rover.x, mars_rover.y, mars_rover.direction)
+        populate_cell(mars_rover)
     end
 
     private
 
-    def populate_cell(x, y, direction)
+    def populate_cell(mars_rover)
         empty_all_cells
-        grid_array[x][y] = direction
+        grid_array[mars_rover.x][mars_rover.y] = mars_rover.direction
     end
 
     def empty_all_cells           
