@@ -42,4 +42,9 @@ When "the display has updated"
 Then "the user can keep inputting repeated movements and turns"
 And "the display will update in response to every input"
 
+Given "the user has input coordinates and direction"
+When "the display has updated"
+Then "the user can input several movements and turns in one input"
+And "the display will update in response to every movement and turn in the input"
+
 

@@ -191,5 +191,16 @@ describe MarsRoverApp do
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
+        
+        it "responds to several movements in one input" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "0,0,N"
+            stub gets("0,0,N", "f,r,f,f,l,b") 
+            GRID_WITH_ROVER = "A 5x5 grid with a North-facing Rover at 2,0"
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+        end
     end
 end

@@ -30,13 +30,15 @@ class MarsRoverApp
         end
     end
 
-    def move_rover(movement)        
-        if is_turn?(movement)            
-            @mars_rover.turn(movement)
-        else
-            @mars_rover.move(movement)
+    def move_rover(movements)  
+        movements.split(",").each |movement| do     
+            if is_turn?(movement)            
+                @mars_rover.turn(movement)
+            else
+                @mars_rover.move(movement)
+            end
+            update_display
         end
-        update_display
     end
 
     def is_turn?(movement)

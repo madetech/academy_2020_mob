@@ -14,4 +14,8 @@ class Presenter
             raise StandardError.new
         end
     end
+
+    def is_invalid?(input)
+        # check for invalid input
+    end
 end
