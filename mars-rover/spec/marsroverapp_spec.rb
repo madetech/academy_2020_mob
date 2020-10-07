@@ -110,7 +110,7 @@ describe MarsRoverApp do
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "updates the direction of a Rover when it moves left" do
+        it "updates the direction of a Rover when it turns left" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -122,13 +122,37 @@ describe MarsRoverApp do
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "updates the direction of a Rover when it moves right" do
+        it "updates the direction of a Rover when it turns right" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
             EXPECTED_MOVE_INPUT = "r"
             stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_ROVER = "A 5x5 grid with an East-facing Rover at 0,0"
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+        end
+        
+        it "wraps around when it moves forward off the edge of the grid" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "0,0,S"
+            EXPECTED_MOVE_INPUT = "f"
+            stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            GRID_WITH_ROVER = "A 5x5 grid with a South-facing Rover at 0,4"
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+        end
+        
+        it "wraps around when it moves backwards off the edge of the grid" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "4,4,S"
+            EXPECTED_MOVE_INPUT = "b"
+            stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            GRID_WITH_ROVER = "A 5x5 grid with a South-facing Rover at 4,0"
 
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)

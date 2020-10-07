@@ -25,4 +25,12 @@ Given "the user has input the coordinates and direction of the rover"
 When "the user tells the rover to turn right"
 Then "the display is updated with the rover facing a direction 90 degrees clockwise from before"
 
+Given "the user has input coordinates and direction placing the rover facing the edge of the grid"
+When "the user tells the rover to move forwards"
+Then "the display is updated with the rover having 'wrapped' around to the other side of the grid"
+
+Given "the user has input coordinates and direction placing the rover backed up to the edge of the grid"
+When "the user tells the rover to move backwards"
+Then "the display is updated with the rover having 'wrapped' around to the other side of the grid"
+
 

@@ -102,6 +102,30 @@ describe "MarsRover" do
                 expect(mars_rover.direction).to eq(expected_direction)
             end
         end
+
+        all_ways_off_the_edge =[[MarsRover.FORWARD, MarsRover.NORTH, {:x=>4,:y=>4}, {:x=>4,:y=>0}], 
+                                [MarsRover.FORWARD, MarsRover.EAST,  {:x=>4,:y=>4}, {:x=>0,:y=>4}], 
+                                [MarsRover.FORWARD, MarsRover.SOUTH, {:x=>0,:y=>0}, {:x=>0,:y=>4}], 
+                                [MarsRover.FORWARD, MarsRover.WEST,  {:x=>0,:y=>0}, {:x=>4,:y=>0}],
+                                [MarsRover.BACKWARD, MarsRover.NORTH, {:x=>0,:y=>0}, {:x=>0,:y=>4}], 
+                                [MarsRover.BACKWARD, MarsRover.EAST,  {:x=>0,:y=>0}, {:x=>4,:y=>0}], 
+                                [MarsRover.BACKWARD, MarsRover.SOUTH, {:x=>4,:y=>4}, {:x=>4,:y=>0}], 
+                                [MarsRover.BACKWARD, MarsRover.WEST,  {:x=>4,:y=>4}, {:x=>0,:y=>4}]]
+
+        all_ways_off_the_edge.each do |movement, direction, start_pos, expected_pos|
+            it "will move up one square given input '#{movement}' and direction '#{direction}'" do
+                # Arrange 
+                mars_rover = MarsRover.new
+                mars_rover.start(start_pos[:x], start_pos[:y], direction)
+                
+                # Act
+                mars_rover.move(movement)
+
+                # Assert
+                expect(mars_rover.x).to eq(expected_pos[:x])
+                expect(mars_rover.y).to eq(expected_pos[:y])
+            end
+        end
     end
 end
 
