@@ -1,6 +1,13 @@
 class MarsRover
     attr_accessor :x, :y, :direction
 
+    EAST = "E"
+    WEST = "W"
+    NORTH = "N"
+    SOUTH = "S"
+    FORWARD = "f"
+    BACKWARD = "b"
+
     def start(x, y, direction)
         @x = x
         @y = y
@@ -8,6 +15,10 @@ class MarsRover
     end
 
     def move(movement)
-        @x = @x + 1
+        if @direction == NORTH
+            @x = @x + 1            
+        elsif @direction == EAST
+            @y = @y + 1
+        end
     end
 end

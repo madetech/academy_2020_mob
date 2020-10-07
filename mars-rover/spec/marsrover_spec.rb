@@ -6,7 +6,7 @@ describe "MarsRover" do
             # Arrange 
             EXPECTED_X = 4
             EXPECTED_Y = 5
-            EXPECTED_DIRECTION = "E"
+            EXPECTED_DIRECTION = MarsRover.EAST
             mars_rover = MarsRover.new
             
             # Act
@@ -24,12 +24,12 @@ describe "MarsRover" do
             # Arrange 
             START_X = 0
             START_Y = 0
-            DIRECTION = "N"
+            DIRECTION = MarsRover.NORTH
             mars_rover = MarsRover.new
             mars_rover.start(START_X, START_Y, DIRECTION)
             
             # Act
-            mars_rover.move('f')
+            mars_rover.move(MarsRover.FORWARD)
 
             # Assert
             expect(mars_rover.direction).to eq(DIRECTION)
@@ -39,16 +39,32 @@ describe "MarsRover" do
             # Arrange 
             START_X = 0
             START_Y = 0
-            DIRECTION = "N"
+            DIRECTION = MarsRover.NORTH
             mars_rover = MarsRover.new
             mars_rover.start(START_X, START_Y, DIRECTION)
             
             # Act
-            mars_rover.move('f')
+            mars_rover.move(MarsRover.FORWARD)
 
             # Assert
             expect(mars_rover.x).to eq(START_X + 1)
             expect(mars_rover.y).to eq(START_Y)
+        end
+
+        it "will move right one square given input 'f' and direction 'E'" do
+            # Arrange 
+            START_X = 0
+            START_Y = 0
+            DIRECTION = MarsRover.EAST
+            mars_rover = MarsRover.new
+            mars_rover.start(START_X, START_Y, DIRECTION)
+            
+            # Act
+            mars_rover.move(MarsRover.FORWARD)
+
+            # Assert
+            expect(mars_rover.x).to eq(START_X)
+            expect(mars_rover.y).to eq(START_Y + 1)
         end
     end
 end
