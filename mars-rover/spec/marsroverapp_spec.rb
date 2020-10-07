@@ -20,10 +20,10 @@ describe MarsRoverApp do
         it "prompts the user to input coordinates and direction on startup" do
             # Arrange
             marsroverapp = MarsRoverApp.new
-            input_prompt = marsroverapp.REQUEST_FOR_INPUT
+            expected_prompt = marsroverapp.REQUEST_FOR_FIRST_INPUT
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to include(input_prompt)
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to include(expected_prompt)
         end
     end
 
@@ -75,6 +75,16 @@ describe MarsRoverApp do
 
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
+        end
+
+        it "prompts the user to input movement or new direction after first input" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            stub gets(EXPECTED_INPUT) 
+            expected_prompt = marsroverapp.REQUEST_FOR_FURTHER_INPUT
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(expected_prompt)
         end
     end
 end
