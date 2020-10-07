@@ -15,6 +15,11 @@ class MarsRover
     end
 
     def move(movement)
+        # The current assumption is that movement is a string containing either FORWARD or BACKWARD.
+        # Add the ability to move forwards or backwards in any direction
+        # Add obstacle detection
+        # Add the ability to "wrap" around the edges of the grid.
+        # See test specs in grid_spec.rb.
         if @direction == NORTH
             @x = @x + 1            
         elsif @direction == EAST

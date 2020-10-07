@@ -47,8 +47,8 @@ describe "MarsRover" do
             mars_rover.move(MarsRover.FORWARD)
 
             # Assert
-            expect(mars_rover.x).to eq(START_X + 1)
-            expect(mars_rover.y).to eq(START_Y)
+            expect(mars_rover.x).to eq(START_X)
+            expect(mars_rover.y).to eq(START_Y + 1)
         end
 
         it "will move right one square given input 'f' and direction 'E'" do
@@ -63,8 +63,40 @@ describe "MarsRover" do
             mars_rover.move(MarsRover.FORWARD)
 
             # Assert
+            expect(mars_rover.x).to eq(START_X + 1)
+            expect(mars_rover.y).to eq(START_Y)
+        end
+
+        it "will move down one square given input 'f' and direction 'S'" do
+            # Arrange 
+            START_X = 0
+            START_Y = 4
+            DIRECTION = MarsRover.SOUTH
+            mars_rover = MarsRover.new
+            mars_rover.start(START_X, START_Y, DIRECTION)
+            
+            # Act
+            mars_rover.move(MarsRover.FORWARD)
+
+            # Assert
             expect(mars_rover.x).to eq(START_X)
-            expect(mars_rover.y).to eq(START_Y + 1)
+            expect(mars_rover.y).to eq(START_Y - 1)
+        end
+
+        it "will move left one square given input 'f' and direction 'W'" do
+            # Arrange 
+            START_X = 4
+            START_Y = 0
+            DIRECTION = MarsRover.WEST
+            mars_rover = MarsRover.new
+            mars_rover.start(START_X, START_Y, DIRECTION)
+            
+            # Act
+            mars_rover.move(MarsRover.FORWARD)
+
+            # Assert
+            expect(mars_rover.x).to eq(START_X - 1)
+            expect(mars_rover.y).to eq(START_Y)
         end
     end
 end
