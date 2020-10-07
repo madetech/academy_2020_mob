@@ -26,10 +26,8 @@ describe "MarsRover" do
         directions.each do |movement, expected_direction|
             it "will not change direction given input '#{movement}'" do
                 # Arrange 
-                START_X = 0
-                START_Y = 0
                 mars_rover = MarsRover.new
-                mars_rover.start(START_X, START_Y, expected_direction)
+                mars_rover.start(0, 0, expected_direction)
                 
                 # Act
                 mars_rover.move(movement)
@@ -60,6 +58,48 @@ describe "MarsRover" do
                 # Assert
                 expect(mars_rover.x).to eq(expected_pos[:x])
                 expect(mars_rover.y).to eq(expected_pos[:y])
+            end
+        end
+
+        simple_turns = [MarsRover.LEFT, MarsRover.RIGHT]
+
+        simple_turns.each do |turn|
+            it "will not change position given input '#{turn}'" do
+                # Arrange 
+                START_X = 0
+                START_Y = 0
+                mars_rover = MarsRover.new
+                mars_rover.start(START_X, START_Y, MarsRover.NORTH)
+                
+                # Act
+                mars_rover.turn(turn)
+
+                # Assert
+                expect(mars_rover.x).to eq(START_X)
+                expect(mars_rover.y).to eq(START_Y)
+            end
+        end
+
+        all_turns =[[MarsRover.LEFT, MarsRover.NORTH, MarsRover.WEST], 
+                    [MarsRover.LEFT, MarsRover.EAST,  MarsRover.NORTH], 
+                    [MarsRover.LEFT, MarsRover.SOUTH, MarsRover.EAST], 
+                    [MarsRover.LEFT, MarsRover.WEST,  MarsRover.SOUTH],
+                    [MarsRover.RIGHT, MarsRover.NORTH,MarsRover.EAST], 
+                    [MarsRover.RIGHT, MarsRover.EAST, MarsRover.SOUTH], 
+                    [MarsRover.RIGHT, MarsRover.SOUTH,MarsRover.WEST], 
+                    [MarsRover.RIGHT, MarsRover.WEST, MarsRover.NORTH]]
+
+        all_turns.each do |movement, direction, expected_direction|
+            it "will change direction to '#{expected_direction}' given input '#{movement}' and direction '#{direction}'" do
+                # Arrange 
+                mars_rover = MarsRover.new
+                mars_rover.start(0, 0, direction)
+                
+                # Act
+                mars_rover.turn(movement)
+
+                # Assert
+                expect(mars_rover.direction).to eq(expected_direction)
             end
         end
     end

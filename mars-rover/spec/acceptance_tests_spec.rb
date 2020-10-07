@@ -17,4 +17,12 @@ Given "the user has input the coordinates and direction of the rover"
 When "the user tells the rover to move backwards"
 Then "the display is updated with the rover moving one square in the opposite direction to that which it faces"
 
+Given "the user has input the coordinates and direction of the rover"
+When "the user tells the rover to turn left"
+Then "the display is updated with the rover facing a direction 90 degrees anticlockwise from before"
+
+Given "the user has input the coordinates and direction of the rover"
+When "the user tells the rover to turn right"
+Then "the display is updated with the rover facing a direction 90 degrees clockwise from before"
+
 

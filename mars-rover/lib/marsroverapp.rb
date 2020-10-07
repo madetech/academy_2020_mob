@@ -19,8 +19,16 @@ class MarsRoverApp
 
     def move_rover
         movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
-        @mars_rover.move(movement)
+        if is_turn?(movement)            
+            @mars_rover.turn(movement)
+        else
+            @mars_rover.move(movement)
+        end
         update_display
+    end
+
+    def is_turn?(movement)
+        # return true if it's l or r, false if it's f or b
     end
 
     def start_rover
