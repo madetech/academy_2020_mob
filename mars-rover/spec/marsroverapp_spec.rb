@@ -2,28 +2,28 @@ require_relative '../lib/marsroverapp'
 
 describe MarsRoverApp do
     context "on startup" do
+        before(:each) do
+            @presenter = Presenter.new
+            @grid = Grid.new(5, 5)
+            @mars_rover = MarsRover.new
+        end
+
         it "displays an empty 5x5 grid on startup" do
             # Arrange
-            marsroverapp = MarsRoverApp.new
-            presenter = Presenter.new
-            grid = Grid.new(5, 5)
-            mars_rover = MarsRover.new
+            marsroverapp = MarsRoverApp.new            
             EMPTY_GRID = "This is what we think an empty 5x5 grid will look like."
 
             # Act/Assert
-            expect{marsroverapp.start(presenter, grid, mars_rover)}.std_output.to include(EMPTY_GRID)
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to include(EMPTY_GRID)
         end
 
         it "prompts the user to input coordinates and direction on startup" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             input_prompt = marsroverapp.REQUEST_FOR_INPUT
-            presenter = Presenter.new
-            grid = Grid.new(5, 5)
-            mars_rover = MarsRover.new
 
             # Act/Assert
-            expect{marsroverapp.start(presenter, grid, mars_rover)}.std_output.to include(input_prompt)
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to include(input_prompt)
         end
     end
 
@@ -69,15 +69,12 @@ describe MarsRoverApp do
         it "displays the position of a Rover when given position" do
             # Arrange
             marsroverapp = MarsRoverApp.new
-            presenter = Presenter.new
-            grid = Grid.new(5, 5)
-            mars_rover = MarsRover.new
             EXPECTED_INPUT = "0, 0, N"
             stub gets(EXPECTED_INPUT) 
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
 
             # Act/Assert
-            expect{marsroverapp.start(presenter, grid, mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
         end
     end
 end
