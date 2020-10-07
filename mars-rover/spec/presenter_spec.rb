@@ -13,7 +13,7 @@ describe Presenter do
             expect{presenter.show_display(grid)}.to output(EMPTY_GRID).to_stdout
         end
 
-        it "converts a 5x5 grid containing a Mars Rover facing North into an informative display" do
+        it "converts a 5x5 grid (containing a Mars Rover facing North) into an informative display" do
             # Arrange
             presenter = Presenter.new
             grid = make_grid(1, 1, MarsRover.NORTH)
@@ -23,7 +23,7 @@ describe Presenter do
             expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        it "converts a 5x5 grid containing a Mars Rover facing South into an informative display" do
+        it "converts a 5x5 grid (containing a Mars Rover facing South) into an informative display" do
             # Arrange
             presenter = Presenter.new
             grid = make_grid(2, 3, MarsRover.SOUTH)
@@ -33,7 +33,7 @@ describe Presenter do
             expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        it "converts a 5x5 grid containing a Mars Rover facing East into an informative display" do
+        it "converts a 5x5 grid (containing a Mars Rover facing East) into an informative display" do
             # Arrange
             presenter = Presenter.new
             grid = make_grid(4, 2, MarsRover.EAST)
@@ -43,7 +43,7 @@ describe Presenter do
             expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        it "converts a 5x5 grid containing a Mars Rover facing West into an informative display" do
+        it "converts a 5x5 grid (containing a Mars Rover facing West) into an informative display" do
             # Arrange
             presenter = Presenter.new
             grid = make_grid(0, 4, MarsRover.WEST)
