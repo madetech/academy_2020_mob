@@ -48,7 +48,6 @@ describe MarsRoverApp do
             # Arrange
             marsroverapp = MarsRoverApp.new
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
-            GRID_WITH_ROVER = make_grid(5, 5, 0, 0, "N")
             mars_rover_spy = MarsRover.spy
             grid_spy = Grid.spy
             presenter_spy = Presenter.spy(show_display(grid_spy) => puts GRID_WITH_NEW_ROVER)
