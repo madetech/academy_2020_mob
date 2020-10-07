@@ -10,7 +10,11 @@ And "the display is updated with the direction of the rover"
 And "the user is prompted to input movement or new direction"
 
 Given "the user has input the coordinates and direction of the rover"
-When "the user tells the rover to move forward"
+When "the user tells the rover to move forwards"
 Then "the display is updated with the rover advanced one square in the direction it is facing"
+
+Given "the user has input the coordinates and direction of the rover"
+When "the user tells the rover to move backwards"
+Then "the display is updated with the rover moving one square in the opposite direction to that which it faces"
 
 

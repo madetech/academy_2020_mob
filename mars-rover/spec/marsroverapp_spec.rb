@@ -86,13 +86,25 @@ describe MarsRoverApp do
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(expected_prompt)
         end
         
-        it "updates the position of a Rover when it moves forwards or backwards" do
+        it "updates the position of a Rover when it moves forwards" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
             EXPECTED_MOVE_INPUT = "f"
             stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_NEW_ROVER = "A 5x5 grid with North-facing Rover moved forward one square from 0,0"
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
+        end
+        
+        it "updates the position of a Rover when it moves backwards" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "4,4,S"
+            EXPECTED_MOVE_INPUT = "b"
+            stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            GRID_WITH_NEW_ROVER = "A 5x5 grid with South-facing Rover moved backward one square from 4,4"
 
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
