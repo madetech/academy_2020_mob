@@ -4,10 +4,18 @@ Then "an empty 5*5 grid appears"
 And "the user is prompted for coordinates and direction"
 
 Given "the user has started the program"
+When "the user inputs invalid coordinates or direction"
+Then "the user is shown an error"
+
+Given "the user has started the program"
 When "the user inputs the coordinates and direction"
 Then "the display is updated with the position of the rover"
 And "the display is updated with the direction of the rover"
 And "the user is prompted to input movement or new direction"
+
+Given "the user has input the coordinates and direction of the rover"
+When "the user gives an invalid further instruction"
+Then "the user is shown an error"
 
 Given "the user has input the coordinates and direction of the rover"
 When "the user tells the rover to move forwards"

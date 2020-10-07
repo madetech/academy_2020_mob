@@ -76,6 +76,19 @@ describe Presenter do
             # Assert
             expect(user_input).to eq(EXPECTED_INPUT)
         end
+
+        bad_inputs = ["!", "*"] # plus a lot more examples of bad input
+        
+        bad_inputs.each do |bad_input|
+            it "raises an exception when input is invalid: '#{bad_input}'" do
+                # Arrange
+                presenter = Presenter.new
+                stub gets(bad_input) 
+    
+                # Act & Assert
+                expect{presenter.get_input("Give me input pls")}.to raise_exception
+            end
+        end
     end
 
     private

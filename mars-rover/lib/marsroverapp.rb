@@ -2,6 +2,7 @@
 class MarsRoverApp
     REQUEST_FOR_FIRST_INPUT = "Please input Rover coordinates and direction."
     REQUEST_FOR_FURTHER_INPUT = "Please input one of the following single chars: f(forwards), b(backwards), l(left), r(right)."
+    BAD_INPUT_ERROR = "Sorry, I don't understand that input."
 
     def initialize(presenter, grid, mars_rover)
         @presenter = presenter
@@ -18,13 +19,17 @@ class MarsRoverApp
     private
 
     def move_rover
-        movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
-        if is_turn?(movement)            
-            @mars_rover.turn(movement)
-        else
-            @mars_rover.move(movement)
+        begin
+            movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT, BAD_INPUT_ERROR)
+            if is_turn?(movement)            
+                @mars_rover.turn(movement)
+            else
+                @mars_rover.move(movement)
+            end
+            update_display
+        rescue StandardError => e
+            puts BAD_INPUT_ERROR
         end
-        update_display
     end
 
     def is_turn?(movement)
@@ -32,9 +37,13 @@ class MarsRoverApp
     end
 
     def start_rover
-        initial_position = presenter.get_input(REQUEST_FOR_FIRST_INPUT)
-        @mars_rover.start(initial_position.split(","))
-        update_display
+        begin
+            initial_position = presenter.get_input(REQUEST_FOR_FIRST_INPUT, BAD_INPUT_ERROR)
+            @mars_rover.start(initial_position.split(","))
+            update_display
+        rescue StandardError => e
+            puts BAD_INPUT_ERROR
+        end
     end
 
     def update_display
