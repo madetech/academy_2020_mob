@@ -5,5 +5,5 @@ require_relative 'lib/marsroverapp'
 mars_rover = MarsRover.new
 grid = Grid.new(5, 5)
 presenter = Presenter.new
-my_app = MarsRoverApp.new
-my_app.start(presenter, grid, mars_rover)
+my_app = MarsRoverApp.new(presenter, grid, mars_rover)
+my_app.start
