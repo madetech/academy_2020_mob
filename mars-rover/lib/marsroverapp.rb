@@ -12,14 +12,20 @@ class MarsRoverApp
     def start
         @presenter.show_display(@grid)
         start_rover
-        user_input = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
+        move_rover
     end
 
     private
 
+    def move_rover
+        movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
+        @mars_rover.move(movement)
+        update_display
+    end
+
     def start_rover
         initial_position = presenter.get_input(REQUEST_FOR_FIRST_INPUT)
-        @mars_rover.start(initial_position)
+        @mars_rover.start(initial_position.split(","))
         update_display
     end
 

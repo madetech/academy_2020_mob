@@ -18,6 +18,39 @@ describe "MarsRover" do
             expect(mars_rover.direction).to eq(EXPECTED_DIRECTION)
         end
     end
+
+    context "#move" do
+        it "will not change direction given input 'f'" do
+            # Arrange 
+            START_X = 0
+            START_Y = 0
+            DIRECTION = "N"
+            mars_rover = MarsRover.new
+            mars_rover.start(START_X, START_Y, DIRECTION)
+            
+            # Act
+            mars_rover.move('f')
+
+            # Assert
+            expect(mars_rover.direction).to eq(DIRECTION)
+        end
+
+        it "will move up one square given input 'f' and direction N" do
+            # Arrange 
+            START_X = 0
+            START_Y = 0
+            DIRECTION = "N"
+            mars_rover = MarsRover.new
+            mars_rover.start(START_X, START_Y, DIRECTION)
+            
+            # Act
+            mars_rover.move('f')
+
+            # Assert
+            expect(mars_rover.x).to eq(START_X + 1)
+            expect(mars_rover.y).to eq(START_Y)
+        end
+    end
 end
 
 

@@ -6,4 +6,8 @@ class MarsRover
         @y = y
         @direction = direction
     end
+
+    def move(movement)
+        @x = @x + 1
+    end
 end

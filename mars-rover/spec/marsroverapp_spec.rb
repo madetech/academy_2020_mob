@@ -35,7 +35,7 @@ describe MarsRoverApp do
             mars_rover_stub = MarsRover.stub
             grid_stub = Grid.stub
             fake_presenter = Presenter.fake(show_display(grid_stub) => puts GRID_WITH_NEW_ROVER)
-            EXPECTED_INPUT = "0, 0, N"
+            EXPECTED_INPUT = "0,0,N"
             stub gets(EXPECTED_INPUT) 
 
             # Act/Assert
@@ -52,7 +52,7 @@ describe MarsRoverApp do
             mars_rover_spy = MarsRover.spy
             grid_spy = Grid.spy
             presenter_spy = Presenter.spy(show_display(grid_spy) => puts GRID_WITH_NEW_ROVER)
-            EXPECTED_INPUT = "0, 0, N"
+            EXPECTED_INPUT = "0,0,N"
             stub gets(EXPECTED_INPUT) 
 
             # Act/Assert
@@ -69,7 +69,7 @@ describe MarsRoverApp do
         it "displays the position of a Rover when given position" do
             # Arrange
             marsroverapp = MarsRoverApp.new
-            EXPECTED_INPUT = "0, 0, N"
+            EXPECTED_INPUT = "0,0,N"
             stub gets(EXPECTED_INPUT) 
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
 
@@ -85,6 +85,18 @@ describe MarsRoverApp do
 
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(expected_prompt)
+        end
+        
+        it "updates the position of a Rover when it moves forwards or backwards" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "0,0,N"
+            EXPECTED_MOVE_INPUT = "f"
+            stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            GRID_WITH_NEW_ROVER = "A 5x5 grid with North-facing Rover moved forward one square from 0,0"
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
         end
     end
 end
