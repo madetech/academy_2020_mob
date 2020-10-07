@@ -11,15 +11,19 @@ class MarsRoverApp
 
     def start
         @presenter.show_display(@grid)
-        user_input = presenter.get_input(REQUEST_FOR_FIRST_INPUT)
-        move_rover(user_input)
+        start_rover
         user_input = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
     end
 
     private
 
-    def move_rover(new_position)
-        @mars_rover.move(new_position)
+    def start_rover
+        initial_position = presenter.get_input(REQUEST_FOR_FIRST_INPUT)
+        @mars_rover.start(initial_position)
+        update_display
+    end
+
+    def update_display
         @grid.update(@mars_rover)
         @presenter.show_display(@grid)
     end

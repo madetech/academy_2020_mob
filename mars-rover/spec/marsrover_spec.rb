@@ -1,7 +1,7 @@
 require_relative '../lib/marsrover'
 
 describe "MarsRover" do
-    context "#move" do
+    context "#start" do
         it "sets position and direction according to data passed in" do
             # Arrange 
             EXPECTED_X = 4
@@ -10,7 +10,7 @@ describe "MarsRover" do
             mars_rover = MarsRover.new
             
             # Act
-            mars_rover.move(EXPECTED_X, EXPECTED_Y, EXPECTED_DIRECTION)
+            mars_rover.start(EXPECTED_X, EXPECTED_Y, EXPECTED_DIRECTION)
 
             # Assert
             expect(mars_rover.x).to eq(EXPECTED_X)
