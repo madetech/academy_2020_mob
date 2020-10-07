@@ -79,4 +79,33 @@ describe "grid" do
             end
         end
     end
+    
+    context "obstacle management" do
+        it "will add an obstacle" do
+            # Arrange
+            OBSTACLE_X = 4
+            OBSTACLE_Y = 1
+            grid = Grid.new(5, 5)
+
+            # Act
+            grid.add_obstacle(OBSTACLE_X, OBSTACLE_Y)
+
+            # Assert
+            expect(grid.grid_array[OBSTACLE_X, OBSTACLE_Y]).to eq(EMPTY_CELL)
+        end
+
+        it "will indicate when an obstacle is present" do
+            # Arrange
+            OBSTACLE_X = 2
+            OBSTACLE_Y = 3
+            grid = Grid.new(5, 5)
+            grid.add_obstacle(OBSTACLE_X, OBSTACLE_Y)
+
+            # Act
+            result = grid.contains_obstacle?(OBSTACLE_X, OBSTACLE_Y)
+
+            # Assert
+            expect(result).to eq(true)
+        end
+    end
 end

@@ -1,6 +1,7 @@
 Given "the user hasn't started the program yet"
 When "the user starts the program"
 Then "an empty 5*5 grid appears"
+And "the grid shows existing obstacles"
 And "the user is prompted for coordinates and direction"
 
 Given "the user has started the program"
@@ -46,5 +47,13 @@ Given "the user has input coordinates and direction"
 When "the display has updated"
 Then "the user can input several movements and turns in one input"
 And "the display will update in response to every movement and turn in the input"
+
+Given "the user has input coordinates and direction placing the rover facing an obstacle"
+When "the user tells the rover to move forwards"
+Then "an error will inform the user that there is an obstacle in the way"
+
+Given "the user has input coordinates and direction placing the rover with its back to an obstacle"
+When "the user tells the rover to move backwards"
+Then "an error will inform the user that there is an obstacle in the way"
 
 

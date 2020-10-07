@@ -13,6 +13,16 @@ describe Presenter do
             expect{presenter.show_display(grid)}.to output(EMPTY_GRID).to_stdout
         end
 
+        it "converts a 5x5 grid containing obstacles and a North-facing rover into an informative display" do
+            # Arrange
+            presenter = Presenter.new
+            fake_grid = make_fake_grid(0, 0, MarsRover.NORTH, [1,1], [3,4])
+            EMPTY_GRID = "This is what we think a 5x5 grid containing obstacles and a North-facing rover will look like."
+
+            # Act/Assert
+            expect{presenter.show_display(fake_grid)}.to output(EMPTY_GRID).to_stdout
+        end
+
         it "converts a 5x5 grid (containing a Mars Rover facing North) into an informative display" do
             # Arrange
             presenter = Presenter.new
@@ -100,13 +110,14 @@ describe Presenter do
         grid.update(mars_rover)
     end
 
-    def make_fake_grid(x, y, direction)  
+    def make_fake_grid(x, y, direction, obstacle_coords_1=[], obstacle_coords_2=[])  
         fake_grid = double('Grid')
-        allow(grid).to receive(:grid_array) { make_fake_grid_array(x, y, direction) } 
+        allow(fake_grid).to receive(:grid_array) { make_fake_grid_array(x, y, direction, obstacle_coords_1, obstacle_coords_2) } 
         fake_grid
     end
 
-    def make_fake_grid_array(x, y, direction)        
+    def make_fake_grid_array(x, y, direction, obstacle_coords_1=[], obstacle_coords_2=[])        
         # Build a fake 5x5 grid array with a Mars Rover at the specified position and facing the specified direction
+        # and with obstacles in the specified locations
     end
 end

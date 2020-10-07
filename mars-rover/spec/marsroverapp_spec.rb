@@ -8,10 +8,10 @@ describe MarsRoverApp do
             @mars_rover = MarsRover.new
         end
 
-        it "displays an empty 5x5 grid on startup" do
+        it "displays an empty 5x5 grid containing obstacles on startup" do
             # Arrange
             marsroverapp = MarsRoverApp.new            
-            EMPTY_GRID = "This is what we think an empty 5x5 grid will look like."
+            EMPTY_GRID = "This is what we think a 5x5 grid with obstacles but no rovers will look like."
 
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to include(EMPTY_GRID)
@@ -212,6 +212,30 @@ describe MarsRoverApp do
 
             # Act/Assert
             expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+        end
+        
+        it "shows an error when the rover can't move forward because there is an obstacle in the way" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "0,0,N"
+            EXPECTED_MOVE_INPUT = "f"
+            @grid.add_obstacle(0,1)
+            stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.OBSTACLE_ERROR)
+        end
+        
+        it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
+            # Arrange
+            marsroverapp = MarsRoverApp.new
+            INITIAL_INPUT = "4,4,N"
+            EXPECTED_MOVE_INPUT = "b"
+            @grid.add_obstacle(4,3)
+            stub gets(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+
+            # Act/Assert
+            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.OBSTACLE_ERROR)
         end
     end
 end

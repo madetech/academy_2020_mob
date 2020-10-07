@@ -1,6 +1,7 @@
 class Grid
     attr_accessor :grid_array
     EMPTY_CELL = ""
+    OBSTACLE = "X"
 
     def initialize(width, height)
         @width = width
@@ -10,6 +11,14 @@ class Grid
 
     def update(mars_rover)
         populate_cell(mars_rover)
+    end
+
+    def add_obstacle(x, y)
+        grid_array[x][y] = OBSTACLE
+    end
+
+    def contains_obstacle?(x, y)
+        grid_array[x][y] == OBSTACLE
     end
 
     private

@@ -27,10 +27,11 @@ describe "MarsRover" do
             it "will not change direction given input '#{movement}'" do
                 # Arrange 
                 mars_rover = MarsRover.new
-                mars_rover.start(0, 0, expected_direction)
+                mars_rover.start(0, 0, expected_direction)        
+                fake_grid = double('Grid')
                 
                 # Act
-                mars_rover.move(movement)
+                mars_rover.move(movement, fake_grid)
 
                 # Assert
                 expect(mars_rover.direction).to eq(expected_direction)
@@ -50,10 +51,11 @@ describe "MarsRover" do
             it "will move up one square given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 mars_rover = MarsRover.new
-                mars_rover.start(start_pos[:x], start_pos[:y], direction)
+                mars_rover.start(start_pos[:x], start_pos[:y], direction)        
+                fake_grid = double('Grid')
                 
                 # Act
-                mars_rover.move(movement)
+                mars_rover.move(movement, fake_grid)
 
                 # Assert
                 expect(mars_rover.x).to eq(expected_pos[:x])
@@ -116,14 +118,41 @@ describe "MarsRover" do
             it "will move up one square given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 mars_rover = MarsRover.new
-                mars_rover.start(start_pos[:x], start_pos[:y], direction)
+                mars_rover.start(start_pos[:x], start_pos[:y], direction)        
+                fake_grid = double('Grid')
                 
                 # Act
-                mars_rover.move(movement)
+                mars_rover.move(movement, fake_grid)
 
                 # Assert
                 expect(mars_rover.x).to eq(expected_pos[:x])
                 expect(mars_rover.y).to eq(expected_pos[:y])
+            end
+        end
+        
+        all_ways_off_the_edge.each do |movement, direction, start_pos, expected_pos|
+            it "will raise an exception if there is an obstacle over the edge, given input '#{movement}' and direction '#{direction}'" do
+                # Arrange 
+                mars_rover = MarsRover.new
+                mars_rover.start(start_pos[:x], start_pos[:y], direction)          
+                fake_grid = double('Grid')
+                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])) { true }               
+
+                # Act & Assert
+                expect{mars_rover.move(movement, fake_grid)}.to raise_exception
+            end
+        end
+        
+        all_directions.each do |movement, direction, start_pos, expected_pos|
+            it "will raise an exception if there is an obstacle in the way, given input '#{movement}' and direction '#{direction}'" do
+                # Arrange 
+                mars_rover = MarsRover.new
+                mars_rover.start(start_pos[:x], start_pos[:y], direction)          
+                fake_grid = double('Grid')
+                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])) { true }               
+
+                # Act & Assert
+                expect{mars_rover.move(movement, fake_grid)}.to raise_exception
             end
         end
     end

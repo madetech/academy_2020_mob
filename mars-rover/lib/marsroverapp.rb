@@ -3,6 +3,7 @@ class MarsRoverApp
     REQUEST_FOR_FIRST_INPUT = "Please input Rover coordinates and direction."
     REQUEST_FOR_FURTHER_INPUT = "Please input one of the following single chars: f(forwards), b(backwards), l(left), r(right)."
     BAD_INPUT_ERROR = "Sorry, I don't understand that input."
+    OBSTACLE_ERROR = "Oh no, I'm sorry, you can't move in that direction. There is an obstacle in the way!"
 
     def initialize(presenter, grid, mars_rover)
         @presenter = presenter
@@ -27,6 +28,8 @@ class MarsRoverApp
             end
         rescue StandardError => e
             puts BAD_INPUT_ERROR
+        rescue ObstacleError => e
+            puts OBSTACLE_ERROR
         end
     end
 
@@ -35,7 +38,7 @@ class MarsRoverApp
             if is_turn?(movement)            
                 @mars_rover.turn(movement)
             else
-                @mars_rover.move(movement)
+                @mars_rover.move(movement, @grid)
             end
             update_display
         end
