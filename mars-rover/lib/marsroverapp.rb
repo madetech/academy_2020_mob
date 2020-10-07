@@ -13,23 +13,30 @@ class MarsRoverApp
     def start
         @presenter.show_display(@grid)
         start_rover
-        move_rover
+        move_rover_repeatedly
     end
 
     private
 
-    def move_rover
+    def move_rover_repeatedly
         begin
-            movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT, BAD_INPUT_ERROR)
-            if is_turn?(movement)            
-                @mars_rover.turn(movement)
-            else
-                @mars_rover.move(movement)
+            movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
+            while movement do
+                move_rover(movement)
+                movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
             end
-            update_display
         rescue StandardError => e
             puts BAD_INPUT_ERROR
         end
+    end
+
+    def move_rover(movement)        
+        if is_turn?(movement)            
+            @mars_rover.turn(movement)
+        else
+            @mars_rover.move(movement)
+        end
+        update_display
     end
 
     def is_turn?(movement)
@@ -38,7 +45,7 @@ class MarsRoverApp
 
     def start_rover
         begin
-            initial_position = presenter.get_input(REQUEST_FOR_FIRST_INPUT, BAD_INPUT_ERROR)
+            initial_position = presenter.get_input(REQUEST_FOR_FIRST_INPUT)
             @mars_rover.start(initial_position.split(","))
             update_display
         rescue StandardError => e

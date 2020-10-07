@@ -37,8 +37,9 @@ Given "the user has input coordinates and direction placing the rover facing the
 When "the user tells the rover to move forwards"
 Then "the display is updated with the rover having 'wrapped' around to the other side of the grid"
 
-Given "the user has input coordinates and direction placing the rover backed up to the edge of the grid"
-When "the user tells the rover to move backwards"
-Then "the display is updated with the rover having 'wrapped' around to the other side of the grid"
+Given "the user has input coordinates and direction"
+When "the display has updated"
+Then "the user can keep inputting repeated movements and turns"
+And "the display will update in response to every input"
 
 
