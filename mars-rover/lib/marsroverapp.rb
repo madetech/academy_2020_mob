@@ -5,11 +5,11 @@ class MarsRoverApp
     BAD_INPUT_ERROR = "Sorry, I don't understand that input."
     OBSTACLE_ERROR = "Oh no, I'm sorry, you can't move in that direction. There is an obstacle in the way!"
 
-    def initialize(presenter, communicator, grid, mars_rover)
+    def initialize(presenter, communicator, grid, mars_rover_factory)
         @presenter = presenter
         @communicator = communicator
         @grid = grid
-        @mars_rover = mars_rover
+        @mars_rover = mars_rover_factory.generate_rover
     end
 
     def start

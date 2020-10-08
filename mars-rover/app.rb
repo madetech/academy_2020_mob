@@ -4,9 +4,9 @@ require_relative 'lib/wide_screen_presenter'
 require_relative 'lib/communicator'
 require_relative 'lib/grid'
 require_relative 'lib/marsroverapp'
-require_relative 'lib/marsrover'
+require_relative 'lib/mars_rover_factory'
 
-mars_rover = MarsRover.new
+mars_rover_factory = MarsRoverFactory.new
 grid = Grid.new(5, 5)
 grid.add_obstacle(3,2)
 grid.add_obstacle(2,3)
@@ -21,8 +21,8 @@ my_app = MarsRoverApp.new(
     user_choice[:presenter], 
     user_choice[:communicator], 
     user_choice[:grid], 
-    mars_rover)
-    
+    mars_rover_factory)
+
 my_app.start
 
 def choose_presenter

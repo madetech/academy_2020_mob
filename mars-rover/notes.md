@@ -1,7 +1,6 @@
 # To Implement:
 
 - Test params etc? I'm so used to strongly typed languages I expect a lot of things to be caught by the compiler, but that won't happen in Ruby!
-- Different types of UI
 - Multiple rovers moving around at once
 - Different types of rover
 
