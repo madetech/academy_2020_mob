@@ -91,12 +91,12 @@ describe MarsRoverApp do
             # Arrange
             marsroverapp = MarsRoverApp.new
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
-            mars_rover_spy = double('MarsRover')
+            mars_rover_spy = spy('MarsRover')
             rover_factory_fake = double('MarsRoverFactory')
             allow(rover_factory_fake).to receive(:generate_rover).and_return(mars_rover_spy)
-            grid_spy = double('Grid')
+            grid_spy = spy('Grid')
             communicator_stub = double('Communicator')
-            presenter_spy = double('Presenter')
+            presenter_spy = spy('Presenter')
             allow(presenter_spy).to receive(:show_display(grid_spy)) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "0,0,N"
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
