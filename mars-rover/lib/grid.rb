@@ -2,6 +2,7 @@ class Grid
     attr_accessor :grid_array
     EMPTY_CELL = ""
     OBSTACLE = "X"
+    SKY_HIGH_OBSTACLE = "Y"
 
     def initialize(width, height)
         @width = width
@@ -17,8 +18,16 @@ class Grid
         grid_array[x][y] = OBSTACLE
     end
 
+    def add_sky_high_obstacle(x, y)
+        grid_array[x][y] = SKY_HIGH_OBSTACLE
+    end
+
     def contains_obstacle?(x, y)
         grid_array[x][y] != EMPTY_CELL
+    end
+
+    def contains_sky_high_obstacle?(x, y)
+        grid_array[x][y] == SKY_HIGH_OBSTACLE
     end
 
     private

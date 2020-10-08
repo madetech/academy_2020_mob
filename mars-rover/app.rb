@@ -9,7 +9,7 @@ require_relative 'lib/mars_rover_factory'
 mars_rover_factory = MarsRoverFactory.new
 grid = Grid.new(5, 5)
 grid.add_obstacle(3,2)
-grid.add_obstacle(2,3)
+grid.add_sky_high_obstacle(2,3)
 wide_screen_presenter = WideScreenPresenter.new
 narrow_screen_presenter = NarrowScreenPresenter.new
 web_presenter = WebPresenter.new
