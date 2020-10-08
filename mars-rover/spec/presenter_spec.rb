@@ -5,7 +5,7 @@ describe Presenter do
     context "#show_display" do
         it "converts an empty 5x5 grid into a beautiful display" do
             # Arrange
-            presenter = Presenter.new
+            presenter = described_class.new
             grid = Grid.new(5, 5)
             EMPTY_GRID = "This is what we think an empty 5x5 grid will look like."
 
@@ -15,7 +15,7 @@ describe Presenter do
 
         it "converts a 5x5 grid containing obstacles and a North-facing rover into an informative display" do
             # Arrange
-            presenter = Presenter.new
+            presenter = described_class.new
             fake_grid = make_fake_grid(0, 0, MarsRover.NORTH, [1,1], [3,4])
             EMPTY_GRID = "This is what we think a 5x5 grid containing obstacles and a North-facing rover will look like."
 
@@ -25,7 +25,7 @@ describe Presenter do
 
         it "converts a 5x5 grid (containing a Mars Rover facing North) into an informative display" do
             # Arrange
-            presenter = Presenter.new
+            presenter = described_class.new
             fake_grid = make_fake_grid(1, 1, MarsRover.NORTH)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing North will look like."
 
@@ -35,7 +35,7 @@ describe Presenter do
 
         it "converts a 5x5 grid (containing a Mars Rover facing South) into an informative display" do
             # Arrange
-            presenter = Presenter.new
+            presenter = described_class.new
             fake_grid = make_fake_grid(2, 3, MarsRover.SOUTH)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing South will look like."
 
@@ -45,7 +45,7 @@ describe Presenter do
 
         it "converts a 5x5 grid (containing a Mars Rover facing East) into an informative display" do
             # Arrange
-            presenter = Presenter.new
+            presenter = described_class.new
             fake_grid = make_fake_grid(4, 2, MarsRover.EAST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing East will look like."
 
@@ -55,49 +55,12 @@ describe Presenter do
 
         it "converts a 5x5 grid (containing a Mars Rover facing West) into an informative display" do
             # Arrange
-            presenter = Presenter.new
+            presenter = described_class.new
             fake_grid = make_fake_grid(0, 4, MarsRover.WEST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing West will look like."
 
             # Act/Assert
             expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
-        end
-    end
-    
-    context "#get_input" do
-        it "outputs the specified input prompt" do
-            # Arrange
-            presenter = Presenter.new
-            EXPECTED_INPUT_PROMPT = "Give me some input pretty pls"
-
-            # Act/Assert
-            expect{presenter.get_input(EXPECTED_INPUT_PROMPT)}.to output(EXPECTED_INPUT_PROMPT).to_stdout
-        end
-        
-        it "returns stdin" do
-            # Arrange
-            presenter = Presenter.new
-            EXPECTED_INPUT = "Here's my input thx bye"
-            allow(presenter).to receive(:gets).and_return(EXPECTED_INPUT)
-
-            # Act
-            user_input = presenter.get_input("Give me input pls")
-
-            # Assert
-            expect(user_input).to eq(EXPECTED_INPUT)
-        end
-
-        bad_inputs = ["!", "*"] # plus a lot more examples of bad input
-        
-        bad_inputs.each do |bad_input|
-            it "raises an exception when input is invalid: '#{bad_input}'" do
-                # Arrange
-                presenter = Presenter.new
-                allow(presenter).to receive(:gets).and_return(bad_input)
-    
-                # Act & Assert
-                expect{presenter.get_input("Give me input pls")}.to raise_exception
-            end
         end
     end
 

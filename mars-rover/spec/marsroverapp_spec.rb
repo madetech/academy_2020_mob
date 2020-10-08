@@ -4,6 +4,7 @@ describe MarsRoverApp do
     context "on startup" do
         before(:each) do
             @presenter = Presenter.new
+            @communicator = Communicator.new
             @grid = Grid.new(5, 5)
             @mars_rover = MarsRover.new
         end
@@ -14,7 +15,8 @@ describe MarsRoverApp do
             EMPTY_GRID = "This is what we think a 5x5 grid with obstacles but no rovers will look like."
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to include(EMPTY_GRID)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to include(EMPTY_GRID)
         end
 
         it "prompts the user to input coordinates and direction on startup" do
@@ -23,7 +25,8 @@ describe MarsRoverApp do
             expected_prompt = marsroverapp.REQUEST_FOR_FIRST_INPUT
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to include(expected_prompt)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to include(expected_prompt)
         end
     end
 
@@ -32,10 +35,11 @@ describe MarsRoverApp do
             # Arrange
             marsroverapp = MarsRoverApp.new
             BAD_INPUT = "!"
-            allow(@presenter).to receive(:gets).and_return("!") 
+            allow(@communicator).to receive(:gets).and_return("!") 
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
         end
     
         it "shows an error when the first movement input is invalid" do
@@ -43,10 +47,11 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
             BAD_INPUT = "*"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, BAD_INPUT)
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, BAD_INPUT)
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
         end
     
         it "shows an error when a later movement input is invalid" do
@@ -54,10 +59,11 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
             BAD_INPUT = ",,,"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, "f", "r", "l", BAD_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "f", "r", "l", BAD_INPUT) 
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
         end
     end
 
@@ -68,13 +74,15 @@ describe MarsRoverApp do
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
             mars_rover_stub = double('MarsRover')
             grid_stub = double('Grid')
+            communicator_stub = double('Communicator')
             fake_presenter = double('Presenter')
             allow(fake_presenter).to receive(:show_display(grid_stub)) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "0,0,N"
-            allow(@presenter).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
 
             # Act/Assert
-            expect{marsroverapp.start(fake_presenter, grid_stub, mars_rover_stub)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
+            expect{marsroverapp.start(fake_presenter, communicator_stub, grid_stub, mars_rover_stub)}
+                .std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
         end
     end
 
@@ -85,13 +93,15 @@ describe MarsRoverApp do
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
             mars_rover_spy = double('MarsRover')
             grid_spy = double('Grid')
+            communicator_stub = double('Communicator')
             presenter_spy = double('Presenter')
             allow(presenter_spy).to receive(:show_display(grid_spy)) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "0,0,N"
-            allow(@presenter).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
 
             # Act/Assert
-            expect{marsroverapp.start(presenter_spy, grid_spy, mars_rover_spy)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
+            expect{marsroverapp.start(presenter_spy, communicator_stub, grid_spy, mars_rover_spy)}
+                .std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
             expect(mars_rover_spy).to have_received(:x)
             expect(mars_rover_spy).to have_received(:y)
             expect(mars_rover_spy).to have_received(:direction)
@@ -105,21 +115,23 @@ describe MarsRoverApp do
             # Arrange
             marsroverapp = MarsRoverApp.new
             EXPECTED_INPUT = "0,0,N"
-            allow(@presenter).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
         end
 
         it "prompts the user to input movement or new direction after first input" do
             # Arrange
             marsroverapp = MarsRoverApp.new
-            allow(@presenter).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
             expected_prompt = marsroverapp.REQUEST_FOR_FURTHER_INPUT
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(expected_prompt)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(expected_prompt)
         end
         
         it "updates the position of a Rover when it moves forwards" do
@@ -127,11 +139,12 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
             EXPECTED_MOVE_INPUT = "f"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_ROVER = "A 5x5 grid with North-facing Rover moved forward one square from 0,0"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "updates the position of a Rover when it moves backwards" do
@@ -139,11 +152,12 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "4,4,S"
             EXPECTED_MOVE_INPUT = "b"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_ROVER = "A 5x5 grid with South-facing Rover moved backward one square from 4,4"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "updates the direction of a Rover when it turns left" do
@@ -151,11 +165,12 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
             EXPECTED_MOVE_INPUT = "l"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_ROVER = "A 5x5 grid with a West-facing Rover at 0,0"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "updates the direction of a Rover when it turns right" do
@@ -163,11 +178,12 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
             EXPECTED_MOVE_INPUT = "r"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_ROVER = "A 5x5 grid with an East-facing Rover at 0,0"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "wraps around when it moves forward off the edge of the grid" do
@@ -175,11 +191,12 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,S"
             EXPECTED_MOVE_INPUT = "f"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_ROVER = "A 5x5 grid with a South-facing Rover at 0,4"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "wraps around when it moves backwards off the edge of the grid" do
@@ -187,33 +204,36 @@ describe MarsRoverApp do
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "4,4,S"
             EXPECTED_MOVE_INPUT = "b"
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
             GRID_WITH_ROVER = "A 5x5 grid with a South-facing Rover at 4,0"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "responds to repeated movement inputs" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
-            allow(@presenter).to receive(:gets).and_return("0,0,N", "f", "r", "f", "f", "l", "b") 
+            allow(@communicator).to receive(:gets).and_return("0,0,N", "f", "r", "f", "f", "l", "b") 
             GRID_WITH_ROVER = "A 5x5 grid with a North-facing Rover at 2,0"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "responds to several movements in one input" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
-            allow(@presenter).to receive(:gets).and_return("0,0,N", "f,r,f,f,l,b") 
+            allow(@communicator).to receive(:gets).and_return("0,0,N", "f,r,f,f,l,b") 
             GRID_WITH_ROVER = "A 5x5 grid with a North-facing Rover at 2,0"
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to have_as_last_output(GRID_WITH_ROVER)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
         it "shows an error when the rover can't move forward because there is an obstacle in the way" do
@@ -222,10 +242,11 @@ describe MarsRoverApp do
             INITIAL_INPUT = "0,0,N"
             EXPECTED_MOVE_INPUT = "f"
             @grid.add_obstacle(0,1)
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.OBSTACLE_ERROR)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to eq(MarsRoverApp.OBSTACLE_ERROR)
         end
         
         it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
@@ -234,10 +255,11 @@ describe MarsRoverApp do
             INITIAL_INPUT = "4,4,N"
             EXPECTED_MOVE_INPUT = "b"
             @grid.add_obstacle(4,3)
-            allow(@presenter).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
 
             # Act/Assert
-            expect{marsroverapp.start(@presenter, @grid, @mars_rover)}.std_output.to eq(MarsRoverApp.OBSTACLE_ERROR)
+            expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover)}
+                .std_output.to eq(MarsRoverApp.OBSTACLE_ERROR)
         end
     end
 end

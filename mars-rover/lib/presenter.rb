@@ -1,21 +1,13 @@
 require "grid"
 
 class Presenter
-
     def show_display(grid)
-        puts grid.grid_array
-        puts REQUEST_FOR_INPUT
+        show_grid(grid.grid_array)
     end
 
-    def get_input(input_prompt)
-        puts input_prompt
-        stdinput = gets.chomp
-        if is_invalid?(stdinput)
-            raise StandardError.new
-        end
-    end
+    private
 
-    def is_invalid?(input)
-        # check for invalid input
+    def show_grid(grid_array)
+        puts grid_array
     end
 end

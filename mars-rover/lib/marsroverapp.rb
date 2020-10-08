@@ -5,8 +5,9 @@ class MarsRoverApp
     BAD_INPUT_ERROR = "Sorry, I don't understand that input."
     OBSTACLE_ERROR = "Oh no, I'm sorry, you can't move in that direction. There is an obstacle in the way!"
 
-    def initialize(presenter, grid, mars_rover)
+    def initialize(presenter, communicator, grid, mars_rover)
         @presenter = presenter
+        @communicator = communicator
         @grid = grid
         @mars_rover = mars_rover
     end
@@ -21,10 +22,10 @@ class MarsRoverApp
 
     def move_rover_repeatedly
         begin
-            movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
+            movement = communicator.get_input(REQUEST_FOR_FURTHER_INPUT)
             while movement do
                 move_rover(movement)
-                movement = presenter.get_input(REQUEST_FOR_FURTHER_INPUT)
+                movement = communicator.get_input(REQUEST_FOR_FURTHER_INPUT)
             end
         rescue StandardError => e
             puts BAD_INPUT_ERROR
@@ -50,7 +51,7 @@ class MarsRoverApp
 
     def start_rover
         begin
-            initial_position = presenter.get_input(REQUEST_FOR_FIRST_INPUT)
+            initial_position = communicator.get_input(REQUEST_FOR_FIRST_INPUT)
             @mars_rover.start(initial_position.split(","))
             update_display
         rescue StandardError => e
