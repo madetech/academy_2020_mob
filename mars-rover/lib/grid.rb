@@ -26,7 +26,11 @@ class Grid
     def populate_cell(mars_rover)
         # ! Can't just empty all cells any more - needs to persist obstacles
         empty_all_cells
-        grid_array[mars_rover.x][mars_rover.y] = mars_rover.direction
+        grid_array[mars_rover.x][mars_rover.y] = {
+            :direction => mars_rover.get_direction, 
+            :name => mars_rover.name,
+            :type => mars_rover.type
+        }
     end
 
     def empty_all_cells           
