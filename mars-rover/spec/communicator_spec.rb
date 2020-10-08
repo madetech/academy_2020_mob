@@ -1,7 +1,18 @@
 require_relative '../lib/communicator'
 require_relative '../lib/grid'
 
-describe Communicator do    
+describe Communicator do     
+    context "#show_message" do
+        it "outputs the specified message" do
+            # Arrange
+            communicator = described_class.new
+            EXPECTED_MESSAGE = "Here is lots of useful information for the user."
+
+            # Act/Assert
+            expect{communicator.show_message(EXPECTED_MESSAGE)}.to output(EXPECTED_MESSAGE).to_stdout
+        end
+    end 
+
     context "#get_input" do
         it "outputs the specified input prompt" do
             # Arrange

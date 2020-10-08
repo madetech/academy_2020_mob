@@ -17,7 +17,7 @@ describe NarrowScreenPresenter do
         it "converts a 5x5 grid containing obstacles and a North-facing rover into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(0, 0, MarsRover.NORTH, [1,1], [3,4])
+            fake_grid = RoverSpecHelper.make_fake_grid(0, 0, StraightLineRover.NORTH, [1,1], [3,4])
             EMPTY_GRID = "This is what we think a 5x5 grid containing obstacles and a North-facing rover will look like (see notes.md)."
 
             # Act/Assert
@@ -27,7 +27,7 @@ describe NarrowScreenPresenter do
         it "converts a 5x5 grid (containing a Mars Rover facing North) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(1, 1, MarsRover.NORTH)
+            fake_grid = RoverSpecHelper.make_fake_grid(1, 1, StraightLineRover.NORTH)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing North will look like (see notes.md)."
 
             # Act/Assert
@@ -37,7 +37,7 @@ describe NarrowScreenPresenter do
         it "converts a 5x5 grid (containing a Mars Rover facing South) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(2, 3, MarsRover.SOUTH)
+            fake_grid = RoverSpecHelper.make_fake_grid(2, 3, StraightLineRover.SOUTH)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing South will look like (see notes.md)."
 
             # Act/Assert
@@ -47,7 +47,7 @@ describe NarrowScreenPresenter do
         it "converts a 5x5 grid (containing a Mars Rover facing East) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(4, 2, MarsRover.EAST)
+            fake_grid = RoverSpecHelper.make_fake_grid(4, 2, StraightLineRover.EAST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing East will look like (see notes.md)."
 
             # Act/Assert
@@ -57,7 +57,7 @@ describe NarrowScreenPresenter do
         it "converts a 5x5 grid (containing a Mars Rover facing West) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(0, 4, MarsRover.WEST)
+            fake_grid = RoverSpecHelper.make_fake_grid(0, 4, StraightLineRover.WEST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing West will look like (see notes.md)."
 
             # Act/Assert

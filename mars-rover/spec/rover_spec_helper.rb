@@ -1,6 +1,6 @@
 class RoverSpecHelper
     def self.make_real_grid(x, y, direction)
-        mars_rover = MarsRover.new
+        mars_rover = Rover360.new
         mars_rover.start(x, y, direction)
         grid = Grid.new(5, 5)
         grid.update(mars_rover)

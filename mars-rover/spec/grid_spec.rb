@@ -39,7 +39,7 @@ describe "grid" do
             EXPECTED_Y = 3
             EXPECTED_DIRECTION = "S"
             grid = Grid.new(5, 5)
-            fake_mars_rover = double('MarsRover')
+            fake_mars_rover = double('Rover360')
             allow(fake_mars_rover).to receive(:x).and_return(EXPECTED_X)
             allow(fake_mars_rover).to receive(:y).and_return(EXPECTED_Y)
             allow(fake_mars_rover).to receive(:direction).and_return(EXPECTED_DIRECTION)
@@ -57,7 +57,7 @@ describe "grid" do
             EXPECTED_Y = 3
             EXPECTED_DIRECTION = "S"
             grid = Grid.new(5, 5)
-            fake_mars_rover = double('MarsRover')
+            fake_mars_rover = double('Rover360')
             allow(fake_mars_rover).to receive(:x).and_return(EXPECTED_X)
             allow(fake_mars_rover).to receive(:y).and_return(EXPECTED_Y)
             allow(fake_mars_rover).to receive(:direction).and_return(EXPECTED_DIRECTION)
@@ -110,7 +110,7 @@ describe "grid" do
             ROVER_X = 2
             ROVER_Y = 3
             grid = Grid.new(5, 5)
-            fake_mars_rover = double('MarsRover')
+            fake_mars_rover = double('Rover360')
             allow(fake_mars_rover).to receive(:x).and_return(ROVER_X)
             allow(fake_mars_rover).to receive(:y).and_return(ROVER_Y)
             allow(fake_mars_rover).to receive(:direction).and_return(MarsRover.SOUTH)
@@ -129,7 +129,7 @@ describe "grid" do
             OBSTACLE_Y = 3
             grid = Grid.new(5, 5)
             grid.add_obstacle(OBSTACLE_X, OBSTACLE_Y)
-            fake_mars_rover = double('MarsRover')
+            fake_mars_rover = double('Rover360')
             allow(fake_mars_rover).to receive(:x).and_return(OBSTACLE_X + 1)
             allow(fake_mars_rover).to receive(:y).and_return(OBSTACLE_Y + 1)
             allow(fake_mars_rover).to receive(:direction).and_return(MarsRover.SOUTH)

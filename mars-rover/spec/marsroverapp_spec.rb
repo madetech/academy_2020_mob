@@ -91,7 +91,7 @@ describe MarsRoverApp do
             # Arrange
             marsroverapp = MarsRoverApp.new
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
-            mars_rover_spy = spy('MarsRover')
+            mars_rover_spy = spy('Rover360')
             rover_factory_fake = double('MarsRoverFactory')
             allow(rover_factory_fake).to receive(:generate_rover).and_return(mars_rover_spy)
             grid_spy = spy('Grid')
