@@ -24,6 +24,7 @@ class Grid
     private
 
     def populate_cell(mars_rover)
+        # ! Can't just empty all cells any more - needs to persist obstacles
         empty_all_cells
         grid_array[mars_rover.x][mars_rover.y] = mars_rover.direction
     end
