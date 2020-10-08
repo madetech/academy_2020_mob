@@ -41,10 +41,10 @@ describe "grid" do
             EXPECTED_DIRECTION = "S"
             EMPTY_CELL = ""
             grid = Grid.new(5, 5)
-            fake_mars_rover = MarsRover.fake(
-                x => EXPECTED_X, 
-                y => EXPECTED_Y,
-                direction => EXPECTED_DIRECTION)
+            fake_mars_rover = double('MarsRover')
+            allow(fake_mars_rover).to receive(:x).and_return(EXPECTED_X)
+            allow(fake_mars_rover).to receive(:y).and_return(EXPECTED_Y)
+            allow(fake_mars_rover).to receive(:direction).and_return(EXPECTED_DIRECTION)
 
             # Act
             grid.update(fake_mars_rover)
@@ -60,10 +60,10 @@ describe "grid" do
             EXPECTED_DIRECTION = "S"
             EMPTY_CELL = ""
             grid = Grid.new(5, 5)
-            fake_mars_rover = MarsRover.fake(
-                x => EXPECTED_X, 
-                y => EXPECTED_Y,
-                direction => EXPECTED_DIRECTION)
+            fake_mars_rover = double('MarsRover')
+            allow(fake_mars_rover).to receive(:x).and_return(EXPECTED_X)
+            allow(fake_mars_rover).to receive(:y).and_return(EXPECTED_Y)
+            allow(fake_mars_rover).to receive(:direction).and_return(EXPECTED_DIRECTION)
 
             # Act
             grid.update(fake_mars_rover)

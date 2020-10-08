@@ -78,7 +78,7 @@ describe Presenter do
             # Arrange
             presenter = Presenter.new
             EXPECTED_INPUT = "Here's my input thx bye"
-            stub gets(EXPECTED_INPUT) 
+            allow(presenter).to receive(:gets).and_return(EXPECTED_INPUT)
 
             # Act
             user_input = presenter.get_input("Give me input pls")
@@ -93,7 +93,7 @@ describe Presenter do
             it "raises an exception when input is invalid: '#{bad_input}'" do
                 # Arrange
                 presenter = Presenter.new
-                stub gets(bad_input) 
+                allow(presenter).to receive(:gets).and_return(bad_input)
     
                 # Act & Assert
                 expect{presenter.get_input("Give me input pls")}.to raise_exception
@@ -112,7 +112,8 @@ describe Presenter do
 
     def make_fake_grid(x, y, direction, obstacle_coords_1=[], obstacle_coords_2=[])  
         fake_grid = double('Grid')
-        allow(fake_grid).to receive(:grid_array) { make_fake_grid_array(x, y, direction, obstacle_coords_1, obstacle_coords_2) } 
+        allow(fake_grid).to receive(:grid_array)
+            .and_return(make_fake_grid_array(x, y, direction, obstacle_coords_1, obstacle_coords_2))
         fake_grid
     end
 

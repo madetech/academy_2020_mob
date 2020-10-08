@@ -28,10 +28,10 @@ describe "MarsRover" do
                 # Arrange 
                 mars_rover = MarsRover.new
                 mars_rover.start(0, 0, expected_direction)        
-                fake_grid = double('Grid')
+                grid_stub = double('Grid')
                 
                 # Act
-                mars_rover.move(movement, fake_grid)
+                mars_rover.move(movement, grid_stub)
 
                 # Assert
                 expect(mars_rover.direction).to eq(expected_direction)
@@ -52,10 +52,10 @@ describe "MarsRover" do
                 # Arrange 
                 mars_rover = MarsRover.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)        
-                fake_grid = double('Grid')
+                grid_stub = double('Grid')
                 
                 # Act
-                mars_rover.move(movement, fake_grid)
+                mars_rover.move(movement, grid_stub)
 
                 # Assert
                 expect(mars_rover.x).to eq(expected_pos[:x])
@@ -119,10 +119,10 @@ describe "MarsRover" do
                 # Arrange 
                 mars_rover = MarsRover.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)        
-                fake_grid = double('Grid')
+                grid_stub = double('Grid')
                 
                 # Act
-                mars_rover.move(movement, fake_grid)
+                mars_rover.move(movement, grid_stub)
 
                 # Assert
                 expect(mars_rover.x).to eq(expected_pos[:x])
@@ -136,7 +136,7 @@ describe "MarsRover" do
                 mars_rover = MarsRover.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)          
                 fake_grid = double('Grid')
-                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])) { true }               
+                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])).and_return(true)               
 
                 # Act & Assert
                 expect{mars_rover.move(movement, fake_grid)}.to raise_exception
@@ -149,7 +149,7 @@ describe "MarsRover" do
                 mars_rover = MarsRover.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)          
                 fake_grid = double('Grid')
-                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])) { true }               
+                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])).and_return(true)
 
                 # Act & Assert
                 expect{mars_rover.move(movement, fake_grid)}.to raise_exception
