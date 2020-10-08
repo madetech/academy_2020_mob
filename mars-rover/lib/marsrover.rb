@@ -1,5 +1,5 @@
 class MarsRover
-    attr_accessor :x, :y, :direction
+    attr_accessor :x, :y, :direction, :name
 
     EAST = "E"
     WEST = "W"
@@ -7,6 +7,10 @@ class MarsRover
     SOUTH = "S"
     FORWARD = "f"
     BACKWARD = "b"
+
+    def initialize(name)
+        @name = name
+    end
 
     def start(x, y, direction)
         @x = x
