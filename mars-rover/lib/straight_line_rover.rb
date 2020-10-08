@@ -1,7 +1,7 @@
 require 'grid'
 
 class StraightLineRover
-    attr_accessor :x, :y, :direction, :name, :type
+    attr_accessor :x, :y, :direction, :name, :type,
 
     NORTH = "N"
     SOUTH = "S"
@@ -21,6 +21,7 @@ class StraightLineRover
         @x = x
         @y = y
         @direction = direction
+        @direction_object = new StraightLineDirection(@direction)
         # throw error if direction is east or west
         # this error will need to be caught and handled higher up the call chain
     end
@@ -56,5 +57,9 @@ class StraightLineRover
 
     def go_south
         # to do: implement
+    end
+
+    def get_direction_object
+        @direction_object
     end
 end

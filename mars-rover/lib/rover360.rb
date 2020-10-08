@@ -12,6 +12,7 @@ class Rover360 < StraightLineRover
         @x = x
         @y = y
         @direction = direction
+        @direction_object = new CompassDirection(@direction)
     end
 
     def turn(turn)
@@ -26,5 +27,9 @@ class Rover360 < StraightLineRover
 
     def go_west
         # to do: implement
+    end
+
+    def get_direction_object
+        @direction_object
     end
 end
