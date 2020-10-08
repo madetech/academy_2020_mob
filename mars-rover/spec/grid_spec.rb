@@ -105,6 +105,24 @@ describe "grid" do
             expect(result).to eq(true)
         end
 
+        it "will count a Mars Rover as an obstacle" do
+            # Arrange
+            ROVER_X = 2
+            ROVER_Y = 3
+            grid = Grid.new(5, 5)
+            fake_mars_rover = double('MarsRover')
+            allow(fake_mars_rover).to receive(:x).and_return(ROVER_X)
+            allow(fake_mars_rover).to receive(:y).and_return(ROVER_Y)
+            allow(fake_mars_rover).to receive(:direction).and_return(MarsRover.SOUTH)
+            grid.update(fake_mars_rover)
+
+            # Act
+            result = grid.contains_obstacle?(ROVER_X, ROVER_Y)
+
+            # Assert
+            expect(result).to eq(true)
+        end
+
         it "will maintain obstacles when updating the display" do
             # Arrange
             OBSTACLE_X = 2

@@ -18,7 +18,7 @@ class Grid
     end
 
     def contains_obstacle?(x, y)
-        grid_array[x][y] == OBSTACLE
+        grid_array[x][y] != EMPTY_CELL
     end
 
     private
