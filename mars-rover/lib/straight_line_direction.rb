@@ -4,10 +4,10 @@ class StraightLineDirection
     end
 
     def is_north?
-        @direction == StraightLineRover.NORTH
+        @direction == StraightLineRover::NORTH
     end
 
     def is_south?
-        @direction == StraightLineRover.SOUTH
+        @direction == StraightLineRover::SOUTH
     end
 end
