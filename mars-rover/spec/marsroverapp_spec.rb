@@ -99,7 +99,7 @@ describe MarsRoverApp do
             grid_stub = double('Grid')
             communicator_stub = double('Communicator')
             fake_presenter = double('Presenter')
-            allow(fake_presenter).to receive(:show_display(grid_stub)) {puts GRID_WITH_NEW_ROVER}
+            allow(fake_presenter).to receive(:show_display).with(grid_stub) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "0,0,N"
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
 
@@ -120,7 +120,7 @@ describe MarsRoverApp do
             grid_spy = spy('Grid')
             communicator_stub = double('Communicator')
             presenter_spy = spy('Presenter')
-            allow(presenter_spy).to receive(:show_display(grid_spy)) {puts GRID_WITH_NEW_ROVER}
+            allow(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "0,0,N"
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
 

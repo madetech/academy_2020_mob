@@ -56,7 +56,7 @@ class MarsRoverApp
         instructions = instructions.split(",")
         rover_name = instructions[0]
         instructions.shift # removes first element
-        instructions.each |movement| do  
+        instructions.each do |movement|   
             process_movement(movement, rover_name)
         end
     end

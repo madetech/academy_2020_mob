@@ -1,6 +1,6 @@
 require "grid"
 
-class Presenter
+class WideScreenPresenter
     def show_display(grid)
         show_wide_screen_grid(grid.grid_array)
     end

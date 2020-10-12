@@ -136,7 +136,7 @@ describe "Rover360" do
                 mars_rover = described_class.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)          
                 fake_grid = double('Grid')
-                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])).and_return(true)               
+                allow(fake_grid).to receive(contains_obstacle?).with(expected_pos[:x], expected_pos[:y]).and_return(true)               
 
                 # Act & Assert
                 expect{mars_rover.move(movement, fake_grid)}.to raise_exception
@@ -149,7 +149,7 @@ describe "Rover360" do
                 mars_rover = described_class.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)          
                 fake_grid = double('Grid')
-                allow(fake_grid).to receive(contains_obstacle?(expected_pos[:x], expected_pos[:y])).and_return(true)
+                allow(fake_grid).to receive(contains_obstacle?).with(expected_pos[:x], expected_pos[:y]).and_return(true)
 
                 # Act & Assert
                 expect{mars_rover.move(movement, fake_grid)}.to raise_exception

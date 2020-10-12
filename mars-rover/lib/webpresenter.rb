@@ -9,7 +9,7 @@ class WebPresenter
         @grid_array = make_grid(width, height)
     end
 
-    def update(mars_rover
+    def update(mars_rover)
     end
 
     def add_obstacle(x, y)
