@@ -12,6 +12,6 @@ class Communicator
     end
 
     def is_invalid?(input)
-        # check for invalid input
+        false
     end
 end
