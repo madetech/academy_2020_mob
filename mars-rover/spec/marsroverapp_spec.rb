@@ -11,15 +11,38 @@ describe MarsRoverApp do
 
         it "displays an empty 5x5 grid containing obstacles on startup" do
             # Arrange
-            marsroverapp = MarsRoverApp.new            
-            EMPTY_GRID = "This is what we think a 5x5 grid with obstacles but no rovers will look like."
+            marsroverapp = MarsRoverApp.new  
+            @grid.add_obstacle(3,2)
+            @grid.add_sky_high_obstacle(2,3)          
+            EMPTY_GRID = "
+            -------------------------------
+            |     |     |     |     |     |
+            |     |     |     |     |     |
+            |     |     |     |     |     |
+            -------------------------------
+            |     |     | SKY |     |     |
+            |     |     |  X  |     |     |
+            |     |     | HIGH|     |     |
+            -------------------------------
+            |     |     |     | X X |     |
+            |     |     |     |  X  |     |
+            |     |     |     | X X |     |
+            -------------------------------
+            |     |     |     |     |     |
+            |     |     |     |     |     |
+            |     |     |     |     |     |
+            -------------------------------
+            |     |     |     |     |     |
+            |     |     |     |     |     |
+            |     |     |     |     |     |
+            -------------------------------"
 
             # Act/Assert
             expect{marsroverapp.start(@presenter, @communicator, @grid, @mars_rover_factory)}
                 .std_output.to include(EMPTY_GRID)
         end
 
-        it "prompts the user to input coordinates and direction on startup" do
+        xit "prompts the user to input coordinates and direction on startup" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             expected_prompt = marsroverapp.REQUEST_FOR_FIRST_INPUT
@@ -31,7 +54,7 @@ describe MarsRoverApp do
     end
 
     context "detecting invalid input" do
-        it "shows an error when the initial input is invalid" do
+        xit "shows an error when the initial input is invalid" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             BAD_INPUT = "!"
@@ -42,7 +65,7 @@ describe MarsRoverApp do
                 .std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
         end
     
-        it "shows an error when the first movement input is invalid" do
+        xit "shows an error when the first movement input is invalid" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -54,7 +77,7 @@ describe MarsRoverApp do
                 .std_output.to eq(MarsRoverApp.BAD_INPUT_ERROR)
         end
     
-        it "shows an error when a later movement input is invalid" do
+        xit "shows an error when a later movement input is invalid" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -68,7 +91,7 @@ describe MarsRoverApp do
     end
 
     context "when moving (using test doubles)" do
-        it "displays the position of a Rover when given position" do
+        xit "displays the position of a Rover when given position" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
@@ -87,7 +110,7 @@ describe MarsRoverApp do
     end
 
     context "when moving (using test spies)" do
-        it "uses the rover, the grid and the presenter to update the Rover's position" do
+        xit "uses the rover, the grid and the presenter to update the Rover's position" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
@@ -113,7 +136,7 @@ describe MarsRoverApp do
     end
 
     context "when moving (proper end to end test)" do
-        it "displays the position of a Rover when given position" do
+        xit "displays the position of a Rover when given position" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             EXPECTED_INPUT = "0,0,N"
@@ -125,7 +148,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_NEW_ROVER)
         end
 
-        it "prompts the user to input movement or new direction after first input" do
+        xit "prompts the user to input movement or new direction after first input" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
@@ -136,7 +159,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(expected_prompt)
         end
         
-        it "updates the position of a Rover when it moves forwards" do
+        xit "updates the position of a Rover when it moves forwards" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -149,7 +172,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "updates the position of a Rover when it moves backwards" do
+        xit "updates the position of a Rover when it moves backwards" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "4,4,S"
@@ -162,7 +185,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "updates the direction of a Rover when it turns left" do
+        xit "updates the direction of a Rover when it turns left" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -175,7 +198,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "updates the direction of a Rover when it turns right" do
+        xit "updates the direction of a Rover when it turns right" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -188,7 +211,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "wraps around when it moves forward off the edge of the grid" do
+        xit "wraps around when it moves forward off the edge of the grid" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,S"
@@ -201,7 +224,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "wraps around when it moves backwards off the edge of the grid" do
+        xit "wraps around when it moves backwards off the edge of the grid" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "4,4,S"
@@ -214,7 +237,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "responds to repeated movement inputs" do
+        xit "responds to repeated movement inputs" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -226,7 +249,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "responds to several movements in one input" do
+        xit "responds to several movements in one input" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -238,7 +261,7 @@ describe MarsRoverApp do
                 .std_output.to have_as_last_output(GRID_WITH_ROVER)
         end
         
-        it "shows an error when the rover can't move forward because there is an obstacle in the way" do
+        xit "shows an error when the rover can't move forward because there is an obstacle in the way" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "0,0,N"
@@ -251,7 +274,7 @@ describe MarsRoverApp do
                 .std_output.to eq(MarsRoverApp.OBSTACLE_ERROR)
         end
         
-        it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
+        xit "shows an error when the rover can't move backwards because there is an obstacle in the way" do
             # Arrange
             marsroverapp = MarsRoverApp.new
             INITIAL_INPUT = "4,4,N"

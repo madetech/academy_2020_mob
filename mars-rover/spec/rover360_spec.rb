@@ -2,7 +2,7 @@ require_relative '../lib/rover360'
 
 describe "Rover360" do
     context "#start" do
-        it "sets position and direction according to data passed in" do
+        xit "sets position and direction according to data passed in" do
             # Arrange 
             EXPECTED_X = 4
             EXPECTED_Y = 5
@@ -24,7 +24,7 @@ describe "Rover360" do
                             [StraightLineRover.BACKWARD, StraightLineRover.SOUTH]]
 
         directions.each do |movement, expected_direction|
-            it "will not change direction given input '#{movement}'" do
+            xit "will not change direction given input '#{movement}'" do
                 # Arrange 
                 mars_rover = described_class.new
                 mars_rover.start(0, 0, expected_direction)        
@@ -48,7 +48,7 @@ describe "Rover360" do
                           [StraightLineRover.BACKWARD, StraightLineRover.WEST, {:x=>0,:y=>0}, {:x=>1,:y=>0}]]
 
         all_directions.each do |movement, direction, start_pos, expected_pos|
-            it "will move up one square given input '#{movement}' and direction '#{direction}'" do
+            xit "will move up one square given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 mars_rover = described_class.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)        
@@ -66,7 +66,7 @@ describe "Rover360" do
         simple_turns = [StraightLineRover.LEFT, StraightLineRover.RIGHT]
 
         simple_turns.each do |turn|
-            it "will not change position given input '#{turn}'" do
+            xit "will not change position given input '#{turn}'" do
                 # Arrange 
                 START_X = 0
                 START_Y = 0
@@ -92,7 +92,7 @@ describe "Rover360" do
                     [StraightLineRover.RIGHT, StraightLineRover.WEST, StraightLineRover.NORTH]]
 
         all_turns.each do |movement, direction, expected_direction|
-            it "will change direction to '#{expected_direction}' given input '#{movement}' and direction '#{direction}'" do
+            xit "will change direction to '#{expected_direction}' given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 mars_rover = described_class.new
                 mars_rover.start(0, 0, direction)
@@ -115,7 +115,7 @@ describe "Rover360" do
                                 [StraightLineRover.BACKWARD, StraightLineRover.WEST,  {:x=>4,:y=>4}, {:x=>0,:y=>4}]]
 
         all_ways_off_the_edge.each do |movement, direction, start_pos, expected_pos|
-            it "will move up one square given input '#{movement}' and direction '#{direction}'" do
+            xit "will move up one square given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 mars_rover = described_class.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)        
@@ -131,7 +131,7 @@ describe "Rover360" do
         end
         
         all_ways_off_the_edge.each do |movement, direction, start_pos, expected_pos|
-            it "will raise an exception if there is an obstacle over the edge, given input '#{movement}' and direction '#{direction}'" do
+            xit "will raise an exception if there is an obstacle over the edge, given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 mars_rover = described_class.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)          
@@ -144,7 +144,7 @@ describe "Rover360" do
         end
         
         all_directions.each do |movement, direction, start_pos, expected_pos|
-            it "will raise an exception if there is an obstacle in the way, given input '#{movement}' and direction '#{direction}'" do
+            xit "will raise an exception if there is an obstacle in the way, given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 mars_rover = described_class.new
                 mars_rover.start(start_pos[:x], start_pos[:y], direction)          

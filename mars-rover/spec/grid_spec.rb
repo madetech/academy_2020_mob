@@ -2,7 +2,7 @@ require_relative '../lib/grid'
 
 describe "grid" do
     context "grid initialization" do
-        it "initializes a grid to the passed-in dimensions" do
+        xit "initializes a grid to the passed-in dimensions" do
             # Arrange
             EXPECTED_WIDTH = 5
             EXPECTED_HEIGHT = 5
@@ -15,7 +15,7 @@ describe "grid" do
             expect(grid.grid_array.height).to eq(EXPECTED_HEIGHT)
         end
 
-        it "initializes a grid with all cells empty" do
+        xit "initializes a grid with all cells empty" do
             # Arrange
             WIDTH = 5
             HEIGHT = 5
@@ -33,7 +33,7 @@ describe "grid" do
     end
     
     context "grid update" do
-        it "updates a grid to add the position and direction of the passed-in rover" do
+        xit "updates a grid to add the position and direction of the passed-in rover" do
             # Arrange
             EXPECTED_X = 2
             EXPECTED_Y = 3
@@ -51,7 +51,7 @@ describe "grid" do
             expect(grid.grid_array[EXPECTED_X, EXPECTED_Y]).to eq(EXPECTED_DIRECTION)  
         end
 
-        it "only populates one grid cell when passed a rover" do
+        xit "only populates one grid cell when passed a rover" do
             # Arrange
             EXPECTED_X = 2
             EXPECTED_Y = 3
@@ -78,7 +78,7 @@ describe "grid" do
     end
     
     context "obstacle management" do
-        it "will add an obstacle" do
+        xit "will add an obstacle" do
             # Arrange
             OBSTACLE_X = 4
             OBSTACLE_Y = 1
@@ -91,7 +91,7 @@ describe "grid" do
             expect(grid.grid_array[OBSTACLE_X, OBSTACLE_Y]).to eq(Grid.OBSTACLE)
         end
 
-        it "will indicate when an obstacle is present" do
+        xit "will indicate when an obstacle is present" do
             # Arrange
             OBSTACLE_X = 2
             OBSTACLE_Y = 3
@@ -105,7 +105,7 @@ describe "grid" do
             expect(result).to eq(true)
         end
 
-        it "will count a Mars Rover as an obstacle" do
+        xit "will count a Mars Rover as an obstacle" do
             # Arrange
             ROVER_X = 2
             ROVER_Y = 3
@@ -123,7 +123,7 @@ describe "grid" do
             expect(result).to eq(true)
         end
 
-        it "will maintain obstacles when updating the display" do
+        xit "will maintain obstacles when updating the display" do
             # Arrange
             OBSTACLE_X = 2
             OBSTACLE_Y = 3

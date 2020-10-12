@@ -3,7 +3,7 @@ require_relative '../lib/grid'
 
 describe Communicator do     
     context "#show_message" do
-        it "outputs the specified message" do
+        xit "outputs the specified message" do
             # Arrange
             communicator = described_class.new
             EXPECTED_MESSAGE = "Here is lots of useful information for the user."
@@ -14,7 +14,7 @@ describe Communicator do
     end 
 
     context "#get_input" do
-        it "outputs the specified input prompt" do
+        xit "outputs the specified input prompt" do
             # Arrange
             communicator = described_class.new
             EXPECTED_INPUT_PROMPT = "Give me some input pretty pls"
@@ -23,7 +23,7 @@ describe Communicator do
             expect{communicator.get_input(EXPECTED_INPUT_PROMPT)}.to output(EXPECTED_INPUT_PROMPT).to_stdout
         end
         
-        it "returns stdin" do
+        xit "returns stdin" do
             # Arrange
             communicator = described_class.new
             EXPECTED_INPUT = "Here's my input thx bye"
@@ -39,7 +39,7 @@ describe Communicator do
         bad_inputs = ["!", "*"] # plus a lot more examples of bad input
         
         bad_inputs.each do |bad_input|
-            it "raises an exception when input is invalid: '#{bad_input}'" do
+            xit "raises an exception when input is invalid: '#{bad_input}'" do
                 # Arrange
                 communicator = described_class.new
                 allow(communicator).to receive(:gets).and_return(bad_input)

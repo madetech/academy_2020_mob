@@ -79,3 +79,4 @@ WIDE SCREEN - ALTERNATIVE WAYS OF POPULATING CELLS:
 |     | JAN |     | ENA |     |
 |     | --> |     | <-- |     |
 |     |     |     |     |     |
+-------------------------------
