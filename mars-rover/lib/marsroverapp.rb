@@ -10,14 +10,15 @@ class MarsRoverApp
         @presenter = presenter
         @communicator = communicator
         @grid = grid
+        @mars_rover_factory = mars_rover_factory
         @mars_rovers = Hash.new
     end
 
     def start
         begin
             @presenter.show_display(@grid)
-            communicator.show_message(USER_INFORMATION)
-            new_rover = communicator.get_input(REQUEST_FOR_FIRST_INPUT).split(",")            
+            @communicator.show_message(USER_INFORMATION)
+            new_rover = convert_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
             start_rover(new_rover)
             move_rover_repeatedly
         rescue StandardError => e
@@ -31,17 +32,28 @@ class MarsRoverApp
 
     private
 
+    def convert_input(new_rover)
+        new_rover = new_rover.split(',')
+        new_rover = {
+            name: new_rover[0],
+            type: new_rover[1],           
+            x: new_rover[2],
+            y: new_rover[3],
+            direction: new_rover[4]
+        }
+    end
+
     def move_rover_repeatedly
         instructions = ask_for_further_input
-        while instructions do
+        while !instructions.empty? do
             process_instructions(instructions)
             instructions = ask_for_further_input
         end
     end
 
     def ask_for_further_input
-        communicator.show_message(USER_INFORMATION)
-        instructions = communicator.get_input(REQUEST_FOR_FURTHER_INPUT)
+        @communicator.show_message(USER_INFORMATION)
+        instructions = @communicator.get_input(REQUEST_FOR_FURTHER_INPUT)
     end
 
     def process_instructions(instructions)
@@ -54,7 +66,7 @@ class MarsRoverApp
 
     def move_rover(instructions)  
         instructions = instructions.split(",")
-        rover_name = instructions[0]
+        rover_name = instructions[:name]
         instructions.shift # removes first element
         instructions.each do |movement|   
             process_movement(movement, rover_name)
@@ -78,7 +90,7 @@ class MarsRoverApp
         if (@grid.contains_obstacle?(new_rover[:x], new_rover[:y]))
             puts OBSTACLE_ERROR
         else
-            rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
+            rover = @mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
             rover.start(new_rover[:x], new_rover[:y], new_rover[:direction])
             update_display(rover)
             @mars_rovers[new_rover[:name]] = rover

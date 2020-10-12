@@ -16,6 +16,7 @@ describe MarsRoverApp do
 
         it "displays an empty 5x5 grid containing obstacles on startup" do
             # Arrange
+            INITIAL_INPUT = "ANN,360,0,0,N"
             @grid.add_obstacle(3,2)
             @grid.add_sky_high_obstacle(2,3)          
             EMPTY_GRID = "
@@ -40,6 +41,7 @@ describe MarsRoverApp do
             |     |     |     |     |     |
             |     |     |     |     |     |
             -------------------------------"
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "")
 
             # Act/Assert
             expect{@mars_rover_app.start}.to output(EMPTY_GRID).to_stdout
@@ -47,7 +49,9 @@ describe MarsRoverApp do
 
         xit "prompts the user to input coordinates and direction on startup" do
             # Arrange
+            INITIAL_INPUT = "ANN,360,0,0,N"
             expected_prompt = MarsRoverApp::REQUEST_FOR_FIRST_INPUT
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "")
 
             # Act/Assert
             expect{@mars_rover_app.start}.to output(expected_prompt).to_stdout
@@ -66,9 +70,9 @@ describe MarsRoverApp do
     
         xit "shows an error when the first movement input is invalid" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
+            INITIAL_INPUT = "ANN,360,0,0,N"
             BAD_INPUT = "*"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, BAD_INPUT)
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, BAD_INPUT, "")
 
             # Act/Assert
             expect{@mars_rover_app.start}.to output(MarsRoverApp::BAD_INPUT_ERROR).to_stdout
@@ -76,9 +80,9 @@ describe MarsRoverApp do
     
         xit "shows an error when a later movement input is invalid" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
+            INITIAL_INPUT = "ANN,360,0,0,N"
             BAD_INPUT = ",,,"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "f", "r", "l", BAD_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "f", "r", "l", BAD_INPUT, "") 
 
             # Act/Assert
             expect{@mars_rover_app.start}.to output(MarsRoverApp::BAD_INPUT_ERROR).to_stdout
@@ -94,7 +98,7 @@ describe MarsRoverApp do
             communicator_stub = double('Communicator')
             fake_presenter = double('Presenter')
             allow(fake_presenter).to receive(:show_display).with(grid_stub) {puts GRID_WITH_NEW_ROVER}
-            EXPECTED_INPUT = "0,0,N"
+            EXPECTED_INPUT = "ANN,360,0,0,N"
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
             mars_rover_app = MarsRoverApp.new(fake_presenter, communicator_stub, grid_stub, rover_factory_stub)
 
@@ -114,7 +118,7 @@ describe MarsRoverApp do
             communicator_stub = double('Communicator')
             presenter_spy = spy('Presenter')
             allow(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
-            EXPECTED_INPUT = "0,0,N"
+            EXPECTED_INPUT = "ANN,360,0,0,N"
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
             mars_rover_app = MarsRoverApp.new(presenter_spy, communicator_stub, grid_spy, rover_factory_fake)
 
@@ -131,7 +135,7 @@ describe MarsRoverApp do
     context "when moving (proper end to end test)" do
         xit "displays the position of a Rover when given position" do
             # Arrange
-            EXPECTED_INPUT = "0,0,N"
+            EXPECTED_INPUT = "ANN,360,0,0,N"
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
 
@@ -150,9 +154,9 @@ describe MarsRoverApp do
         
         xit "updates the position of a Rover when it moves forwards" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
+            INITIAL_INPUT = "ANN,360,0,0,N"
             EXPECTED_MOVE_INPUT = "f"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
             GRID_WITH_ROVER = "A 5x5 grid with North-facing Rover moved forward one square from 0,0"
 
             # Act/Assert
@@ -163,7 +167,7 @@ describe MarsRoverApp do
             # Arrange
             INITIAL_INPUT = "4,4,S"
             EXPECTED_MOVE_INPUT = "b"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
             GRID_WITH_ROVER = "A 5x5 grid with South-facing Rover moved backward one square from 4,4"
 
             # Act/Assert
@@ -172,9 +176,9 @@ describe MarsRoverApp do
         
         xit "updates the direction of a Rover when it turns left" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
+            INITIAL_INPUT = "ANN,360,0,0,N"
             EXPECTED_MOVE_INPUT = "l"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
             GRID_WITH_ROVER = "A 5x5 grid with a West-facing Rover at 0,0"
 
             # Act/Assert
@@ -183,9 +187,9 @@ describe MarsRoverApp do
         
         xit "updates the direction of a Rover when it turns right" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
+            INITIAL_INPUT = "ANN,360,0,0,N"
             EXPECTED_MOVE_INPUT = "r"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
             GRID_WITH_ROVER = "A 5x5 grid with an East-facing Rover at 0,0"
 
             # Act/Assert
@@ -196,7 +200,7 @@ describe MarsRoverApp do
             # Arrange
             INITIAL_INPUT = "0,0,S"
             EXPECTED_MOVE_INPUT = "f"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
             GRID_WITH_ROVER = "A 5x5 grid with a South-facing Rover at 0,4"
 
             # Act/Assert
@@ -207,7 +211,7 @@ describe MarsRoverApp do
             # Arrange
             INITIAL_INPUT = "4,4,S"
             EXPECTED_MOVE_INPUT = "b"
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
             GRID_WITH_ROVER = "A 5x5 grid with a South-facing Rover at 4,0"
 
             # Act/Assert
@@ -216,8 +220,8 @@ describe MarsRoverApp do
         
         xit "responds to repeated movement inputs" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
-            allow(@communicator).to receive(:gets).and_return("0,0,N", "f", "r", "f", "f", "l", "b") 
+            INITIAL_INPUT = "ANN,360,0,0,N"
+            allow(@communicator).to receive(:gets).and_return("ANN,360,0,0,N", "f", "r", "f", "f", "l", "b") 
             GRID_WITH_ROVER = "A 5x5 grid with a North-facing Rover at 2,0"
 
             # Act/Assert
@@ -226,8 +230,8 @@ describe MarsRoverApp do
         
         xit "responds to several movements in one input" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
-            allow(@communicator).to receive(:gets).and_return("0,0,N", "f,r,f,f,l,b") 
+            INITIAL_INPUT = "ANN,360,0,0,N"
+            allow(@communicator).to receive(:gets).and_return("ANN,360,0,0,N", "f,r,f,f,l,b") 
             GRID_WITH_ROVER = "A 5x5 grid with a North-facing Rover at 2,0"
 
             # Act/Assert
@@ -236,10 +240,10 @@ describe MarsRoverApp do
         
         xit "shows an error when the rover can't move forward because there is an obstacle in the way" do
             # Arrange
-            INITIAL_INPUT = "0,0,N"
+            INITIAL_INPUT = "ANN,360,0,0,N"
             EXPECTED_MOVE_INPUT = "f"
             @grid.add_obstacle(0,1)
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
 
             # Act/Assert
             expect{@mars_rover_app.start}.to output(MarsRoverApp::OBSTACLE_ERROR).to_stdout
@@ -250,7 +254,7 @@ describe MarsRoverApp do
             INITIAL_INPUT = "4,4,N"
             EXPECTED_MOVE_INPUT = "b"
             @grid.add_obstacle(4,3)
-            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, EXPECTED_MOVE_INPUT, "") 
 
             # Act/Assert
             expect{@mars_rover_app.start}.to output(MarsRoverApp::OBSTACLE_ERROR).to_stdout
