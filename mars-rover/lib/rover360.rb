@@ -4,6 +4,9 @@ require 'straight_line_rover'
 class Rover360 < StraightLineRover
     attr_accessor :x, :y, :direction, :name, :type
 
+    LEFT = "l"
+    RIGHT = "r"
+
     def initialize(name)
         super(name)
         @type = ROVER_360

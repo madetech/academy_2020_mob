@@ -1,9 +1,13 @@
+require_relative '../lib/wide_screen_presenter'
+require_relative '../lib/communicator'
+require_relative '../lib/grid'
+require_relative '../lib/mars_rover_factory'
 require_relative '../lib/marsroverapp'
 
 describe MarsRoverApp do
     context "on startup" do
         before(:each) do
-            @presenter = Presenter.new
+            @presenter = WideScreenPresenter.new
             @communicator = Communicator.new
             @grid = Grid.new(5, 5)
             @mars_rover_factory = MarsRoverFactory.new

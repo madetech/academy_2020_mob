@@ -1,7 +1,7 @@
 # To Implement:
 
-- Test params etc? I'm so used to strongly typed languages I expect a lot of things to be caught by the compiler, but that won't happen in Ruby!
-- Different types of rover
+- The marsroverapp_spec should test narrow screen too?
+- Should be testing the method params etc? I'm so used to strongly typed languages I expect a lot of things to be caught by the compiler, but that won't happen in Ruby!
 
 
 WIDE SCREEN MARS ROVER:
