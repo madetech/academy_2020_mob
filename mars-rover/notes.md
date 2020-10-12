@@ -1,6 +1,7 @@
 # To Implement:
 
 - The marsroverapp_spec should test narrow screen too?
+- Check the width and height are the right way around in Grid.make_grid for a rectangular grid.
 - Should be testing the method params etc? I'm so used to strongly typed languages I expect a lot of things to be caught by the compiler, but that won't happen in Ruby!
 
 

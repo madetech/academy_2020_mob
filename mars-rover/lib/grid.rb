@@ -51,6 +51,6 @@ class Grid
     end
 
     def make_grid (width, height)
-        # build a (width x height) empty data structure
+        Array.new(width){ Array.new(height) { "" } }
     end
 end
