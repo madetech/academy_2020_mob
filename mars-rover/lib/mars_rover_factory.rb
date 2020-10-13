@@ -1,6 +1,6 @@
-require 'straight_line_rover'
-require 'rover360'
-require 'flying_rover'
+require_relative 'straight_line_rover'
+require_relative 'rover360'
+require_relative 'flying_rover'
 
 class MarsRoverFactory
     def generate_rover(name, type)

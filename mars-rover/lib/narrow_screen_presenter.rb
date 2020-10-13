@@ -1,5 +1,3 @@
-require "grid"
-
 class NarrowScreenPresenter
     def show_display(grid)
         show_narrow_screen_grid(grid.grid_array)

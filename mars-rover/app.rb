@@ -12,10 +12,39 @@ grid.add_obstacle(3,2)
 grid.add_sky_high_obstacle(2,3)
 wide_screen_presenter = WideScreenPresenter.new
 narrow_screen_presenter = NarrowScreenPresenter.new
-web_presenter = WebPresenter.new
+web_presenter = WebPresenter.new(5, 5)
 communicator = Communicator.new
 
-user_choice = ask_user_which_presenter_they_prefer
+define_method :choose_presenter do
+    case ask_user_which_presenter_they_prefer
+        when :wide_screen
+            {   
+                :presenter => wide_screen_presenter,
+                :communicator => communicator,
+                :grid => grid
+            }
+        when :narrow_screen
+            {   
+                :presenter => narrow_screen_presenter,
+                :communicator => communicator,
+                :grid => grid
+            }
+        when :web
+            {   
+                :presenter => web_presenter,
+                :communicator => web_presenter,
+                :grid => web_presenter
+            }
+    end
+end
+
+define_method :ask_user_which_presenter_they_prefer do
+    # ask user to decide between the multiple types of presenter
+    # For now, defaulting to wide screen.
+    :wide_screen
+end
+
+user_choice = choose_presenter
 
 my_app = MarsRoverApp.new(
     user_choice[:presenter], 
@@ -24,32 +53,3 @@ my_app = MarsRoverApp.new(
     mars_rover_factory)
 
 my_app.start
-
-def choose_presenter
-    case ask_user_which_presenter_they_prefer
-    when :wide_screen
-        {   
-            :presenter => wide_screen_presenter,
-            :communicator => communicator,
-            :grid => grid
-        }
-    when :narrow_screen
-        {   
-            :presenter => narrow_screen_presenter,
-            :communicator => communicator,
-            :grid => grid
-        }
-    when :web
-        {   
-            :presenter => web_presenter,
-            :communicator => web_presenter,
-            :grid => web_presenter
-        }
-    end
-end
-
-def ask_user_which_presenter_they_prefer
-    # ask user to decide between the multiple types of presenter
-    # For now, defaulting to wide screen.
-    :wide_screen_presenter
-end

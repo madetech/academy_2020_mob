@@ -1,4 +1,4 @@
-require 'straight_line_rover'
+require_relative 'straight_line_rover'
 
 class WideScreenGrid 
     HORIZONTAL_WALL = "------"

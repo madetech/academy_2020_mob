@@ -1,5 +1,5 @@
-require 'grid'
-require 'straight_line_rover'
+require_relative 'grid'
+require_relative 'straight_line_rover'
 
 class Rover360 < StraightLineRover
     attr_accessor :x, :y, :direction, :name, :type

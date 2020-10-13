@@ -1,4 +1,4 @@
-require "wide_screen_grid"
+require_relative "wide_screen_grid"
 
 class WideScreenPresenter
     def initialize
