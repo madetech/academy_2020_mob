@@ -22,10 +22,12 @@ class MarsRoverApp
             start_rover(new_rover)
             move_rover_repeatedly
         rescue StandardError => e
+            puts e.message
+        rescue BadInputException => e            
             puts BAD_INPUT_ERROR
-        rescue ObstacleError => e
+        rescue ObstacleException => e
             puts OBSTACLE_ERROR
-        rescue SkyHighObstacleError => e
+        rescue SkyHighObstacleException => e
             puts SKY_HIGH_OBSTACLE_ERROR
         end
     end
