@@ -26,7 +26,7 @@ describe "grid" do
             # Assert            
             for row in 0...HEIGHT 
                 for col in 0...WIDTH 
-                    expect(grid.grid_array[row, col]).to eq(Grid.EMPTY_CELL)
+                    expect(grid.grid_array[row][col]).to eq(Grid::EMPTY_CELL)
                 end
             end
         end
@@ -48,7 +48,7 @@ describe "grid" do
             grid.update(fake_mars_rover)
 
             # Assert
-            expect(grid.grid_array[EXPECTED_X, EXPECTED_Y]).to eq(EXPECTED_DIRECTION)  
+            expect(grid.grid_array[EXPECTED_X][EXPECTED_Y]).to eq(EXPECTED_DIRECTION)  
         end
 
         xit "only populates one grid cell when passed a rover" do
@@ -66,11 +66,11 @@ describe "grid" do
             grid.update(fake_mars_rover)
 
             # Assert
-            expect(grid.grid_array[EXPECTED_X, EXPECTED_Y]).to eq(EXPECTED_DIRECTION)          
+            expect(grid.grid_array[EXPECTED_X][EXPECTED_Y]).to eq(EXPECTED_DIRECTION)          
             for row in 0...HEIGHT 
                 for col in 0...WIDTH 
                     if (row != EXPECTED_Y && col != EXPECTED_X)
-                        expect(grid.grid_array[row, col]).to eq(Grid.EMPTY_CELL)
+                        expect(grid.grid_array[row][col]).to eq(Grid::EMPTY_CELL)
                     end
                 end
             end
@@ -78,7 +78,7 @@ describe "grid" do
     end
     
     context "obstacle management" do
-        xit "will add an obstacle" do
+        it "will add an obstacle" do
             # Arrange
             OBSTACLE_X = 4
             OBSTACLE_Y = 1
@@ -88,7 +88,20 @@ describe "grid" do
             grid.add_obstacle(OBSTACLE_X, OBSTACLE_Y)
 
             # Assert
-            expect(grid.grid_array[OBSTACLE_X, OBSTACLE_Y]).to eq(Grid.OBSTACLE)
+            expect(grid.grid_array[OBSTACLE_X][OBSTACLE_Y]).to eq(Grid::OBSTACLE)
+        end
+
+        it "will add a sky-high obstacle" do
+            # Arrange
+            OBSTACLE_X = 2
+            OBSTACLE_Y = 2
+            grid = Grid.new(5, 5)
+
+            # Act
+            grid.add_sky_high_obstacle(OBSTACLE_X, OBSTACLE_Y)
+
+            # Assert
+            expect(grid.grid_array[OBSTACLE_X][OBSTACLE_Y]).to eq(Grid::SKY_HIGH_OBSTACLE)
         end
 
         xit "will indicate when an obstacle is present" do
@@ -113,7 +126,7 @@ describe "grid" do
             fake_mars_rover = double('Rover360')
             allow(fake_mars_rover).to receive(:x).and_return(ROVER_X)
             allow(fake_mars_rover).to receive(:y).and_return(ROVER_Y)
-            allow(fake_mars_rover).to receive(:direction).and_return(MarsRover.SOUTH)
+            allow(fake_mars_rover).to receive(:direction).and_return(StraightLineRover::SOUTH)
             grid.update(fake_mars_rover)
 
             # Act
@@ -132,13 +145,13 @@ describe "grid" do
             fake_mars_rover = double('Rover360')
             allow(fake_mars_rover).to receive(:x).and_return(OBSTACLE_X + 1)
             allow(fake_mars_rover).to receive(:y).and_return(OBSTACLE_Y + 1)
-            allow(fake_mars_rover).to receive(:direction).and_return(MarsRover.SOUTH)
+            allow(fake_mars_rover).to receive(:direction).and_return(StraightLineRover::SOUTH)
 
             # Act
             grid.update(fake_mars_rover)
 
             # Assert
-            expect(grid.grid_array[OBSTACLE_X, OBSTACLE_Y]).to eq(Grid.OBSTACLE)  
+            expect(grid.grid_array[OBSTACLE_X][OBSTACLE_Y]).to eq(Grid::OBSTACLE)  
         end
     end
 end
