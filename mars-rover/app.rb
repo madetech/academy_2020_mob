@@ -6,6 +6,8 @@ require_relative 'lib/grid'
 require_relative 'lib/marsroverapp'
 require_relative 'lib/mars_rover_factory'
 
+$stdout.sync = true
+
 mars_rover_factory = MarsRoverFactory.new
 grid = Grid.new(5, 5)
 grid.add_obstacle(3,2)
