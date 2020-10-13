@@ -17,8 +17,8 @@ class MarsRoverApp
     def start
         begin
             @presenter.show_display(@grid)
-            #@communicator.show_message(USER_INFORMATION)
-            #new_rover = convert_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
+            @communicator.show_message(USER_INFORMATION)
+            new_rover = convert_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
             #start_rover(new_rover)
             #move_rover_repeatedly
         rescue StandardError => e
