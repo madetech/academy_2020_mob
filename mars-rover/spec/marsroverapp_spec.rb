@@ -10,6 +10,8 @@ describe MarsRoverApp do
             @presenter = WideScreenPresenter.new
             @communicator = Communicator.new
             @grid = Grid.new(5, 5)
+            @grid.add_obstacle(3,2)
+            @grid.add_sky_high_obstacle(2,3) 
             @mars_rover_factory = MarsRoverFactory.new
             @mars_rover_app = MarsRoverApp.new(@presenter, @communicator, @grid, @mars_rover_factory)
         end
@@ -40,9 +42,7 @@ describe MarsRoverApp do
 
         it "displays an empty 5x5 grid containing obstacles on startup" do
             # Arrange
-            INITIAL_INPUT = "ANN,360,0,0,N"
-            @grid.add_obstacle(3,2)
-            @grid.add_sky_high_obstacle(2,3)          
+            INITIAL_INPUT = "ANN,360,0,0,N"         
             EMPTY_GRID_WITH_OBSTACLES = 
             "-------------------------------\n" +
             "|     |     |     |     |     |\n" +
