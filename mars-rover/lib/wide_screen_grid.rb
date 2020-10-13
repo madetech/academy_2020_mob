@@ -1,24 +1,28 @@
 class WideScreenGrid 
     HORIZONTAL_WALL = "------"
-    HORIZONTAL_WALL_END = "-"
+    HORIZONTAL_WALL_END = "-\n"
     EMPTY_CELL_PART = "|     "
-    VERTICAL_WALL = "|"
+    ROW_END = "|\n"
 
     def display_row(cells)
-        "-------------------
-|     |     |     |
-|     |     |     |
-|     |     |     |\n"
+        display = display_wall(cells.length)
+        for index in 1..3
+            row_line = ""
+            for index in 0...cells.length
+                row_line = row_line + EMPTY_CELL_PART
+            end
+            row_line = row_line + ROW_END
+            display = display + row_line
+        end
+        display
     end
 
-    def cell_parts(cell)
-    end
-
-    def display_bottom_wall(length)
-        display = HORIZONTAL_WALL_END
+    def display_wall(length)
+        display = ""
         for index in 0...length
             display = display + HORIZONTAL_WALL
         end
-        display
+        display = display + HORIZONTAL_WALL_END
+        display   
     end
 end

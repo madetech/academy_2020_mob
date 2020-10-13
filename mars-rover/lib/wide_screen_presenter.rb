@@ -16,7 +16,7 @@ class WideScreenPresenter
         grid_array.each do |row|
             display = display + @wide_screen_grid.display_row(row)
         end
-        display = display + @wide_screen_grid.display_bottom_wall(grid_array[0].length)
+        display = display + @wide_screen_grid.display_wall(grid_array[0].length)
         puts display
     end
 end
