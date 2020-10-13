@@ -1,12 +1,31 @@
 class RoverSpecHelper
-    def self.make_real_grid(x, y, direction)
-        mars_rover = Rover360.new
+    def self.make_real_grid(
+            width, 
+            height, 
+            obstacle_coords=[], 
+            sky_high_obstacle_coords=[])
+        grid = Grid.new(width, height)
+        grid.add_obstacle(obstacle_coords)
+        grid.add_sky_high_obstacle(sky_high_obstacle_coords)
+    end
+
+    def self.make_real_grid_with_rover(
+            width, 
+            height, 
+            x, 
+            y, 
+            direction, 
+            obstacle_coords=[], 
+            sky_high_obstacle_coords=[])
+        mars_rover = Rover360.new("TST")
         mars_rover.start(x, y, direction)
-        grid = Grid.new(5, 5)
+        grid = Grid.new(width, height)
+        grid.add_obstacle(obstacle_coords)
+        grid.add_sky_high_obstacle(sky_high_obstacle_coords)
         grid.update(mars_rover)
     end
 
-    def self.make_fake_grid(x, y, direction, obstacle_coords_1=[], obstacle_coords_2=[])  
+    def self.make_fake_grid(x, y, direction, obstacle_coords=[], sky_high_obstacle_coords=[])  
         fake_grid = double('Grid')
         allow(fake_grid).to receive(:grid_array)
             .and_return(self.make_fake_grid_array(x, y, direction, obstacle_coords_1, obstacle_coords_2))

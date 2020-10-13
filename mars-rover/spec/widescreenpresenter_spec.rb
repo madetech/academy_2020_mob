@@ -4,24 +4,60 @@ require 'rover_spec_helper'
 
 describe WideScreenPresenter do
     context "#show_display" do
-        xit "converts an empty 5x5 grid into a beautiful display" do
+        it "converts an empty 3x3 grid into a beautiful display" do
             # Arrange
             presenter = described_class.new
-            grid = Grid.new(5, 5)
-            EMPTY_GRID = "This is what we think an empty 5x5 grid will look like (see notes.md)."
+            grid = Grid.new(3, 3)
+            EMPTY_GRID = 
+"-------------------
+|     |     |     |
+|     |     |     |
+|     |     |     |
+-------------------
+|     |     |     |
+|     |     |     |
+|     |     |     |
+-------------------
+|     |     |     |
+|     |     |     |
+|     |     |     |
+-------------------\n"
 
             # Act/Assert
             expect{presenter.show_display(grid)}.to output(EMPTY_GRID).to_stdout
+        end
+
+        xit "converts a 2x3 grid containing an obstacle into an informative display" do
+            # Arrange
+            presenter = described_class.new
+            grid = RoverSpecHelper.make_real_grid(2, 3, [1,1])
+            POPULATED_GRID = 
+"-------------
+|     |     |
+|     |     |
+|     |     |
+-------------
+|     | X X |
+|     |  X  |
+|     | X X |
+-------------
+|     |     |
+|     |     |
+|     |     |
+-------------\n"
+
+            # Act/Assert
+            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
         end
 
         xit "converts a 5x5 grid containing obstacles and a North-facing rover into an informative display" do
             # Arrange
             presenter = described_class.new
             fake_grid = RoverSpecHelper.make_fake_grid(0, 0, StraightLineRover::NORTH, [1,1], [3,4])
-            EMPTY_GRID = "This is what we think a 5x5 grid containing obstacles and a North-facing rover will look like (see notes.md)."
+            POPULATED_GRID = "This is what we think a 5x5 grid containing obstacles and a North-facing rover will look like (see notes.md)."
 
             # Act/Assert
-            expect{presenter.show_display(fake_grid)}.to output(EMPTY_GRID).to_stdout
+            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
         end
 
         xit "converts a 5x5 grid (containing a Mars Rover facing North) into an informative display" do
