@@ -5,26 +5,36 @@ class WideScreenGrid
     HORIZONTAL_WALL_END = "-\n"
     EMPTY_CELL_PART = "|     "
     OBSTACLE_CELL_PART_01 = "| X X "
+    OBSTACLE_CELL_PART_02 = "|  X  "
     SKY_HIGH_OBSTACLE_CELL_PART_01 = "| SKY "
+    SKY_HIGH_OBSTACLE_CELL_PART_03 = "| HIGH"
     ROW_END = "|\n"
-    CELL_PARTS = {
+    CELL_PARTS = [{
         Grid::EMPTY_CELL => EMPTY_CELL_PART,
         Grid::OBSTACLE => OBSTACLE_CELL_PART_01,
         Grid::SKY_HIGH_OBSTACLE => SKY_HIGH_OBSTACLE_CELL_PART_01
-    }
+    }, {
+        Grid::EMPTY_CELL => EMPTY_CELL_PART,
+        Grid::OBSTACLE => OBSTACLE_CELL_PART_02,
+        Grid::SKY_HIGH_OBSTACLE => OBSTACLE_CELL_PART_02
+    }, {
+        Grid::EMPTY_CELL => EMPTY_CELL_PART,
+        Grid::OBSTACLE => OBSTACLE_CELL_PART_01,
+        Grid::SKY_HIGH_OBSTACLE => SKY_HIGH_OBSTACLE_CELL_PART_03
+    }]
 
     def display_row(cells)
         display = display_wall(cells.length)
-        for index in 1..3
-            display = display + row_line(cells)
+        for index in 0...3
+            display = display + row_line(cells, index)
         end
         display
     end	
 
-    def row_line(cells)
+    def row_line(cells, row_index)
         row_line = ""
-        for index in 0...cells.length
-            row_line = row_line + CELL_PARTS[cells[index]]
+        for cell_index in 0...cells.length
+            row_line = row_line + CELL_PARTS[row_index][cells[cell_index]]
         end
         row_line = row_line + ROW_END
     end

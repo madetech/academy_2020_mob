@@ -47,7 +47,7 @@ describe WideScreenGrid do
             EMPTY_ROW_LINE = "|     |\n"
 
             # Act
-            result = display_grid.row_line(cells)
+            result = display_grid.row_line(cells, 0)
 
             # Assert
             expect(result).to eq(EMPTY_ROW_LINE)
@@ -60,7 +60,7 @@ describe WideScreenGrid do
             EMPTY_ROW_LINE = "|     |     |     |     |\n"
 
             # Act
-            result = display_grid.row_line(cells)
+            result = display_grid.row_line(cells, 0)
 
             # Assert
             expect(result).to eq(EMPTY_ROW_LINE)
@@ -73,7 +73,72 @@ describe WideScreenGrid do
             EXPECTED_ROW_LINE = "| X X |\n"
 
             # Act
-            result = display_grid.row_line(cells)
+            result = display_grid.row_line(cells, 0)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        it "constructs a single-celled row line containing the second row of an obstacle" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = [Grid::OBSTACLE]
+            EXPECTED_ROW_LINE = "|  X  |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 1)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        it "constructs a single-celled row line containing the third row of an obstacle" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = [Grid::OBSTACLE]
+            EXPECTED_ROW_LINE = "| X X |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 2)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        it "constructs a single-celled row line containing the first row of a sky-high obstacle" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = [Grid::SKY_HIGH_OBSTACLE]
+            EXPECTED_ROW_LINE = "| SKY |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 0)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        it "constructs a single-celled row line containing the second row of a sky-high obstacle" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = [Grid::SKY_HIGH_OBSTACLE]
+            EXPECTED_ROW_LINE = "|  X  |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 1)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        it "constructs a single-celled row line containing the third row of a sky-high obstacle" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = [Grid::SKY_HIGH_OBSTACLE]
+            EXPECTED_ROW_LINE = "| HIGH|\n"
+
+            # Act
+            result = display_grid.row_line(cells, 2)
 
             # Assert
             expect(result).to eq(EXPECTED_ROW_LINE)
