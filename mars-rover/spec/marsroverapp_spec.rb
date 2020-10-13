@@ -123,7 +123,7 @@ describe MarsRoverApp do
             fake_presenter = double('Presenter')
             allow(fake_presenter).to receive(:show_display).with(grid_stub) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT, "") 
             mars_rover_app = MarsRoverApp.new(fake_presenter, communicator_stub, grid_stub, rover_factory_stub)
 
             # Act/Assert
@@ -143,7 +143,7 @@ describe MarsRoverApp do
             presenter_spy = spy('Presenter')
             allow(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT, "") 
             mars_rover_app = MarsRoverApp.new(presenter_spy, communicator_stub, grid_spy, rover_factory_fake)
 
             # Act/Assert
@@ -160,7 +160,7 @@ describe MarsRoverApp do
         xit "displays the position of a Rover when given position" do
             # Arrange
             EXPECTED_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT, "") 
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
 
             # Act/Assert
@@ -170,7 +170,7 @@ describe MarsRoverApp do
         xit "prompts the user to input movement or new direction after first input" do
             # Arrange
             EXPECTED_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT) 
+            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT, "") 
             expected_prompt = MarsRoverApp::REQUEST_FOR_FURTHER_INPUT
 
             # Act/Assert
@@ -246,7 +246,7 @@ describe MarsRoverApp do
         xit "responds to repeated movement inputs" do
             # Arrange
             INITIAL_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return("ANN,360,0,0,N", "f", "r", "f", "f", "l", "b") 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "f", "r", "f", "f", "l", "b", "") 
             GRID_WITH_ROVER = "A 5x5 grid with a North-facing Rover at 2,0"
 
             # Act/Assert
@@ -256,7 +256,7 @@ describe MarsRoverApp do
         xit "responds to several movements in one input" do
             # Arrange
             INITIAL_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return("ANN,360,0,0,N", "f,r,f,f,l,b") 
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "f,r,f,f,l,b", "") 
             GRID_WITH_ROVER = "A 5x5 grid with a North-facing Rover at 2,0"
 
             # Act/Assert
