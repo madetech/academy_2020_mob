@@ -65,6 +65,19 @@ describe WideScreenGrid do
             # Assert
             expect(result).to eq(EMPTY_ROW_LINE)
         end
+
+        it "constructs a single-celled row line containing the first row of an obstacle" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = [Grid::OBSTACLE]
+            EXPECTED_ROW_LINE = "| X X |\n"
+
+            # Act
+            result = display_grid.row_line(cells)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
     end
 
     context "#display_wall" do

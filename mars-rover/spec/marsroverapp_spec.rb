@@ -42,7 +42,7 @@ describe MarsRoverApp do
             expect{mars_rover_app.start}.to output(EMPTY_GRID).to_stdout
         end
 
-        xit "displays an empty 5x5 grid containing obstacles on startup" do
+        it "displays an empty 5x5 grid containing obstacles on startup" do
             # Arrange
             INITIAL_INPUT = "ANN,360,0,0,N"
             @grid.add_obstacle(3,2)
