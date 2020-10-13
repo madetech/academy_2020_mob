@@ -14,7 +14,30 @@ describe MarsRoverApp do
             @mars_rover_app = MarsRoverApp.new(@presenter, @communicator, @grid, @mars_rover_factory)
         end
 
-        it "displays an empty 5x5 grid containing obstacles on startup" do
+        it "can display an empty 3x3 grid containing no obstacles on startup" do
+            # Arrange
+            INITIAL_INPUT = "ANN,360,0,0,N"
+            EMPTY_GRID = 
+"-------------------
+|     |     |     |
+|     |     |     |
+|     |     |     |
+-------------------
+|     |     |     |
+|     |     |     |
+|     |     |     |
+-------------------
+|     |     |     |
+|     |     |     |
+|     |     |     |
+-------------------\n"
+            allow(@communicator).to receive(:gets).and_return(INITIAL_INPUT, "")
+
+            # Act/Assert
+            expect{@mars_rover_app.start}.to output(EMPTY_GRID).to_stdout
+        end
+
+        xit "displays an empty 5x5 grid containing obstacles on startup" do
             # Arrange
             INITIAL_INPUT = "ANN,360,0,0,N"
             @grid.add_obstacle(3,2)
