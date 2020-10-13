@@ -11,7 +11,7 @@ class WideScreenPresenter
 
     private
 
-    def show_wide_screen_grid(grid_array)        
+    def show_wide_screen_grid(grid_array)  
         display = ""
         grid_array.each do |row|
             display = display + @wide_screen_grid.display_row(row)

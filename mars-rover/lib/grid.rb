@@ -33,15 +33,16 @@ class Grid
     private
 
     def populate_cell(mars_rover)
-        # ! Can't just empty all cells any more - needs to persist obstacles
-        empty_all_cells
+        remove_rovers_from_all_cells
         grid_array[mars_rover.y][mars_rover.x] = mars_rover
     end
 
-    def empty_all_cells           
-        for x in 0...@height 
-            for y in 0...@width 
-                grid_array[y][x] = EMPTY_CELL
+    def remove_rovers_from_all_cells           
+        for x in 0...@width 
+            for y in 0...@height 
+                if grid_array[y][x].is_a?(StraightLineRover)
+                    grid_array[y][x] = EMPTY_CELL
+                end
             end
         end
     end

@@ -32,6 +32,7 @@ class RoverSpecHelper
             grid.add_sky_high_obstacle(sky_high_obstacle_coords[0], sky_high_obstacle_coords[1])
         end
         grid.update(mars_rover)
+        grid
     end
 
     def self.make_fake_grid(x, y, direction, obstacle_coords=[], sky_high_obstacle_coords=[])  

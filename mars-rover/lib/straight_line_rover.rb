@@ -10,7 +10,6 @@ class StraightLineRover
     STRAIGHT_LINE = "SLR"
     EAST = "E"
     WEST = "W"
-    ROVER_360 = "360"
 
     def initialize(name)
         @name = name
@@ -21,7 +20,7 @@ class StraightLineRover
         @x = x
         @y = y
         @direction = direction
-        @direction_object = new StraightLineDirection(@direction)
+        @direction_object = StraightLineDirection.new(@direction)
         # throw error if direction is east or west
         # this error will need to be caught and handled higher up the call chain
     end

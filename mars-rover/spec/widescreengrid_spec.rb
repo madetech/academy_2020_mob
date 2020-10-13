@@ -38,7 +38,7 @@ describe WideScreenGrid do
             expect(result).to eq(EMPTY_ROW)
         end
 
-        xit "converts a single-cell grid row containing a Rover into a beautiful display" do
+        it "converts a single-cell grid row containing a Rover into a beautiful display" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("MAX")
@@ -54,10 +54,10 @@ describe WideScreenGrid do
             result = display_grid.display_row(cells)
 
             # Assert
-            expect(result).to eq(EMPTY_CELL)
+            expect(result).to eq(POPULATED_CELL)
         end
 
-        xit "converts a multi-cell grid row containing a Rover into a beautiful display" do
+        it "converts a multi-cell grid row containing a Rover into a beautiful display" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = StraightLineRover.new("ANN")
@@ -73,7 +73,7 @@ describe WideScreenGrid do
             result = display_grid.display_row(cells)
 
             # Assert
-            expect(result).to eq(EMPTY_ROW)
+            expect(result).to eq(POPULATED_ROW)
         end
     end	
 
@@ -182,7 +182,7 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the first row of a Rover360" do
+        it "constructs a single-celled row line containing the first row of a Rover360" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
@@ -196,7 +196,7 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the first row of a straight-line Rover" do
+        it "constructs a single-celled row line containing the first row of a straight-line Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = StraightLineRover.new("TST")
@@ -210,10 +210,10 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the first row of a flying Rover" do
+        it "constructs a single-celled row line containing the first row of a flying Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
-            rover = StraightLineRover.new("TST")
+            rover = FlyingRover.new("TST")
             cells = [rover]
             EXPECTED_ROW_LINE = "| FLY |\n"
 
@@ -224,7 +224,7 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the second row of a North-facing Rover" do
+        it "constructs a single-celled row line containing the second row of a North-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
@@ -239,7 +239,7 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the second row of a South-facing Rover" do
+        it "constructs a single-celled row line containing the second row of a South-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
@@ -254,7 +254,7 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the second row of an East-facing Rover" do
+        it "constructs a single-celled row line containing the second row of an East-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
@@ -269,7 +269,7 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the second row of a West-facing Rover" do
+        it "constructs a single-celled row line containing the second row of a West-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
@@ -284,10 +284,10 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the third row of a Rover called MEG" do
+        it "constructs a single-celled row line containing the third row of a Rover called MEG" do
             # Arrange
             display_grid = WideScreenGrid.new
-            rover = Rover360.new("TST")
+            rover = Rover360.new("MEG")
             cells = [rover]
             EXPECTED_ROW_LINE = "| MEG |\n"
 

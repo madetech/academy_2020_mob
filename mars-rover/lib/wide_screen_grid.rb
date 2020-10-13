@@ -1,4 +1,5 @@
 require_relative 'straight_line_rover'
+require_relative 'rover360'
 
 class WideScreenGrid 
     HORIZONTAL_WALL = "------"
@@ -43,7 +44,7 @@ class WideScreenGrid
     def row_line(cells, row_index)
         row_line = ""
         for cell_index in 0...cells.length
-            row_line = row_line + CELL_PARTS[row_index][cells[cell_index]]
+            row_line = row_line + cell_part(cells, row_index, cell_index)
         end
         row_line = row_line + ROW_END
     end
@@ -55,5 +56,22 @@ class WideScreenGrid
         end
         display = display + HORIZONTAL_WALL_END
         display   
+    end
+
+    private
+
+    def cell_part(cells, row_index, cell_index)
+        if (cells[cell_index].is_a?(StraightLineRover))
+            case row_index 
+                when 0
+                    "| #{cells[cell_index].type[0..2]} "
+                when 1
+                    CELL_PARTS[row_index][cells[cell_index].direction]
+                when 2
+                    "| #{cells[cell_index].name[0..2]} "
+            end
+        else
+            CELL_PARTS[row_index][cells[cell_index]]
+        end
     end
 end

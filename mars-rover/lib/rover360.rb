@@ -1,11 +1,13 @@
 require_relative 'grid'
 require_relative 'straight_line_rover'
+require_relative 'compass_direction'
 
 class Rover360 < StraightLineRover
     attr_accessor :x, :y, :direction, :name, :type
 
     LEFT = "l"
     RIGHT = "r"
+    ROVER_360 = "360"
 
     def initialize(name)
         super(name)
@@ -16,7 +18,7 @@ class Rover360 < StraightLineRover
         @x = x
         @y = y
         @direction = direction
-        @direction_object = new CompassDirection(@direction)
+        @direction_object = CompassDirection.new(@direction)
     end
 
     def turn(turn)
