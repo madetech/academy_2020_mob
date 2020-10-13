@@ -15,19 +15,19 @@ class Grid
     end
 
     def add_obstacle(x, y)
-        grid_array[x][y] = OBSTACLE
+        grid_array[y][x] = OBSTACLE
     end
 
     def add_sky_high_obstacle(x, y)
-        grid_array[x][y] = SKY_HIGH_OBSTACLE
+        grid_array[y][x] = SKY_HIGH_OBSTACLE
     end
 
     def contains_obstacle?(x, y)
-        grid_array[x][y] != EMPTY_CELL
+        grid_array[y][x] != EMPTY_CELL
     end
 
     def contains_sky_high_obstacle?(x, y)
-        grid_array[x][y] == SKY_HIGH_OBSTACLE
+        grid_array[y][x] == SKY_HIGH_OBSTACLE
     end
 
     private
@@ -35,7 +35,7 @@ class Grid
     def populate_cell(mars_rover)
         # ! Can't just empty all cells any more - needs to persist obstacles
         empty_all_cells
-        grid_array[mars_rover.x][mars_rover.y] = {
+        grid_array[mars_rover.y][mars_rover.x] = {
             :direction => mars_rover.get_direction, 
             :name => mars_rover.name,
             :type => mars_rover.type
@@ -45,7 +45,7 @@ class Grid
     def empty_all_cells           
         for x in 0...@height 
             for y in 0...@width 
-                grid_array[x][y] = EMPTY_CELL
+                grid_array[y][x] = EMPTY_CELL
             end
         end
     end
