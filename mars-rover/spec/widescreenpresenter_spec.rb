@@ -27,7 +27,7 @@ describe WideScreenPresenter do
             expect{presenter.show_display(grid)}.to output(EMPTY_GRID).to_stdout
         end
 
-        xit "converts a 2x3 grid containing an obstacle into an informative display" do
+        it "converts a 2x3 grid containing an obstacle into an informative display" do
             # Arrange
             presenter = described_class.new
             grid = RoverSpecHelper.make_real_grid(2, 3, [1,1])
@@ -47,57 +47,106 @@ describe WideScreenPresenter do
             "-------------\n"
 
             # Act/Assert
-            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        xit "converts a 5x5 grid containing obstacles and a North-facing rover into an informative display" do
+        it "converts a 2x3 grid containing a sky-high obstacle into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(0, 0, StraightLineRover::NORTH, [1,1], [3,4])
-            POPULATED_GRID = "This is what we think a 5x5 grid containing obstacles and a North-facing rover will look like (see notes.md)."
+            grid = RoverSpecHelper.make_real_grid(2, 3, [], [1,0])
+            POPULATED_GRID = 
+            "-------------\n" +
+            "|     | SKY |\n" +
+            "|     |  X  |\n" +
+            "|     | HIGH|\n" +
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n"
 
             # Act/Assert
-            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        xit "converts a 5x5 grid (containing a Mars Rover facing North) into an informative display" do
+        xit "converts a 2x3 grid (containing a Mars Rover facing North) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(1, 1, StraightLineRover::NORTH)
-            POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing North will look like (see notes.md)."
+            grid = RoverSpecHelper.make_real_grid_with_rover(2, 3, 1, 2, StraightLineRover::NORTH)
+            POPULATED_GRID = 
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n" +
+            "|     |3 ^ T|\n" +
+            "|     |6 | S|\n" +
+            "|     |0 | T|\n" +
+            "-------------\n"
 
             # Act/Assert
-            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        xit "converts a 5x5 grid (containing a Mars Rover facing South) into an informative display" do
+        xit "converts a 2x3 grid (containing a Mars Rover facing South) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(2, 3, StraightLineRover::SOUTH)
+            grid = RoverSpecHelper.make_real_grid_with_rover(2, 3, 1, 1, StraightLineRover::SOUTH)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing South will look like (see notes.md)."
 
             # Act/Assert
-            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        xit "converts a 5x5 grid (containing a Mars Rover facing East) into an informative display" do
+        xit "converts a 2x3 grid (containing a Mars Rover facing East) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(4, 2, StraightLineRover::EAST)
+            grid = RoverSpecHelper.make_real_grid_with_rover(2, 3, 1, 0, StraightLineRover::EAST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing East will look like (see notes.md)."
 
             # Act/Assert
-            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
 
-        xit "converts a 5x5 grid (containing a Mars Rover facing West) into an informative display" do
+        xit "converts a 2x3 grid (containing a Mars Rover facing West) into an informative display" do
             # Arrange
             presenter = described_class.new
-            fake_grid = RoverSpecHelper.make_fake_grid(0, 4, StraightLineRover::WEST)
+            grid = RoverSpecHelper.make_real_grid_with_rover(2, 3, 0, 1, StraightLineRover::WEST)
             POPULATED_GRID = "This is what we think a 5x5 grid containing a Mars Rover facing West will look like (see notes.md)."
 
             # Act/Assert
-            expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
+        end
+
+        xit "converts a 2x3 grid containing obstacles and a rover into an informative display" do
+            # Arrange
+            presenter = described_class.new
+            grid = RoverSpecHelper.make_real_grid_with_rover(2, 3, 0, 2, StraightLineRover::NORTH, [1,1], [1,0])
+            POPULATED_GRID = 
+            "-------------\n" +
+            "|     | SKY |\n" +
+            "|     |  X  |\n" +
+            "|     | HIGH|\n" +
+            "-------------\n" +
+            "|     | X X |\n" +
+            "|     |  X  |\n" +
+            "|     | X X |\n" +
+            "-------------\n" +
+            "|3 ^ T|     |\n" +
+            "|6 | S|     |\n" +
+            "|0 | T|     |\n" +
+            "-------------\n"
+
+            # Act/Assert
+            expect{presenter.show_display(grid)}.to output(POPULATED_GRID).to_stdout
         end
     end
 end

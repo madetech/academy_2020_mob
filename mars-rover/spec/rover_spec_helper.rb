@@ -5,8 +5,13 @@ class RoverSpecHelper
             obstacle_coords=[], 
             sky_high_obstacle_coords=[])
         grid = Grid.new(width, height)
-        grid.add_obstacle(obstacle_coords)
-        grid.add_sky_high_obstacle(sky_high_obstacle_coords)
+        if !obstacle_coords.empty?
+            grid.add_obstacle(obstacle_coords[0], obstacle_coords[1])
+        end
+        if !sky_high_obstacle_coords.empty?
+            grid.add_sky_high_obstacle(sky_high_obstacle_coords[0], sky_high_obstacle_coords[1])
+        end
+        grid
     end
 
     def self.make_real_grid_with_rover(
@@ -20,8 +25,12 @@ class RoverSpecHelper
         mars_rover = Rover360.new("TST")
         mars_rover.start(x, y, direction)
         grid = Grid.new(width, height)
-        grid.add_obstacle(obstacle_coords)
-        grid.add_sky_high_obstacle(sky_high_obstacle_coords)
+        if !obstacle_coords.empty?
+            grid.add_obstacle(obstacle_coords[0], obstacle_coords[1])
+        end
+        if !sky_high_obstacle_coords.empty?
+            grid.add_sky_high_obstacle(sky_high_obstacle_coords[0], sky_high_obstacle_coords[1])
+        end
         grid.update(mars_rover)
     end
 
