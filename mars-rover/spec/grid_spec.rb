@@ -33,22 +33,19 @@ describe "grid" do
     end
     
     context "grid update" do
-        xit "updates a grid to add the position and direction of the passed-in rover" do
+        xit "updates a grid to add the passed-in rover" do
             # Arrange
             EXPECTED_X = 2
             EXPECTED_Y = 3
             EXPECTED_DIRECTION = "S"
             grid = Grid.new(5, 5)
-            fake_mars_rover = double('Rover360')
-            allow(fake_mars_rover).to receive(:x).and_return(EXPECTED_X)
-            allow(fake_mars_rover).to receive(:y).and_return(EXPECTED_Y)
-            allow(fake_mars_rover).to receive(:direction).and_return(EXPECTED_DIRECTION)
+            mars_rover = Rover360.new("TST")
 
             # Act
-            grid.update(fake_mars_rover)
+            grid.update(mars_rover)
 
             # Assert
-            expect(grid.grid_array[EXPECTED_Y][EXPECTED_X]).to eq(EXPECTED_DIRECTION)  
+            expect(grid.grid_array[EXPECTED_Y][EXPECTED_X]).to eq(mars_rover)  
         end
 
         xit "only populates one grid cell when passed a rover" do
@@ -57,16 +54,13 @@ describe "grid" do
             EXPECTED_Y = 3
             EXPECTED_DIRECTION = "S"
             grid = Grid.new(5, 5)
-            fake_mars_rover = double('Rover360')
-            allow(fake_mars_rover).to receive(:x).and_return(EXPECTED_X)
-            allow(fake_mars_rover).to receive(:y).and_return(EXPECTED_Y)
-            allow(fake_mars_rover).to receive(:direction).and_return(EXPECTED_DIRECTION)
+            mars_rover = Rover360.new("TST")
 
             # Act
-            grid.update(fake_mars_rover)
+            grid.update(mars_rover)
 
             # Assert
-            expect(grid.grid_array[EXPECTED_Y][EXPECTED_X]).to eq(EXPECTED_DIRECTION)          
+            expect(grid.grid_array[EXPECTED_Y][EXPECTED_X]).to eq(mars_rover)          
             for row in 0...HEIGHT 
                 for col in 0...WIDTH 
                     if (row != EXPECTED_Y && col != EXPECTED_X)

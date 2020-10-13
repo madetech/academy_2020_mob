@@ -143,6 +143,48 @@ describe WideScreenGrid do
             # Assert
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
+
+        xit "constructs a single-celled row line containing the first row of a North-facing Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = Rover360.new("TST")
+            cells = [rover]
+            EXPECTED_ROW_LINE = "|3 ^ T|\n"
+
+            # Act
+            result = display_grid.row_line(cells, 0)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        xit "constructs a single-celled row line containing the second row of a North-facing Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = Rover360.new("TST")
+            cells = [rover]
+            EXPECTED_ROW_LINE = "|6 | S|\n"
+
+            # Act
+            result = display_grid.row_line(cells, 1)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        xit "constructs a single-celled row line containing the third row of a North-facing Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = Rover360.new("TST")
+            cells = [rover]
+            EXPECTED_ROW_LINE = "|0 | T|\n"
+
+            # Act
+            result = display_grid.row_line(cells, 2)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
     end
 
     context "#display_wall" do
