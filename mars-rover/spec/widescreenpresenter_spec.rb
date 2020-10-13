@@ -4,24 +4,24 @@ require 'rover_spec_helper'
 
 describe WideScreenPresenter do
     context "#show_display" do
-        it "converts an empty 3x3 grid into a beautiful display" do
+        it "converts an empty 2x3 grid into a beautiful display" do
             # Arrange
             presenter = described_class.new
-            grid = Grid.new(3, 3)
+            grid = Grid.new(2, 3)
             EMPTY_GRID = 
-"-------------------
-|     |     |     |
-|     |     |     |
-|     |     |     |
--------------------
-|     |     |     |
-|     |     |     |
-|     |     |     |
--------------------
-|     |     |     |
-|     |     |     |
-|     |     |     |
--------------------\n"
+"-------------
+|     |     |
+|     |     |
+|     |     |
+-------------
+|     |     |
+|     |     |
+|     |     |
+-------------
+|     |     |
+|     |     |
+|     |     |
+-------------\n"
 
             # Act/Assert
             expect{presenter.show_display(grid)}.to output(EMPTY_GRID).to_stdout

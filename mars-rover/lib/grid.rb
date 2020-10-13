@@ -51,6 +51,6 @@ class Grid
     end
 
     def make_grid (width, height)
-        Array.new(width){ Array.new(height) { "" } }
+        Array.new(height){ Array.new(width) { "" } }
     end
 end

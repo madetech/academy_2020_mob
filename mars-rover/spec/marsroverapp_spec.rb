@@ -14,20 +14,16 @@ describe MarsRoverApp do
             @mars_rover_app = MarsRoverApp.new(@presenter, @communicator, @grid, @mars_rover_factory)
         end
 
-        it "can display an empty 3x3 grid containing no obstacles on startup" do
+        it "can display an empty 3x2 grid containing no obstacles on startup" do
             # Arrange
             presenter = WideScreenPresenter.new
             communicator = Communicator.new
-            grid = Grid.new(3, 3)
+            grid = Grid.new(3, 2)
             mars_rover_factory = MarsRoverFactory.new
             mars_rover_app = MarsRoverApp.new(presenter, communicator, grid, mars_rover_factory)
             INITIAL_INPUT = "ANN,360,0,0,N"
             EMPTY_GRID = 
 "-------------------
-|     |     |     |
-|     |     |     |
-|     |     |     |
--------------------
 |     |     |     |
 |     |     |     |
 |     |     |     |
