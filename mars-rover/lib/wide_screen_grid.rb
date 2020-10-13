@@ -7,14 +7,17 @@ class WideScreenGrid
     def display_row(cells)
         display = display_wall(cells.length)
         for index in 1..3
-            row_line = ""
-            for index in 0...cells.length
-                row_line = row_line + EMPTY_CELL_PART
-            end
-            row_line = row_line + ROW_END
-            display = display + row_line
+            display = display + row_line(cells)
         end
         display
+    end	
+
+    def row_line(cells)
+        row_line = ""
+        for index in 0...cells.length
+            row_line = row_line + EMPTY_CELL_PART
+        end
+        row_line = row_line + ROW_END
     end
 
     def display_wall(length)

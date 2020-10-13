@@ -37,6 +37,34 @@ describe WideScreenGrid do
             # Assert
             expect(result).to eq(EMPTY_ROW)
         end
+    end	
+
+    context "#row_line" do
+        it "constructs a single-celled empty row line" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = [""]
+            EMPTY_ROW_LINE = "|     |\n"
+
+            # Act
+            result = display_grid.row_line(cells)
+
+            # Assert
+            expect(result).to eq(EMPTY_ROW_LINE)
+        end
+        
+        it "constructs a multi-celled empty row line" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            cells = ["", "", "", ""]
+            EMPTY_ROW_LINE = "|     |     |     |     |\n"
+
+            # Act
+            result = display_grid.row_line(cells)
+
+            # Assert
+            expect(result).to eq(EMPTY_ROW_LINE)
+        end
     end
 
     context "#display_wall" do
