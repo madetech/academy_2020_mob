@@ -9,6 +9,7 @@ class Communicator
         if is_invalid?(stdinput)
             raise BadInputException.new
         end
+        stdinput
     end
 
     def is_invalid?(input)

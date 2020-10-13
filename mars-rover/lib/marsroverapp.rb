@@ -19,7 +19,7 @@ class MarsRoverApp
             @presenter.show_display(@grid)
             @communicator.show_message(USER_INFORMATION)
             new_rover = convert_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
-            #start_rover(new_rover)
+            start_rover(new_rover)
             #move_rover_repeatedly
         rescue StandardError => e
             puts e.message
@@ -39,10 +39,11 @@ class MarsRoverApp
         new_rover = {
             name: new_rover[0],
             type: new_rover[1],           
-            x: new_rover[2],
-            y: new_rover[3],
+            x: new_rover[2].to_i,
+            y: new_rover[3].to_i,
             direction: new_rover[4]
         }
+        new_rover
     end
 
     def move_rover_repeatedly
