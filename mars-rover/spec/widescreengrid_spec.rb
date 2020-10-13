@@ -9,10 +9,10 @@ describe WideScreenGrid do
             display_grid = WideScreenGrid.new
             cells = [""]
             EMPTY_CELL = 
-"-------
-|     |
-|     |
-|     |\n"
+            "-------\n" +
+            "|     |\n" +
+            "|     |\n" +
+            "|     |\n"
 
             # Act
             result = display_grid.display_row(cells)
@@ -26,10 +26,10 @@ describe WideScreenGrid do
             display_grid = WideScreenGrid.new
             cells = ["", "", ""]
             EMPTY_ROW = 
-"-------------------
-|     |     |     |
-|     |     |     |
-|     |     |     |\n"
+            "-------------------\n" +
+            "|     |     |     |\n" +
+            "|     |     |     |\n" +
+            "|     |     |     |\n"
 
             # Act
             result = display_grid.display_row(cells)

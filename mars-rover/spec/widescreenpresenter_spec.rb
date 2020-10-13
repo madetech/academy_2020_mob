@@ -9,19 +9,19 @@ describe WideScreenPresenter do
             presenter = described_class.new
             grid = Grid.new(2, 3)
             EMPTY_GRID = 
-"-------------
-|     |     |
-|     |     |
-|     |     |
--------------
-|     |     |
-|     |     |
-|     |     |
--------------
-|     |     |
-|     |     |
-|     |     |
--------------\n"
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n"
 
             # Act/Assert
             expect{presenter.show_display(grid)}.to output(EMPTY_GRID).to_stdout
@@ -32,19 +32,19 @@ describe WideScreenPresenter do
             presenter = described_class.new
             grid = RoverSpecHelper.make_real_grid(2, 3, [1,1])
             POPULATED_GRID = 
-"-------------
-|     |     |
-|     |     |
-|     |     |
--------------
-|     | X X |
-|     |  X  |
-|     | X X |
--------------
-|     |     |
-|     |     |
-|     |     |
--------------\n"
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n" +
+            "|     | X X |\n" +
+            "|     |  X  |\n" +
+            "|     | X X |\n" +
+            "-------------\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "|     |     |\n" +
+            "-------------\n"
 
             # Act/Assert
             expect{presenter.show_display(fake_grid)}.to output(POPULATED_GRID).to_stdout
