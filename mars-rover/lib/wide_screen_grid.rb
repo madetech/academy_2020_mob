@@ -6,9 +6,14 @@ class WideScreenGrid
     EMPTY_CELL_PART = "|     "
     OBSTACLE_CELL_PART_01 = "| X X "
     OBSTACLE_CELL_PART_02 = "|  X  "
+    NORTH_ROVER_CELL_PART_02 = "| ^^^ "
+    SOUTH_ROVER_CELL_PART_02 = "| vvv "
+    EAST_ROVER_CELL_PART_02 = "| <<< "
+    WEST_ROVER_CELL_PART_02 = "| >>> "
     SKY_HIGH_OBSTACLE_CELL_PART_01 = "| SKY "
     SKY_HIGH_OBSTACLE_CELL_PART_03 = "| HIGH"
     ROW_END = "|\n"
+
     CELL_PARTS = [{
         Grid::EMPTY_CELL => EMPTY_CELL_PART,
         Grid::OBSTACLE => OBSTACLE_CELL_PART_01,
@@ -16,7 +21,11 @@ class WideScreenGrid
     }, {
         Grid::EMPTY_CELL => EMPTY_CELL_PART,
         Grid::OBSTACLE => OBSTACLE_CELL_PART_02,
-        Grid::SKY_HIGH_OBSTACLE => OBSTACLE_CELL_PART_02
+        Grid::SKY_HIGH_OBSTACLE => OBSTACLE_CELL_PART_02,
+        StraightLineRover::NORTH => NORTH_ROVER_CELL_PART_02,
+        StraightLineRover::SOUTH => SOUTH_ROVER_CELL_PART_02,
+        Rover360::EAST => EAST_ROVER_CELL_PART_02,
+        Rover360::WEST => WEST_ROVER_CELL_PART_02
     }, {
         Grid::EMPTY_CELL => EMPTY_CELL_PART,
         Grid::OBSTACLE => OBSTACLE_CELL_PART_01,

@@ -87,9 +87,9 @@ describe WideScreenPresenter do
             "|     |     |\n" +
             "|     |     |\n" +
             "-------------\n" +
-            "|     |3 ^ T|\n" +
-            "|     |6 | S|\n" +
-            "|     |0 | T|\n" +
+            "|     | 360 |\n" +
+            "|     | ^^^ |\n" +
+            "|     | TST |\n" +
             "-------------\n"
 
             # Act/Assert

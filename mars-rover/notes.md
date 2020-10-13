@@ -37,20 +37,20 @@ From here: https://github.com/rspec/rspec-core/issues/2311
 WIDE SCREEN MARS ROVER:
 -------------------------------
 |360^J|     | X X |     | SKY |
-|<--|O|     |  X  |     |  X  |
-|MAX|E|     | X X |     | HIGH|
+|<<<^O|     |  X  |     |  X  |
+|MAX^E|     | X X |     | HIGH|
 -------------------------------
-|S ^ J|     |3|M^U|     |3|MJO|
-|L | I|     |6|E|M|     |6|E N|
-|R | M|     |0vG|A|     |0vG->|
+| SLR |     |360^U|     |360>J|
+| ^^^ |     |vvv^M|     |vvv>O|
+| JIM |     |MEG^A|     |MIG>N|
 -------------------------------
-|     | X X |     | A|X |     |
-|     | AMY |     | N|  |     |
-|     | --> |     | NvX |     |
+|     |X X>A|     |X XvA|     |
+|     | X >M|     | X vN|     |
+|     |X X>Y|     |X XvN|     |
 -------------------------------
-|     | FLY |     |360BO|     |
-|     | --> |     |<-- B|     |
-|     | JAN |     |ENA->|     |
+|     | FLY |     |360<B|     |
+|     | >>> |     |<<<<O|     |
+|     | JAN |     |ENA<B|     |
 -------------------------------
 |     | X X |     | X X |     |
 |     |  X  |     |  X  |     |

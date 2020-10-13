@@ -161,7 +161,28 @@ describe MarsRoverApp do
             # Arrange
             EXPECTED_INPUT = "ANN,360,0,0,N"
             allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT, "") 
-            GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
+            GRID_WITH_NEW_ROVER = 
+            "-------------------------------\n" +
+            "| 360 |     |     |     |     |\n" +
+            "| ^^^ |     |     |     |     |\n" +
+            "| ANN |     |     |     |     |\n" +
+            "-------------------------------\n" +
+            "|     |     |     |     |     |\n" +
+            "|     |     |     |     |     |\n" +
+            "|     |     |     |     |     |\n" +
+            "-------------------------------\n" +
+            "|     |     |     | X X |     |\n" +
+            "|     |     |     |  X  |     |\n" +
+            "|     |     |     | X X |     |\n" +
+            "-------------------------------\n" +
+            "|     |     | SKY |     |     |\n" +
+            "|     |     |  X  |     |     |\n" +
+            "|     |     | HIGH|     |     |\n" +
+            "-------------------------------\n" +
+            "|     |     |     |     |     |\n" +
+            "|     |     |     |     |     |\n" +
+            "|     |     |     |     |     |\n" +
+            "-------------------------------\n"
 
             # Act/Assert
             expect{@mars_rover_app.start}.to output(a_string_including(GRID_WITH_NEW_ROVER)).to_stdout

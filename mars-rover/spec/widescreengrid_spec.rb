@@ -37,6 +37,44 @@ describe WideScreenGrid do
             # Assert
             expect(result).to eq(EMPTY_ROW)
         end
+
+        xit "converts a single-cell grid row containing a Rover into a beautiful display" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = Rover360.new("MAX")
+            rover.start(0, 0, Rover360::EAST)
+            cells = [rover]
+            POPULATED_CELL = 
+            "-------\n" +
+            "| 360 |\n" +
+            "| <<< |\n" +
+            "| MAX |\n"
+
+            # Act
+            result = display_grid.display_row(cells)
+
+            # Assert
+            expect(result).to eq(EMPTY_CELL)
+        end
+
+        xit "converts a multi-cell grid row containing a Rover into a beautiful display" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = StraightLineRover.new("ANN")
+            rover.start(0, 0, StraightLineRover::SOUTH)
+            cells = ["", rover, ""]
+            POPULATED_ROW = 
+            "-------------------\n" +
+            "|     | SLR |     |\n" +
+            "|     | vvv |     |\n" +
+            "|     | ANN |     |\n"
+
+            # Act
+            result = display_grid.display_row(cells)
+
+            # Assert
+            expect(result).to eq(EMPTY_ROW)
+        end
     end	
 
     context "#row_line" do
@@ -144,12 +182,40 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the first row of a North-facing Rover" do
+        xit "constructs a single-celled row line containing the first row of a Rover360" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
             cells = [rover]
-            EXPECTED_ROW_LINE = "|3 ^ T|\n"
+            EXPECTED_ROW_LINE = "| 360 |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 0)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        xit "constructs a single-celled row line containing the first row of a straight-line Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = StraightLineRover.new("TST")
+            cells = [rover]
+            EXPECTED_ROW_LINE = "| SLR |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 0)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        xit "constructs a single-celled row line containing the first row of a flying Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = StraightLineRover.new("TST")
+            cells = [rover]
+            EXPECTED_ROW_LINE = "| FLY |\n"
 
             # Act
             result = display_grid.row_line(cells, 0)
@@ -162,8 +228,9 @@ describe WideScreenGrid do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
+            rover.start(0, 0, StraightLineRover::NORTH)
             cells = [rover]
-            EXPECTED_ROW_LINE = "|6 | S|\n"
+            EXPECTED_ROW_LINE = "| ^^^ |\n"
 
             # Act
             result = display_grid.row_line(cells, 1)
@@ -172,12 +239,57 @@ describe WideScreenGrid do
             expect(result).to eq(EXPECTED_ROW_LINE)
         end
 
-        xit "constructs a single-celled row line containing the third row of a North-facing Rover" do
+        xit "constructs a single-celled row line containing the second row of a South-facing Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = Rover360.new("TST")
+            rover.start(0, 0, StraightLineRover::SOUTH)
+            cells = [rover]
+            EXPECTED_ROW_LINE = "| vvv |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 1)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        xit "constructs a single-celled row line containing the second row of an East-facing Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = Rover360.new("TST")
+            rover.start(0, 0, Rover360::EAST)
+            cells = [rover]
+            EXPECTED_ROW_LINE = "| <<< |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 1)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        xit "constructs a single-celled row line containing the second row of a West-facing Rover" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+            rover = Rover360.new("TST")
+            rover.start(0, 0, Rover360::WEST)
+            cells = [rover]
+            EXPECTED_ROW_LINE = "| >>> |\n"
+
+            # Act
+            result = display_grid.row_line(cells, 1)
+
+            # Assert
+            expect(result).to eq(EXPECTED_ROW_LINE)
+        end
+
+        xit "constructs a single-celled row line containing the third row of a Rover called MEG" do
             # Arrange
             display_grid = WideScreenGrid.new
             rover = Rover360.new("TST")
             cells = [rover]
-            EXPECTED_ROW_LINE = "|0 | T|\n"
+            EXPECTED_ROW_LINE = "| MEG |\n"
 
             # Act
             result = display_grid.row_line(cells, 2)
