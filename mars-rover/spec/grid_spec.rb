@@ -37,9 +37,10 @@ describe "grid" do
             # Arrange
             EXPECTED_X = 2
             EXPECTED_Y = 3
-            EXPECTED_DIRECTION = "S"
+            EXPECTED_DIRECTION = StraightLineRover::SOUTH
             grid = Grid.new(5, 5)
             mars_rover = Rover360.new("TST")
+            mars_rover.start(EXPECTED_X, EXPECTED_Y, EXPECTED_DIRECTION)
 
             # Act
             grid.update(mars_rover)
@@ -52,7 +53,7 @@ describe "grid" do
             # Arrange
             EXPECTED_X = 2
             EXPECTED_Y = 3
-            EXPECTED_DIRECTION = "S"
+            EXPECTED_DIRECTION = StraightLineRover::SOUTH
             grid = Grid.new(5, 5)
             mars_rover = Rover360.new("TST")
 
@@ -146,6 +147,24 @@ describe "grid" do
 
             # Assert
             expect(grid.grid_array[OBSTACLE_Y][OBSTACLE_X]).to eq(Grid::OBSTACLE)  
+        end
+
+        xit "will maintain other rovers when updating the display" do
+            # Arrange
+            ROVER1_X = 1
+            ROVER1_Y = 1
+            grid = Grid.new(5, 5)
+            mars_rover1 = Rover360.new("TS1")
+            mars_rover1.start(ROVER1_X, ROVER1_Y, StraightLineRover::SOUTH)
+            grid.update(mars_rover1)
+            mars_rover2 = Rover360.new("TS1")
+            mars_rover2.start(ROVER1_X + 1, ROVER1_Y + 1, StraightLineRover::NORTH)
+
+            # Act
+            grid.update(mars_rover2)
+
+            # Assert
+            expect(grid.grid_array[ROVER1_Y][ROVER1_X]).to eq(mars_rover1)  
         end
     end
 end
