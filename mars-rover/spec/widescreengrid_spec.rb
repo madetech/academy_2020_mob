@@ -23,6 +23,17 @@ describe WideScreenGrid do
     end
 
     context "#display_bottom_wall" do
+        it "constructs a single-celled bottom wall" do
+            # Arrange
+            display_grid = WideScreenGrid.new
+
+            # Act
+            result = display_grid.display_bottom_wall(1)
+
+            # Assert
+            expect(result).to eq("#{WideScreenGrid::HORIZONTAL_WALL}#{WideScreenGrid::HORIZONTAL_WALL_END}")
+        end
+
         it "constructs a multi-celled bottom wall" do
             # Arrange
             display_grid = WideScreenGrid.new
