@@ -135,17 +135,18 @@ describe MarsRoverApp do
     end
 
     context "when moving (using test spies)" do
-        xit "uses the rover, the grid and the presenter to update the Rover's position" do
+        it "uses the rover, the grid and the presenter to update the Rover's position" do
             # Arrange
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
             mars_rover_spy = spy('Rover360')
             rover_factory_fake = double('MarsRoverFactory')
             allow(rover_factory_fake).to receive(:generate_rover).with("ANN","360").and_return(mars_rover_spy)
             grid_spy = spy('Grid')
+            allow(grid_spy).to receive(:contains_obstacle?).and_return(false)
             communicator_stub = double('Communicator')
             allow(communicator_stub).to receive(:show_message) 
             presenter_spy = spy('Presenter')
-            allow(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
+            expect(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "ANN,360,0,0,N"
             allow(communicator_stub).to receive(:get_input).and_return(EXPECTED_INPUT, "") 
             mars_rover_app = MarsRoverApp.new(presenter_spy, communicator_stub, grid_spy, rover_factory_fake)
@@ -155,7 +156,6 @@ describe MarsRoverApp do
             expect(rover_factory_fake).to have_received(:generate_rover).with("ANN","360")
             expect(mars_rover_spy).to have_received(:start)
             expect(grid_spy).to have_received(:update).with(mars_rover_spy)
-            expect(presenter_spy).to have_received(:show_display).with(grid_spy)
         end
     end
 
