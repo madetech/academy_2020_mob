@@ -1,6 +1,6 @@
 # Demo Notes
 
-For useful commits and nomtes on what they demonstrate, see separate [demo notes page](demo-notes.md).
+For useful commits and notes on what they demonstrate, see separate [demo notes page](demo-notes.md).
 
 # To Implement:
 
