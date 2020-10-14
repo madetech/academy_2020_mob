@@ -1,3 +1,7 @@
+# Demo Notes
+
+For useful commits and nomtes on what they demonstrate, see separate [demo notes page](demo-notes.md).
+
 # To Implement:
 
 - The marsroverapp_spec should test narrow screen too?

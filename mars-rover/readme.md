@@ -8,6 +8,10 @@ Run `bundle install` first, then run the app like this:
 ruby app.rb
 ```
 
+## Demo Notes
+
+For useful commits and nomtes on what they demonstrate, see separate [demo notes page](demo-notes.md).
+
 ## Intro to kata
 
 You’re part of the team that explores Mars by sending remotely controlled vehicles to the surface of the planet. Develop an API that translates the commands sent from earth to instructions that are understood by the rover.
