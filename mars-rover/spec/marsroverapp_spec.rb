@@ -114,20 +114,23 @@ describe MarsRoverApp do
     end
 
     context "when moving (using test doubles)" do
-        xit "displays the position of a Rover when given position" do
+        it "displays the position of a Rover when given position" do
             # Arrange
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
             rover_factory_stub = double('MarsRoverFactory')
+            allow(rover_factory_stub).to receive(:generate_rover) 
             grid_stub = double('Grid')
+            allow(grid_stub).to receive(:contains_obstacle?) 
             communicator_stub = double('Communicator')
+            allow(communicator_stub).to receive(:show_message) 
             fake_presenter = double('Presenter')
             allow(fake_presenter).to receive(:show_display).with(grid_stub) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT, "") 
+            allow(communicator_stub).to receive(:get_input).and_return(EXPECTED_INPUT, "") 
             mars_rover_app = MarsRoverApp.new(fake_presenter, communicator_stub, grid_stub, rover_factory_stub)
 
             # Act/Assert
-            expect{mars_rover_app.start}.to output(a_string_including(GRID_WITH_NEW_ROVER)).to_stdout
+            expect{mars_rover_app.start}.to output(a_string_starting_with(GRID_WITH_NEW_ROVER)).to_stdout
         end
     end
 
@@ -140,14 +143,15 @@ describe MarsRoverApp do
             allow(rover_factory_fake).to receive(:generate_rover).and_return(mars_rover_spy)
             grid_spy = spy('Grid')
             communicator_stub = double('Communicator')
+            allow(communicator_stub).to receive(:show_message) 
             presenter_spy = spy('Presenter')
             allow(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "ANN,360,0,0,N"
-            allow(@communicator).to receive(:gets).and_return(EXPECTED_INPUT, "") 
+            allow(communicator_stub).to receive(:get_input).and_return(EXPECTED_INPUT, "") 
             mars_rover_app = MarsRoverApp.new(presenter_spy, communicator_stub, grid_spy, rover_factory_fake)
 
             # Act/Assert
-            expect{mars_rover_app.start}.to output(a_string_including(GRID_WITH_NEW_ROVER)).to_stdout
+            expect{mars_rover_app.start}.to output(a_string_starting_with(GRID_WITH_NEW_ROVER)).to_stdout
             expect(mars_rover_spy).to have_received(:x)
             expect(mars_rover_spy).to have_received(:y)
             expect(mars_rover_spy).to have_received(:direction)

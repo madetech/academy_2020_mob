@@ -1,3 +1,7 @@
+require_relative 'exceptions/bad_input_exception'
+require_relative 'exceptions/obstacle_exception'
+require_relative 'exceptions/sky_high_obstacle_exception'
+
 class MarsRoverApp
     USER_INFORMATION = "There are three types of Rover: Straight-line rover = 'SLR', Rover360 = '360', FlyingRover = 'FLY'"
     REQUEST_FOR_FIRST_INPUT = "Please input a 3-letter name, type, start coordinates and a direction for your Rover - eg ANN,SLR,0,0,N"

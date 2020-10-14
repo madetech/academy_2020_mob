@@ -1,5 +1,5 @@
 class Grid
-    attr_accessor :grid_array
+    attr_accessor :grid_array, :width, :height
     EMPTY_CELL = ""
     OBSTACLE = "X"
     SKY_HIGH_OBSTACLE = "Y"
