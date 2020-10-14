@@ -140,7 +140,7 @@ describe MarsRoverApp do
             GRID_WITH_NEW_ROVER = "This is what we think a 5x5 grid with a North-facing Rover at 0,0 will look like."
             mars_rover_spy = spy('Rover360')
             rover_factory_fake = double('MarsRoverFactory')
-            allow(rover_factory_fake).to receive(:generate_rover).and_return(mars_rover_spy)
+            allow(rover_factory_fake).to receive(:generate_rover).with("ANN","360").and_return(mars_rover_spy)
             grid_spy = spy('Grid')
             communicator_stub = double('Communicator')
             allow(communicator_stub).to receive(:show_message) 
@@ -152,9 +152,8 @@ describe MarsRoverApp do
 
             # Act/Assert
             expect{mars_rover_app.start}.to output(a_string_starting_with(GRID_WITH_NEW_ROVER)).to_stdout
-            expect(mars_rover_spy).to have_received(:x)
-            expect(mars_rover_spy).to have_received(:y)
-            expect(mars_rover_spy).to have_received(:direction)
+            expect(rover_factory_fake).to have_received(:generate_rover).with("ANN","360")
+            expect(mars_rover_spy).to have_received(:start)
             expect(grid_spy).to have_received(:update).with(mars_rover_spy)
             expect(presenter_spy).to have_received(:show_display).with(grid_spy)
         end
