@@ -1,6 +1,6 @@
-require_relative '../lib/wide_screen_grid'
-require_relative '../lib/grid'
-require 'rover_spec_helper'
+require_relative '../../lib/presenters/wide_screen_grid'
+require_relative '../../lib/grid'
+require_relative '../helpers/rover_spec_helper'
 
 describe WideScreenGrid do
     context "#display_row" do	

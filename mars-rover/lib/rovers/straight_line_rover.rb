@@ -1,4 +1,4 @@
-require_relative 'grid'
+require_relative '../grid'
 
 class StraightLineRover
     attr_accessor :x, :y, :direction, :name, :type,

@@ -1,5 +1,5 @@
-require_relative 'rovers/straight_line_rover'
-require_relative 'rovers/rover360'
+require_relative '../rovers/straight_line_rover'
+require_relative '../rovers/rover360'
 
 class WideScreenGrid 
     HORIZONTAL_WALL = "------"

@@ -1,4 +1,4 @@
-require_relative '../lib/rover360'
+require_relative '../../lib/rovers/rover360'
 
 describe "Rover360" do
     context "#start" do
