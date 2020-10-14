@@ -1,10 +1,10 @@
-require_relative 'lib/webpresenter'
-require_relative 'lib/narrow_screen_presenter'
-require_relative 'lib/wide_screen_presenter'
+require_relative 'lib/presenters/webpresenter'
+require_relative 'lib/presenters/narrow_screen_presenter'
+require_relative 'lib/presenters/wide_screen_presenter'
 require_relative 'lib/communicator'
 require_relative 'lib/grid'
 require_relative 'lib/marsroverapp'
-require_relative 'lib/mars_rover_factory'
+require_relative 'lib/rovers/mars_rover_factory'
 
 $stdout.sync = true
 

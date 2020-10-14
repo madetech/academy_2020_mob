@@ -1,7 +1,7 @@
-require_relative '../lib/wide_screen_presenter'
+require_relative '../lib/presenters/wide_screen_presenter'
 require_relative '../lib/communicator'
 require_relative '../lib/grid'
-require_relative '../lib/mars_rover_factory'
+require_relative '../lib/rovers/mars_rover_factory'
 require_relative '../lib/marsroverapp'
 
 describe MarsRoverApp do
