@@ -146,7 +146,7 @@ describe MarsRoverApp do
             communicator_stub = double('Communicator')
             allow(communicator_stub).to receive(:show_message) 
             presenter_spy = spy('Presenter')
-            expect(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
+            allow(presenter_spy).to receive(:show_display).with(grid_spy) {puts GRID_WITH_NEW_ROVER}
             EXPECTED_INPUT = "ANN,360,0,0,N"
             allow(communicator_stub).to receive(:get_input).and_return(EXPECTED_INPUT, "") 
             mars_rover_app = MarsRoverApp.new(presenter_spy, communicator_stub, grid_spy, rover_factory_fake)
