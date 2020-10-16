@@ -29,7 +29,7 @@ This project has been developed with the aim of demonstrating various software d
     - injected in app.rb
     - WebPresenter, WideScreenPresenter, SmallScreenPresenter, ColourPresenter
 - Rovers:
-    - uses a factory, injected via app.rb
+    - uses a factory, injected to `MarsRoverApp` via app.rb
     - **TODO** FastRover (moves several squares at once)
         - inherits from Rover360 and overrides move
     - Rover360 (original spec, can move in all four directions)
@@ -76,6 +76,10 @@ This project has been developed with the aim of demonstrating various software d
 
 - acceptance_tests_spec and marsroverapp_spec
 - See [commit bc1767b](https://github.com/madetech/academy_2020_mob/commit/bc1767b) onwards for some outside-in functionality implementation from acceptance test to unit tests (all commits listed below).
+
+### The Factory Pattern
+
+- See `MarsRoverFactory`, injected to `MarsRoverApp` via app.rb
 
 # Commits
 
