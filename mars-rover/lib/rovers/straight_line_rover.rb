@@ -16,13 +16,14 @@ class StraightLineRover
         @type = STRAIGHT_LINE
     end
 
-    def start(x, y, direction)
+    def start(x, y, direction, grid)
         @x = x
         @y = y
         @direction = direction
         @direction_object = StraightLineDirection.new(@direction)
         # throw error if direction is east or west
         # this error will need to be caught and handled higher up the call chain
+        detect_obstacle(x, y, grid)
     end
 
     def move(movement, grid)

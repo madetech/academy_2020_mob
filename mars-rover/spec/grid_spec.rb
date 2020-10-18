@@ -40,7 +40,7 @@ describe Grid do
             EXPECTED_DIRECTION = StraightLineRover::SOUTH
             grid = described_class.new(5, 5)
             mars_rover = Rover360.new("TST")
-            mars_rover.start(EXPECTED_X, EXPECTED_Y, EXPECTED_DIRECTION)
+            mars_rover.start(EXPECTED_X, EXPECTED_Y, EXPECTED_DIRECTION, grid)
 
             # Act
             grid.update(mars_rover)
@@ -55,7 +55,7 @@ describe Grid do
             EXPECTED_Y = 3
             grid = described_class.new(5, 5)
             mars_rover = Rover360.new("TST")
-            mars_rover.start(EXPECTED_X, EXPECTED_Y, StraightLineRover::SOUTH)
+            mars_rover.start(EXPECTED_X, EXPECTED_Y, StraightLineRover::SOUTH, grid)
 
             # Act
             grid.update(mars_rover)
@@ -119,7 +119,7 @@ describe Grid do
             ROVER_Y = 3
             grid = described_class.new(5, 5)
             mars_rover = Rover360.new("TST")
-            mars_rover.start(ROVER_X, ROVER_Y, StraightLineRover::SOUTH)
+            mars_rover.start(ROVER_X, ROVER_Y, StraightLineRover::SOUTH, grid)
             grid.update(mars_rover)
 
             # Act
@@ -136,7 +136,7 @@ describe Grid do
             grid = described_class.new(5, 5)
             grid.add_obstacle(OBSTACLE_X, OBSTACLE_Y)
             mars_rover = Rover360.new("TST")
-            mars_rover.start(OBSTACLE_X + 1, OBSTACLE_Y + 1, StraightLineRover::SOUTH)            
+            mars_rover.start(OBSTACLE_X + 1, OBSTACLE_Y + 1, StraightLineRover::SOUTH, grid)            
 
             # Act
             grid.update(mars_rover)
@@ -151,10 +151,10 @@ describe Grid do
             ROVER1_Y = 1
             grid = described_class.new(5, 5)
             mars_rover1 = Rover360.new("TS1")
-            mars_rover1.start(ROVER1_X, ROVER1_Y, StraightLineRover::SOUTH)
+            mars_rover1.start(ROVER1_X, ROVER1_Y, StraightLineRover::SOUTH, grid)
             grid.update(mars_rover1)
             mars_rover2 = Rover360.new("TS1")
-            mars_rover2.start(ROVER1_X + 1, ROVER1_Y + 1, StraightLineRover::NORTH)
+            mars_rover2.start(ROVER1_X + 1, ROVER1_Y + 1, StraightLineRover::NORTH, grid)
 
             # Act
             grid.update(mars_rover2)

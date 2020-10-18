@@ -41,8 +41,10 @@ describe WideScreenGrid do
         it "converts a single-cell grid row containing a Rover into a beautiful display" do
             # Arrange
             display_grid = WideScreenGrid.new
+            grid_stub = double("Grid")
+            allow(grid_stub).to receive(:contains_obstacle?)
             rover = Rover360.new("MAX")
-            rover.start(0, 0, Rover360::EAST)
+            rover.start(0, 0, Rover360::EAST, grid_stub)
             cells = [rover]
             POPULATED_CELL = 
             "-------\n" +
@@ -60,8 +62,10 @@ describe WideScreenGrid do
         it "converts a multi-cell grid row containing a Rover into a beautiful display" do
             # Arrange
             display_grid = WideScreenGrid.new
+            grid_stub = double("Grid")
+            allow(grid_stub).to receive(:contains_obstacle?)
             rover = StraightLineRover.new("ANN")
-            rover.start(0, 0, StraightLineRover::SOUTH)
+            rover.start(0, 0, StraightLineRover::SOUTH, grid_stub)
             cells = ["", rover, ""]
             POPULATED_ROW = 
             "-------------------\n" +
@@ -227,8 +231,10 @@ describe WideScreenGrid do
         it "constructs a single-celled row line containing the second row of a North-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
+            grid_stub = double("Grid")
+            allow(grid_stub).to receive(:contains_obstacle?)
             rover = Rover360.new("TST")
-            rover.start(0, 0, StraightLineRover::NORTH)
+            rover.start(0, 0, StraightLineRover::NORTH, grid_stub)
             cells = [rover]
             EXPECTED_ROW_LINE = "| ^^^ |\n"
 
@@ -242,8 +248,10 @@ describe WideScreenGrid do
         it "constructs a single-celled row line containing the second row of a South-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
+            grid_stub = double("Grid")
+            allow(grid_stub).to receive(:contains_obstacle?)
             rover = Rover360.new("TST")
-            rover.start(0, 0, StraightLineRover::SOUTH)
+            rover.start(0, 0, StraightLineRover::SOUTH, grid_stub)
             cells = [rover]
             EXPECTED_ROW_LINE = "| vvv |\n"
 
@@ -257,8 +265,10 @@ describe WideScreenGrid do
         it "constructs a single-celled row line containing the second row of an East-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
+            grid_stub = double("Grid")
+            allow(grid_stub).to receive(:contains_obstacle?)
             rover = Rover360.new("TST")
-            rover.start(0, 0, Rover360::EAST)
+            rover.start(0, 0, Rover360::EAST, grid_stub)
             cells = [rover]
             EXPECTED_ROW_LINE = "| <<< |\n"
 
@@ -272,8 +282,10 @@ describe WideScreenGrid do
         it "constructs a single-celled row line containing the second row of a West-facing Rover" do
             # Arrange
             display_grid = WideScreenGrid.new
+            grid_stub = double("Grid")
+            allow(grid_stub).to receive(:contains_obstacle?)
             rover = Rover360.new("TST")
-            rover.start(0, 0, Rover360::WEST)
+            rover.start(0, 0, Rover360::WEST, grid_stub)
             cells = [rover]
             EXPECTED_ROW_LINE = "| >>> |\n"
 

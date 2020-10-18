@@ -22,9 +22,9 @@ class RoverSpecHelper
             direction, 
             obstacle_coords=[], 
             sky_high_obstacle_coords=[])
-        mars_rover = Rover360.new("TST")
-        mars_rover.start(x, y, direction)
         grid = Grid.new(width, height)
+        mars_rover = Rover360.new("TST")
+        mars_rover.start(x, y, direction, grid)
         if !obstacle_coords.empty?
             grid.add_obstacle(obstacle_coords[0], obstacle_coords[1])
         end

@@ -14,11 +14,12 @@ class Rover360 < StraightLineRover
         @type = ROVER_360
     end
 
-    def start(x, y, direction)
+    def start(x, y, direction, grid)
         @x = x
         @y = y
         @direction = direction
         @direction_object = CompassDirection.new(@direction)
+        detect_obstacle(x, y, grid)
     end
 
     def turn(turn)

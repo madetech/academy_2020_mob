@@ -25,14 +25,14 @@ class MarsRoverApp
             new_rover = convert_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
             start_rover(new_rover)
             #move_rover_repeatedly
-        rescue StandardError => e
-            puts e.message
         rescue BadInputException => e            
             puts BAD_INPUT_ERROR
-        rescue ObstacleException => e
-            puts OBSTACLE_ERROR
         rescue SkyHighObstacleException => e
             puts SKY_HIGH_OBSTACLE_ERROR
+        rescue ObstacleException => e
+            puts OBSTACLE_ERROR
+        rescue StandardError => e
+            puts e.message
         end
     end
 
@@ -94,14 +94,10 @@ class MarsRoverApp
     end
 
     def start_rover(new_rover)
-        if (@grid.contains_obstacle?(new_rover[:x], new_rover[:y]))
-            puts OBSTACLE_ERROR
-        else
-            rover = @mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
-            rover.start(new_rover[:x], new_rover[:y], new_rover[:direction])
-            update_display(rover)
-            @mars_rovers[new_rover[:name]] = rover
-        end
+        rover = @mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
+        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], @grid)
+        update_display(rover)
+        @mars_rovers[new_rover[:name]] = rover
     end
 
     def update_display(rover)
