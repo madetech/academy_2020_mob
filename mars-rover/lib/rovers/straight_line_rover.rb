@@ -36,8 +36,8 @@ class StraightLineRover
     end
 
     def move(movement, grid)
-        new_x = @x + get_coord_diff(:x, movement)
-        new_y = @y + get_coord_diff(:y, movement)
+        new_x = wrap_if_necessary(@x + get_coord_diff(:x, movement), grid.width)
+        new_y = wrap_if_necessary(@y + get_coord_diff(:y, movement), grid.height)
 
         if grid.contains_obstacle?(new_x, new_y)
             raise ObstacleException.new
@@ -72,6 +72,10 @@ class StraightLineRover
     end
 
     private 
+
+    def wrap_if_necessary(coord, limit)
+        (coord + limit) % limit
+    end
 
     def get_coord_diff(coord_symbol, movement)
         MOVEMENTS[@direction][coord_symbol] * movement_multiplier(movement)
