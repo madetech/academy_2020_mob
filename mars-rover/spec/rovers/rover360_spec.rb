@@ -98,7 +98,7 @@ describe Rover360 do
                     [Rover360::RIGHT, StraightLineRover::WEST, StraightLineRover::NORTH]]
 
         all_turns.each do |movement, direction, expected_direction|
-            xit "will change direction to '#{expected_direction}' given input '#{movement}' and direction '#{direction}'" do
+            it "will change direction to '#{expected_direction}' given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 grid_stub = double("Grid")
                 allow(grid_stub).to receive(:contains_obstacle?)
