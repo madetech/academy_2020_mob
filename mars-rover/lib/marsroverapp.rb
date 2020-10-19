@@ -24,7 +24,7 @@ class MarsRoverApp
             @communicator.show_message(USER_INFORMATION)
             new_rover = convert_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
             start_rover(new_rover)
-            #move_rover_repeatedly
+            move_rover_repeatedly
         rescue BadInputException => e            
             puts BAD_INPUT_ERROR
         rescue SkyHighObstacleException => e
@@ -52,10 +52,10 @@ class MarsRoverApp
 
     def move_rover_repeatedly
         instructions = ask_for_further_input
-        while !instructions.empty? do
-            process_instructions(instructions)
-            instructions = ask_for_further_input
-        end
+        # while !instructions.empty? do
+        #     process_instructions(instructions)
+        #     instructions = ask_for_further_input
+        # end
     end
 
     def ask_for_further_input

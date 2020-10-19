@@ -207,7 +207,7 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
             end
 
-            xit "prompts the user to input movement or new direction after first input" do
+            it "prompts the user to input movement or new direction after first input" do
                 # Arrange
                 expected_input = "ANN,360,0,0,N"
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
@@ -217,7 +217,7 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_prompt)).to_stdout
             end
             
-            it "updates the direction of a Rover when it turns left" do
+            xit "updates the direction of a Rover when it turns left" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
                 expected_move_input = "l"
@@ -228,7 +228,7 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
             end
             
-            it "updates the direction of a Rover when it turns right" do
+            xit "updates the direction of a Rover when it turns right" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
                 expected_move_input = "r"
