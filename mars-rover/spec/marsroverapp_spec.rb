@@ -359,23 +359,69 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
-            xit "wraps around when it moves forward off the edge of the grid" do
+            it "wraps around when it moves forward off the edge of the grid" do
                 # Arrange
-                initial_input = "ANN,360,0,0,S"
+                initial_input = "ANN,360,4,4,S"
                 expected_move_input = "ANN,f"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                expected_grid = "A 5x5 grid with a South-facing Rover at 0,4"
+                expected_grid = 
+                <<~HEREDOC
+                -------------------------------
+                |     |     |     |     | 360 |
+                |     |     |     |     | vvv |
+                |     |     |     |     | ANN |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     |     | X X |     |
+                |     |     |     |  X  |     |
+                |     |     |     | X X |     |
+                -------------------------------
+                |     |     | SKY |     |     |
+                |     |     |  X  |     |     |
+                |     |     | HIGH|     |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                HEREDOC
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
-            xit "wraps around when it moves backwards off the edge of the grid" do
+            it "wraps around when it moves backwards off the edge of the grid" do
                 # Arrange
-                initial_input = "ANN,360,4,4,S"
+                initial_input = "ANN,360,4,0,S"
                 expected_move_input = "ANN,b"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                expected_grid = "A 5x5 grid with a South-facing Rover at 4,0"
+                expected_grid = 
+                <<~HEREDOC
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     |     | X X |     |
+                |     |     |     |  X  |     |
+                |     |     |     | X X |     |
+                -------------------------------
+                |     |     | SKY |     |     |
+                |     |     |  X  |     |     |
+                |     |     | HIGH|     |     |
+                -------------------------------
+                |     |     |     |     | 360 |
+                |     |     |     |     | vvv |
+                |     |     |     |     | ANN |
+                -------------------------------
+                HEREDOC
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
