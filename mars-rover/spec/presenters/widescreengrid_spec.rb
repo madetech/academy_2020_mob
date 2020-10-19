@@ -9,10 +9,12 @@ describe WideScreenGrid do
             display_grid = WideScreenGrid.new
             cells = [""]
             empty_cell = 
-            "-------\n" +
-            "|     |\n" +
-            "|     |\n" +
-            "|     |\n"
+            <<~HEREDOC
+            -------
+            |     |
+            |     |
+            |     |
+            HEREDOC
 
             # Act
             result = display_grid.display_row(cells)
@@ -26,10 +28,12 @@ describe WideScreenGrid do
             display_grid = WideScreenGrid.new
             cells = ["", "", ""]
             empty_row = 
-            "-------------------\n" +
-            "|     |     |     |\n" +
-            "|     |     |     |\n" +
-            "|     |     |     |\n"
+            <<~HEREDOC
+            -------------------
+            |     |     |     |
+            |     |     |     |
+            |     |     |     |
+            HEREDOC
 
             # Act
             result = display_grid.display_row(cells)
@@ -47,10 +51,12 @@ describe WideScreenGrid do
             rover.start(0, 0, Rover360::EAST, grid_stub)
             cells = [rover]
             populated_cell = 
-            "-------\n" +
-            "| 360 |\n" +
-            "| >>> |\n" +
-            "| MAX |\n"
+            <<~HEREDOC
+            -------
+            | 360 |
+            | >>> |
+            | MAX |
+            HEREDOC
 
             # Act
             result = display_grid.display_row(cells)
@@ -68,10 +74,12 @@ describe WideScreenGrid do
             rover.start(0, 0, StraightLineRover::SOUTH, grid_stub)
             cells = ["", rover, ""]
             populated_row = 
-            "-------------------\n" +
-            "|     | SLR |     |\n" +
-            "|     | vvv |     |\n" +
-            "|     | ANN |     |\n"
+            <<~HEREDOC
+            -------------------
+            |     | SLR |     |
+            |     | vvv |     |
+            |     | ANN |     |
+            HEREDOC
 
             # Act
             result = display_grid.display_row(cells)
