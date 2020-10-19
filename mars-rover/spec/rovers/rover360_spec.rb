@@ -23,7 +23,7 @@ describe Rover360 do
 
     context "#move" do
 
-        simple_turns = [Rover360::LEFT, Rover360::RIGHT]
+        simple_turns = [StraightLineRover::LEFT, StraightLineRover::RIGHT]
 
         simple_turns.each do |turn|
             it "will not change position given input '#{turn}'" do
@@ -63,17 +63,17 @@ describe Rover360 do
             end
         end
 
-        all_turns =[[Rover360::LEFT, StraightLineRover::NORTH, StraightLineRover::WEST], 
-                    [Rover360::LEFT, StraightLineRover::EAST,  StraightLineRover::NORTH], 
-                    [Rover360::LEFT, StraightLineRover::SOUTH, StraightLineRover::EAST], 
-                    [Rover360::LEFT, StraightLineRover::WEST,  StraightLineRover::SOUTH],
-                    [Rover360::RIGHT, StraightLineRover::NORTH,StraightLineRover::EAST], 
-                    [Rover360::RIGHT, StraightLineRover::EAST, StraightLineRover::SOUTH], 
-                    [Rover360::RIGHT, StraightLineRover::SOUTH,StraightLineRover::WEST], 
-                    [Rover360::RIGHT, StraightLineRover::WEST, StraightLineRover::NORTH]]
+        all_turns =[[StraightLineRover::LEFT, StraightLineRover::NORTH, StraightLineRover::WEST], 
+                    [StraightLineRover::LEFT, StraightLineRover::EAST,  StraightLineRover::NORTH], 
+                    [StraightLineRover::LEFT, StraightLineRover::SOUTH, StraightLineRover::EAST], 
+                    [StraightLineRover::LEFT, StraightLineRover::WEST,  StraightLineRover::SOUTH],
+                    [StraightLineRover::RIGHT, StraightLineRover::NORTH,StraightLineRover::EAST], 
+                    [StraightLineRover::RIGHT, StraightLineRover::EAST, StraightLineRover::SOUTH], 
+                    [StraightLineRover::RIGHT, StraightLineRover::SOUTH,StraightLineRover::WEST], 
+                    [StraightLineRover::RIGHT, StraightLineRover::WEST, StraightLineRover::NORTH]]
 
         all_turns.each do |movement, direction, expected_direction|
-            xit "will change direction to '#{expected_direction}' given input '#{movement}' and direction '#{direction}'" do
+            it "will change direction to '#{expected_direction}' given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 grid_stub = double("Grid")
                 allow(grid_stub).to receive(:contains_obstacle?)

@@ -49,7 +49,7 @@ describe WideScreenGrid do
             populated_cell = 
             "-------\n" +
             "| 360 |\n" +
-            "| <<< |\n" +
+            "| >>> |\n" +
             "| MAX |\n"
 
             # Act
@@ -270,7 +270,7 @@ describe WideScreenGrid do
             rover = Rover360.new("TST")
             rover.start(0, 0, Rover360::EAST, grid_stub)
             cells = [rover]
-            expected_row_line = "| <<< |\n"
+            expected_row_line = "| >>> |\n"
 
             # Act
             result = display_grid.row_line(cells, 1)
@@ -287,7 +287,7 @@ describe WideScreenGrid do
             rover = Rover360.new("TST")
             rover.start(0, 0, Rover360::WEST, grid_stub)
             cells = [rover]
-            expected_row_line = "| >>> |\n"
+            expected_row_line = "| <<< |\n"
 
             # Act
             result = display_grid.row_line(cells, 1)

@@ -7,6 +7,8 @@ class StraightLineRover
     SOUTH = "S"
     FORWARD = "f"
     BACKWARD = "b"
+    LEFT = "l"
+    RIGHT = "r"
     STRAIGHT_LINE = "SLR"
     EAST = "E"
     WEST = "W"

@@ -5,9 +5,13 @@ require_relative '../compass_direction'
 class Rover360 < StraightLineRover
     attr_accessor :x, :y, :direction, :name, :type
 
-    LEFT = "l"
-    RIGHT = "r"
     ROVER_360 = "360"
+    NESW = [
+        StraightLineRover::NORTH, 
+        StraightLineRover::EAST, 
+        StraightLineRover::SOUTH, 
+        StraightLineRover::WEST
+    ]
 
     def initialize(name)
         super(name)
@@ -23,9 +27,14 @@ class Rover360 < StraightLineRover
     end
 
     def turn(turn)
-        # The current assumption is that turn is a string containing either LEFT or RIGHT.
-        # Add the ability to turn in any direction from any direction
-        # In this class you turn 90 degrees for each turn
+        current_direction_index = NESW.find_index(@direction)
+        new_index = 0
+        if turn == StraightLineRover::LEFT
+            new_index = shift_nesw_index_left(current_direction_index)
+        else
+            new_index = shift_nesw_index_right(current_direction_index)
+        end
+        @direction = NESW[new_index]
     end
 
     def go_east
@@ -38,5 +47,15 @@ class Rover360 < StraightLineRover
 
     def get_direction_object
         @direction_object
+    end
+
+    private
+
+    def shift_nesw_index_left(index)
+        ((index + 4) - 1) % 4
+    end
+
+    def shift_nesw_index_right(index)
+        (index + 1) % 4
     end
 end

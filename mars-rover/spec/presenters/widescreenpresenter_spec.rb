@@ -126,7 +126,7 @@ describe WideScreenPresenter do
             populated_grid = 
             "-------------\n" +
             "|     | 360 |\n" +
-            "|     | <<< |\n" +
+            "|     | >>> |\n" +
             "|     | TST |\n" +
             "-------------\n" +
             "|     |     |\n" +
@@ -153,7 +153,7 @@ describe WideScreenPresenter do
             "|     |     |\n" +
             "-------------\n" +
             "| 360 |     |\n" +
-            "| >>> |     |\n" +
+            "| <<< |     |\n" +
             "| TST |     |\n" +
             "-------------\n" +
             "|     |     |\n" +

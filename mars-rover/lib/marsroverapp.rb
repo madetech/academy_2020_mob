@@ -5,10 +5,12 @@ require_relative 'exceptions/sky_high_obstacle_exception'
 class MarsRoverApp
     USER_INFORMATION = "There are three types of Rover: Straight-line rover = 'SLR', Rover360 = '360', FlyingRover = 'FLY'"
     REQUEST_FOR_FIRST_INPUT = "Please input a 3-letter name, type, start coordinates and a direction for your Rover - eg ANN,SLR,0,0,N"
-    REQUEST_FOR_FURTHER_INPUT = "Please input, comma-separated, either rover name followed by a sequence of the following single chars: f(forwards), b(backwards), l(left), r(right) ... or a 3-letter name, start coordinates, type and a direction for a new Rover - eg ANN,360,0,0,N"
+    REQUEST_FOR_FURTHER_INPUT = "Please input, comma-separated, either rover name followed by a sequence of the following single chars: f(forwards), b(backwards), l(left), r(right) - eg 'ANN,l' ... or a 3-letter name, start coordinates, type and a direction for a new Rover - eg 'ANN,360,0,0,N'"
     BAD_INPUT_ERROR = "Sorry, I don't understand that input."
     OBSTACLE_ERROR = "Oh no, I'm sorry, I can't process that instruction. There is an obstacle in the way!"
     SKY_HIGH_OBSTACLE_ERROR = "Oh no, I'm sorry, I can't process that instruction. There is a sky-high obstacle in the way!"
+    MOVEMENTS = [StraightLineRover::LEFT, StraightLineRover::RIGHT, StraightLineRover::FORWARD, StraightLineRover::BACKWARD]
+    TURNS = [StraightLineRover::LEFT, StraightLineRover::RIGHT]
 
     def initialize(presenter, communicator, grid, mars_rover_factory)
         @presenter = presenter
@@ -22,7 +24,7 @@ class MarsRoverApp
         begin
             @presenter.show_display(@grid)
             @communicator.show_message(USER_INFORMATION)
-            new_rover = convert_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
+            new_rover = convert_first_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
             start_rover(new_rover)
             move_rover_repeatedly
         rescue BadInputException => e            
@@ -38,7 +40,7 @@ class MarsRoverApp
 
     private
 
-    def convert_input(new_rover)
+    def convert_first_input(new_rover)
         new_rover = new_rover.split(',')
         new_rover = {
             name: new_rover[0],
@@ -52,10 +54,10 @@ class MarsRoverApp
 
     def move_rover_repeatedly
         instructions = ask_for_further_input
-        # while !instructions.empty? do
-        #     process_instructions(instructions)
-        #     instructions = ask_for_further_input
-        # end
+        while !instructions.empty? do
+            process_instructions(instructions)
+            instructions = ask_for_further_input
+        end
     end
 
     def ask_for_further_input
@@ -67,21 +69,21 @@ class MarsRoverApp
         if is_movement?(instructions)
             move_rover(instructions)
         else
-            start_rover(instructions)
+            start_rover(convert_first_input(instructions))
         end
     end
 
     def move_rover(instructions)  
         instructions = instructions.split(",")
-        rover_name = instructions[:name]
+        rover_name = instructions[0]
         instructions.shift # removes first element
         instructions.each do |movement|   
             process_movement(movement, rover_name)
         end
     end
 
-    def process_movement(movement, rover_name)
-        if is_turn?(movement)            
+    def process_movement(movement, rover_name)    
+        if is_turn?(movement)       
             @mars_rovers[rover_name].turn(movement)
         else
             @mars_rovers[rover_name].move(movement, @grid)
@@ -90,7 +92,11 @@ class MarsRoverApp
     end
 
     def is_turn?(movement)
-        # return true if it's l or r, false if it's f or b
+        TURNS.include?(movement)
+    end
+
+    def is_movement?(movement)
+        MOVEMENTS.include?(movement[movement.length-1])
     end
 
     def start_rover(new_rover)
