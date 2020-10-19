@@ -4,20 +4,20 @@ describe Rover360 do
     context "#start" do
         it "sets position and direction according to data passed in" do
             # Arrange 
-            EXPECTED_X = 4
-            EXPECTED_Y = 5
-            EXPECTED_DIRECTION = StraightLineRover::EAST
+            expected_x = 4
+            expected_y = 5
+            expected_direction = StraightLineRover::EAST
             grid_stub = double("Grid")
             allow(grid_stub).to receive(:contains_obstacle?)
             mars_rover = described_class.new("TST")
             
             # Act
-            mars_rover.start(EXPECTED_X, EXPECTED_Y, EXPECTED_DIRECTION, grid_stub)
+            mars_rover.start(expected_x, expected_y, expected_direction, grid_stub)
 
             # Assert
-            expect(mars_rover.x).to eq(EXPECTED_X)
-            expect(mars_rover.y).to eq(EXPECTED_Y)
-            expect(mars_rover.direction).to eq(EXPECTED_DIRECTION)
+            expect(mars_rover.x).to eq(expected_x)
+            expect(mars_rover.y).to eq(expected_y)
+            expect(mars_rover.direction).to eq(expected_direction)
         end
     end
 
@@ -28,19 +28,19 @@ describe Rover360 do
         simple_turns.each do |turn|
             it "will not change position given input '#{turn}'" do
                 # Arrange 
-                START_X = 0
-                START_Y = 0
+                start_x = 0
+                start_y = 0
                 grid_stub = double("Grid")
                 allow(grid_stub).to receive(:contains_obstacle?)
                 mars_rover = described_class.new("TST")
-                mars_rover.start(START_X, START_Y, StraightLineRover::NORTH, grid_stub)
+                mars_rover.start(start_x, start_y, StraightLineRover::NORTH, grid_stub)
                 
                 # Act
                 mars_rover.turn(turn)
 
                 # Assert
-                expect(mars_rover.x).to eq(START_X)
-                expect(mars_rover.y).to eq(START_Y)
+                expect(mars_rover.x).to eq(start_x)
+                expect(mars_rover.y).to eq(start_y)
             end
         end
         
