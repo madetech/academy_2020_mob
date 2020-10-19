@@ -4,6 +4,7 @@ For useful commits and notes on what they demonstrate, see separate [demo notes 
 
 # To Implement:
 
+- Test that if a movement results in collison with an obstacle then the rover does NOT have its position changed
 - Need to add tests / functionality for having a flying rover and an obstacle occupying the same space. At the moment the obstacle is overridden by the flying rover.
 - The marsroverapp_spec should test narrow screen too?
 - Check the width and height are the right way around in Grid.make_grid for a rectangular grid.

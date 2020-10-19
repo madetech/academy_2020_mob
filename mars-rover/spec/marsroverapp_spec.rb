@@ -291,26 +291,72 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_including(grid_with_east_facing_rover)).to_stdout
             end
             
-            xit "updates the position of a Rover when it moves forwards" do
+            it "updates the position of a Rover when it moves forwards" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = "ANN,360,4,4,N"
                 expected_move_input = "ANN,f"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                grid_with_rover = "A 5x5 grid with North-facing Rover moved forward one square from 0,0"
+                expected_grid = 
+                <<~HEREDOC
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     |     | X X |     |
+                |     |     |     |  X  |     |
+                |     |     |     | X X |     |
+                -------------------------------
+                |     |     | SKY |     | 360 |
+                |     |     |  X  |     | ^^^ |
+                |     |     | HIGH|     | ANN |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                HEREDOC
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
-            xit "updates the position of a Rover when it moves backwards" do
+            it "updates the position of a Rover when it moves backwards" do
                 # Arrange
-                initial_input = "ANN,360,4,4,S"
+                initial_input = "ANN,360,0,0,N"
                 expected_move_input = "ANN,b"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                grid_with_rover = "A 5x5 grid with South-facing Rover moved backward one square from 4,4"
+                expected_grid = 
+                <<~HEREDOC
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                | 360 |     |     |     |     |
+                | ^^^ |     |     |     |     |
+                | ANN |     |     |     |     |
+                -------------------------------
+                |     |     |     | X X |     |
+                |     |     |     |  X  |     |
+                |     |     |     | X X |     |
+                -------------------------------
+                |     |     | SKY |     |     |
+                |     |     |  X  |     |     |
+                |     |     | HIGH|     |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                HEREDOC
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
             xit "wraps around when it moves forward off the edge of the grid" do
@@ -318,10 +364,10 @@ class MarsRoverAppTests
                 initial_input = "ANN,360,0,0,S"
                 expected_move_input = "ANN,f"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                grid_with_rover = "A 5x5 grid with a South-facing Rover at 0,4"
+                expected_grid = "A 5x5 grid with a South-facing Rover at 0,4"
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
             xit "wraps around when it moves backwards off the edge of the grid" do
@@ -329,30 +375,30 @@ class MarsRoverAppTests
                 initial_input = "ANN,360,4,4,S"
                 expected_move_input = "ANN,b"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                grid_with_rover = "A 5x5 grid with a South-facing Rover at 4,0"
+                expected_grid = "A 5x5 grid with a South-facing Rover at 4,0"
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
             xit "responds to repeated movement inputs" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,f", "ANN,f", "ANN,l", "ANN,b", "") 
-                grid_with_rover = "A 5x5 grid with a North-facing Rover at 2,0"
+                expected_grid = "A 5x5 grid with a North-facing Rover at 2,0"
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
             xit "responds to several movements in one input" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f,r,f,f,l,b", "") 
-                grid_with_rover = "A 5x5 grid with a North-facing Rover at 2,0"
+                expected_grid = "A 5x5 grid with a North-facing Rover at 2,0"
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
             xit "shows an error when the rover can't move forward because there is an obstacle in the way" do

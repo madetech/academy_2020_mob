@@ -13,6 +13,13 @@ class StraightLineRover
     EAST = "E"
     WEST = "W"
 
+    MOVEMENTS = {
+        NORTH => {x: 0, y: -1},
+        EAST => {x: 1, y: 0},
+        SOUTH => {x: 0, y: 1},
+        WEST => {x: -1, y: 0},
+    }
+
     def initialize(name)
         @name = name
         @type = STRAIGHT_LINE
@@ -25,19 +32,18 @@ class StraightLineRover
         @direction_object = StraightLineDirection.new(@direction)
         # throw error if direction is east or west
         # this error will need to be caught and handled higher up the call chain
-        detect_obstacle(x, y, grid)
+        detect_obstacle(@x, @y, grid)
     end
 
     def move(movement, grid)
-        # The current assumption is that movement is a string containing either FORWARD or BACKWARD.
-        # Add the ability to move forwards or backwards in any direction
-        # Add the ability to "wrap" around the edges of the grid.
-        # Add obstacle detection (see detect_obstacle method)
-        # See test specs in grid_spec.rb.
-        if @direction == NORTH
-            @x = @x + 1            
-        elsif @direction == EAST
-            @y = @y + 1
+        new_x = @x + get_coord_diff(:x, movement)
+        new_y = @y + get_coord_diff(:y, movement)
+
+        if grid.contains_obstacle?(new_x, new_y)
+            raise ObstacleException.new
+        else
+            @x = new_x
+            @y = new_y
         end
     end
 
@@ -63,5 +69,15 @@ class StraightLineRover
 
     def get_direction_object
         @direction_object
+    end
+
+    private 
+
+    def get_coord_diff(coord_symbol, movement)
+        MOVEMENTS[@direction][coord_symbol] * movement_multiplier(movement)
+    end
+    
+    def movement_multiplier(movement)
+        movement == FORWARD ? 1 : -1
     end
 end

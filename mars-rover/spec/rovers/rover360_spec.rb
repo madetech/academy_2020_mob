@@ -88,17 +88,17 @@ describe Rover360 do
             end
         end
 
-        all_directions = [[StraightLineRover::FORWARD, StraightLineRover::NORTH, {:x=>0,:y=>0}, {:x=>0,:y=>1}], 
+        all_directions = [[StraightLineRover::FORWARD, StraightLineRover::NORTH, {:x=>4,:y=>4}, {:x=>4,:y=>3}], 
                           [StraightLineRover::FORWARD, StraightLineRover::EAST, {:x=>0,:y=>0}, {:x=>1,:y=>0}], 
-                          [StraightLineRover::FORWARD, StraightLineRover::SOUTH, {:x=>4,:y=>4}, {:x=>4,:y=>3}], 
+                          [StraightLineRover::FORWARD, StraightLineRover::SOUTH, {:x=>0,:y=>0}, {:x=>0,:y=>1}], 
                           [StraightLineRover::FORWARD, StraightLineRover::WEST, {:x=>4,:y=>4}, {:x=>3,:y=>4}],
-                          [StraightLineRover::BACKWARD, StraightLineRover::NORTH, {:x=>4,:y=>4}, {:x=>4,:y=>3}], 
+                          [StraightLineRover::BACKWARD, StraightLineRover::NORTH, {:x=>0,:y=>0}, {:x=>0,:y=>1}], 
                           [StraightLineRover::BACKWARD, StraightLineRover::EAST, {:x=>4,:y=>4}, {:x=>3,:y=>4}], 
-                          [StraightLineRover::BACKWARD, StraightLineRover::SOUTH, {:x=>0,:y=>0}, {:x=>0,:y=>1}], 
+                          [StraightLineRover::BACKWARD, StraightLineRover::SOUTH, {:x=>4,:y=>4}, {:x=>4,:y=>3}], 
                           [StraightLineRover::BACKWARD, StraightLineRover::WEST, {:x=>0,:y=>0}, {:x=>1,:y=>0}]]
 
         all_directions.each do |movement, direction, start_pos, expected_pos|
-            xit "will move up one square given input '#{movement}' and direction '#{direction}'" do
+            it "will move one square given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 grid_stub = double("Grid")
                 allow(grid_stub).to receive(:contains_obstacle?)
