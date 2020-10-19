@@ -217,6 +217,28 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_prompt)).to_stdout
             end
             
+            it "updates the direction of a Rover when it turns left" do
+                # Arrange
+                initial_input = "ANN,360,0,0,N"
+                expected_move_input = "l"
+                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
+                grid_with_rover = "A 5x5 grid with a West-facing Rover at 0,0"
+
+                # Act/Assert
+                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+            end
+            
+            it "updates the direction of a Rover when it turns right" do
+                # Arrange
+                initial_input = "ANN,360,0,0,N"
+                expected_move_input = "r"
+                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
+                grid_with_rover = "A 5x5 grid with an East-facing Rover at 0,0"
+
+                # Act/Assert
+                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
+            end
+            
             xit "updates the position of a Rover when it moves forwards" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
@@ -234,28 +256,6 @@ class MarsRoverAppTests
                 expected_move_input = "b"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
                 grid_with_rover = "A 5x5 grid with South-facing Rover moved backward one square from 4,4"
-
-                # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
-            end
-            
-            xit "updates the direction of a Rover when it turns left" do
-                # Arrange
-                initial_input = "ANN,360,0,0,N"
-                expected_move_input = "l"
-                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                grid_with_rover = "A 5x5 grid with a West-facing Rover at 0,0"
-
-                # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout                .std_output.to have_as_last_output(grid_with_rover)
-            end
-            
-            xit "updates the direction of a Rover when it turns right" do
-                # Arrange
-                initial_input = "ANN,360,0,0,N"
-                expected_move_input = "r"
-                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                grid_with_rover = "A 5x5 grid with an East-facing Rover at 0,0"
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_ending_with(grid_with_rover)).to_stdout
