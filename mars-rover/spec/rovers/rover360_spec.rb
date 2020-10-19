@@ -113,6 +113,32 @@ describe Rover360 do
                 expect(mars_rover.y).to eq(expected_pos[:y])
             end
         end
+        
+        all_directions.each do |movement, direction, start_pos, expected_pos|
+            it "will raise an exception if there is an obstacle in the way on startup, given input '#{movement}' and direction '#{direction}'" do
+                # Arrange 
+                grid_fake = double("Grid")
+                allow(grid_fake).to receive(:contains_obstacle?).with(start_pos[:x], start_pos[:y]).and_return(true)
+                mars_rover = described_class.new("TST")                
+
+                # Act & Assert
+                expect{mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_fake)}.to raise_exception
+            end
+        end
+        
+        all_directions.each do |movement, direction, start_pos, expected_pos|
+            it "will raise an exception if there is an obstacle in the way when moving, given input '#{movement}' and direction '#{direction}'" do
+                # Arrange 
+                grid_fake = double("Grid")
+                allow(grid_fake).to receive(:contains_obstacle?).with(start_pos[:x], start_pos[:y]).and_return(false)
+                allow(grid_fake).to receive(:contains_obstacle?).with(expected_pos[:x], expected_pos[:y]).and_return(true)
+                mars_rover = described_class.new("TST")
+                mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_fake)
+
+                # Act & Assert
+                expect{mars_rover.move(movement, grid_fake)}.to raise_exception
+            end
+        end
 
         all_ways_off_the_edge =[[StraightLineRover::FORWARD, StraightLineRover::NORTH, {:x=>4,:y=>4}, {:x=>4,:y=>0}], 
                                 [StraightLineRover::FORWARD, StraightLineRover::EAST,  {:x=>4,:y=>4}, {:x=>0,:y=>4}], 
@@ -124,7 +150,7 @@ describe Rover360 do
                                 [StraightLineRover::BACKWARD, StraightLineRover::WEST,  {:x=>4,:y=>4}, {:x=>0,:y=>4}]]
 
         all_ways_off_the_edge.each do |movement, direction, start_pos, expected_pos|
-            xit "will move up one square given input '#{movement}' and direction '#{direction}'" do
+            xit "will wrap around the edge given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
                 grid_stub = double("Grid")
                 allow(grid_stub).to receive(:contains_obstacle?)
@@ -143,30 +169,14 @@ describe Rover360 do
         all_ways_off_the_edge.each do |movement, direction, start_pos, expected_pos|
             xit "will raise an exception if there is an obstacle over the edge, given input '#{movement}' and direction '#{direction}'" do
                 # Arrange 
-                grid_stub = double("Grid")
-                allow(grid_stub).to receive(:contains_obstacle?)
+                grid_fake = double("Grid")
+                allow(grid_fake).to receive(:contains_obstacle?).with(start_pos[:x], start_pos[:y]).and_return(false)
+                allow(grid_fake).to receive(:contains_obstacle?).with(expected_pos[:x], expected_pos[:y]).and_return(true)
                 mars_rover = described_class.new("TST")
-                mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_stub)
-                fake_grid = double('Grid')
-                allow(fake_grid).to receive(contains_obstacle?).with(expected_pos[:x], expected_pos[:y]).and_return(true)               
+                mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_fake)
 
                 # Act & Assert
-                expect{mars_rover.move(movement, fake_grid)}.to raise_exception
-            end
-        end
-        
-        all_directions.each do |movement, direction, start_pos, expected_pos|
-            xit "will raise an exception if there is an obstacle in the way, given input '#{movement}' and direction '#{direction}'" do
-                # Arrange 
-                grid_stub = double("Grid")
-                allow(grid_stub).to receive(:contains_obstacle?)
-                mars_rover = described_class.new("TST")
-                mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_stub)
-                fake_grid = double('Grid')
-                allow(fake_grid).to receive(contains_obstacle?).with(expected_pos[:x], expected_pos[:y]).and_return(true)
-
-                # Act & Assert
-                expect{mars_rover.move(movement, fake_grid)}.to raise_exception
+                expect{mars_rover.move(movement, grid_fake)}.to raise_exception
             end
         end
     end
