@@ -26,7 +26,7 @@ describe Rover360 do
                             [StraightLineRover::BACKWARD, StraightLineRover::SOUTH]]
 
         simple_directions.each do |movement, expected_direction|
-            xit "will not change direction given input '#{movement}'" do
+            it "will not change direction given input '#{movement}'" do
                 # Arrange 
                 grid_stub = double("Grid")
                 allow(grid_stub).to receive(:contains_obstacle?)
@@ -70,7 +70,7 @@ describe Rover360 do
         simple_turns = [Rover360::LEFT, Rover360::RIGHT]
 
         simple_turns.each do |turn|
-            xit "will not change position given input '#{turn}'" do
+            it "will not change position given input '#{turn}'" do
                 # Arrange 
                 START_X = 0
                 START_Y = 0
