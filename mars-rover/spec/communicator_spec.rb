@@ -46,7 +46,7 @@ describe Communicator do
                 allow(communicator).to receive(:gets).and_return(bad_input)
     
                 # Act & Assert
-                expect{communicator.get_input("Give me input pls")}.to raise_exception
+                expect{communicator.get_input("Give me input pls")}.to raise_error(BadInputException)
             end
         end
     end

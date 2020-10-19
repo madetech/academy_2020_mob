@@ -72,6 +72,24 @@ describe Grid do
                 end
             end
         end
+
+        xit "will maintain other rovers when updating the display" do
+            # Arrange
+            rover1_x = 1
+            rover1_y = 1
+            grid = described_class.new(5, 5)
+            mars_rover1 = Rover360.new("TS1")
+            mars_rover1.start(rover1_x, rover1_y, StraightLineRover::SOUTH, grid)
+            grid.update(mars_rover1)
+            mars_rover2 = Rover360.new("TS1")
+            mars_rover2.start(rover1_x + 1, rover1_y + 1, StraightLineRover::NORTH, grid)
+
+            # Act
+            grid.update(mars_rover2)
+
+            # Assert
+            expect(grid.grid_array[rover1_y][rover1_x]).to eq(mars_rover1)  
+        end
     end
     
     context "obstacle management" do
@@ -145,24 +163,6 @@ describe Grid do
 
             # Assert
             expect(grid.grid_array[obstacle_y][obstacle_x]).to eq(Grid::OBSTACLE)  
-        end
-
-        xit "will maintain other rovers when updating the display" do
-            # Arrange
-            rover1_x = 1
-            rover1_y = 1
-            grid = described_class.new(5, 5)
-            mars_rover1 = Rover360.new("TS1")
-            mars_rover1.start(rover1_x, rover1_y, StraightLineRover::SOUTH, grid)
-            grid.update(mars_rover1)
-            mars_rover2 = Rover360.new("TS1")
-            mars_rover2.start(rover1_x + 1, rover1_y + 1, StraightLineRover::NORTH, grid)
-
-            # Act
-            grid.update(mars_rover2)
-
-            # Assert
-            expect(grid.grid_array[rover1_y][rover1_x]).to eq(mars_rover1)  
         end
     end
 end

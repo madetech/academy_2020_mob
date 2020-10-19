@@ -100,7 +100,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return("!") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(MarsRoverApp::BAD_INPUT_ERROR)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
             end
         
             xit "shows an error when the first movement input is invalid" do
@@ -110,7 +110,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, bad_input, "")
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(MarsRoverApp::BAD_INPUT_ERROR)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
             end
         
             xit "shows an error when a later movement input is invalid" do
@@ -120,7 +120,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, "f", "r", "l", bad_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with(MarsRoverApp::BAD_INPUT_ERROR)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
             end
         end
 
@@ -427,21 +427,67 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
-            xit "responds to repeated movement inputs" do
+            it "responds to repeated movement inputs" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
-                allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,f", "ANN,f", "ANN,l", "ANN,b", "") 
-                expected_grid = "A 5x5 grid with a North-facing Rover at 2,0"
+                allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,f", "ANN,f", "ANN,f", "ANN,l", "ANN,b", "") 
+                expected_grid = 
+                <<~HEREDOC
+                -------------------------------
+                |     |     |     | 360 |     |
+                |     |     |     | ^^^ |     |
+                |     |     |     | ANN |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     |     | X X |     |
+                |     |     |     |  X  |     |
+                |     |     |     | X X |     |
+                -------------------------------
+                |     |     | SKY |     |     |
+                |     |     |  X  |     |     |
+                |     |     | HIGH|     |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                HEREDOC
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
-            xit "responds to several movements in one input" do
+            it "responds to several movements in one input" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
-                allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f,r,f,f,l,b", "") 
-                expected_grid = "A 5x5 grid with a North-facing Rover at 2,0"
+                allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,b,r,f,f,l,b,r", "") 
+                expected_grid = 
+                <<~HEREDOC
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                |     |     | 360 | X X |     |
+                |     |     | >>> |  X  |     |
+                |     |     | ANN | X X |     |
+                -------------------------------
+                |     |     | SKY |     |     |
+                |     |     |  X  |     |     |
+                |     |     | HIGH|     |     |
+                -------------------------------
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                |     |     |     |     |     |
+                -------------------------------
+                HEREDOC
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
