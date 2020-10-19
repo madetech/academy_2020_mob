@@ -96,7 +96,7 @@ class MarsRoverAppTests
         context "detecting invalid input" do
             xit "shows an error when the initial input is invalid" do
                 # Arrange
-                bad_input = "!"
+                bad_input = "ANN,BBB,0,0,N"
                 allow(@communicator).to receive(:gets).and_return("!") 
 
                 # Act/Assert
@@ -106,7 +106,7 @@ class MarsRoverAppTests
             xit "shows an error when the first movement input is invalid" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
-                bad_input = "*"
+                bad_input = "ANN,x"
                 allow(@communicator).to receive(:gets).and_return(initial_input, bad_input, "")
 
                 # Act/Assert
@@ -116,8 +116,18 @@ class MarsRoverAppTests
             xit "shows an error when a later movement input is invalid" do
                 # Arrange
                 initial_input = "ANN,360,0,0,N"
-                bad_input = ",,,"
-                allow(@communicator).to receive(:gets).and_return(initial_input, "f", "r", "l", bad_input, "") 
+                bad_input = "MAX,b"
+                allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
+
+                # Act/Assert
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
+            end
+        
+            xit "shows an error when a later new-rover input is invalid" do
+                # Arrange
+                initial_input = "ANN,360,0,0,N"
+                bad_input = "MAX,360,0,0,X"
+                allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
