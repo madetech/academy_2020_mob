@@ -4,6 +4,7 @@ For useful commits and notes on what they demonstrate, see separate [demo notes 
 
 # To Implement:
 
+- DO SOME REFACTORING 
 - Test that if a movement results in collison with an obstacle then the rover does NOT have its position changed
 - Test: Will handle repeated instructions that include new rovers
 - Test: Will move the correct rover when there are multiple rovers 
