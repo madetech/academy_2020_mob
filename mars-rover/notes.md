@@ -5,6 +5,11 @@ For useful commits and notes on what they demonstrate, see separate [demo notes 
 # To Implement:
 
 - Test that if a movement results in collison with an obstacle then the rover does NOT have its position changed
+- Test: Will handle repeated instructions that include new rovers
+- Test: Will move the correct rover when there are multiple rovers 
+- Test: Will exit when user enters "exit"
+- Test: Will ask for new input after detecting an obstacle (just call move_rover_repeatedly)
+- To avoid putting two rovers in same spot, put the update function on the rover instead of the grid... and remove the rover from the previous spot before adding it to the new one. Check for obstacles first though!
 - Need to add tests / functionality for having a flying rover and an obstacle occupying the same space. At the moment the obstacle is overridden by the flying rover.
 - The marsroverapp_spec should test narrow screen too?
 - Check the width and height are the right way around in Grid.make_grid for a rectangular grid.
