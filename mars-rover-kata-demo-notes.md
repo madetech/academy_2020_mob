@@ -1,3 +1,7 @@
+# Explanation for this copy of this file
+
+I wanted to check out various earlier commits in mars rover while still referring back to this file, so I've put a copy here.
+
 # Intro
 
 This project has been developed with the aim of demonstrating various software development principles (mostly relating to SOLID and ATDD). These are notes to aid a demo by pointing out things demonstrated by particular commits.
